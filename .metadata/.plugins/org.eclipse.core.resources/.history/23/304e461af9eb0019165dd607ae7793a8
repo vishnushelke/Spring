@@ -1,0 +1,14 @@
+package com.bridgelabz.objectinjection;
+
+public class AnotherStudent {
+	private MathCheat cheat;
+
+	public void setCheat(MathCheat cheat) {
+		this.cheat = cheat;
+	}
+	
+	public void cheating()
+	{
+		System.out.println("Cheating started by anothe student");
+	}
+}

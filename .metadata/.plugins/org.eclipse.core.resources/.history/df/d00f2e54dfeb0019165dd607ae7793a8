@@ -1,0 +1,11 @@
+package com.bridgelabz.dependencyinjection;
+
+public class Exam {
+
+	public static void main(String[] args) {
+		Student student= new Student();
+		student.name="vishnu";
+		student.displayInfo();
+	}
+
+}

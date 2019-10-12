@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.selenium.ioc.SIM"/>
+    <fullyQualifiedTypeName name="com.selenium.ioc.Airtel"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.dependencyinjection.Student"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.objectinjection.MathCheat"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.objectinjection.Student"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.objectinjection.AnotherStudent"/>
+    <fullyQualifiedTypeName name="org.springframework.context.ApplicationContext"/>
+    <fullyQualifiedTypeName name="org.springframework.context.support.ClassPathXmlApplicationContext"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Qualifier"/>
+</qualifiedTypeNameHistroy>

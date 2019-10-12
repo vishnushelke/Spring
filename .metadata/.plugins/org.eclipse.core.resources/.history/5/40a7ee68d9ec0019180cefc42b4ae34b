@@ -1,0 +1,11 @@
+package com.bridgelabz.autowiring;
+
+public class Human {
+
+	private Heart heart;
+
+	public void setHeart(Heart heart) {
+		this.heart = heart;
+	}
+	
+}

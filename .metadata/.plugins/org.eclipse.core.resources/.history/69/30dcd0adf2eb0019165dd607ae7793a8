@@ -1,0 +1,15 @@
+package com.bridgelabz.objectinjection;
+
+public class Student {
+	MathCheat mathCheat;
+
+	public MathCheat getMathCheat() {
+		return mathCheat;
+	}
+
+	public void setMathCheat(MathCheat mathCheat) {
+		this.mathCheat = mathCheat;
+	}
+	
+
+}

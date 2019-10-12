@@ -1,0 +1,12 @@
+package com.bridgelabz.objectinjection;
+
+public class Exam {
+
+	public static void main(String[] args) {
+		
+		MathCheat mathCheat = new MathCheat();
+		
+
+	}
+
+}

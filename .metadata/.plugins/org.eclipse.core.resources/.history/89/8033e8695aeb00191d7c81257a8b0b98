@@ -1,0 +1,6 @@
+package com.selenium.ioc;
+
+public interface SIM {
+	void calling();
+	void data();
+}

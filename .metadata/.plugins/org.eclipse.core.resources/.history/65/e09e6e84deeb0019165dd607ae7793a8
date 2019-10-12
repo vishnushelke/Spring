@@ -1,0 +1,6 @@
+package com.bridgelabz.dependencyinjection;
+
+public class ViStudentshnu 
+{
+	String name;
+}

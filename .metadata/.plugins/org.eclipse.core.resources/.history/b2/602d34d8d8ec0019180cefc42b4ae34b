@@ -1,0 +1,5 @@
+package com.bridgelabz.autowiring;
+
+public class Human {
+
+}
