@@ -1,6 +1,7 @@
 package com.bridgelabz.configclass;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Client {
@@ -10,6 +11,7 @@ public class Client {
 		ApplicationContext context =new ClassPathXmlApplicationContext("beans.xml");
 		College college = context.getBean("college",College.class);
 		college.show();
+		((AnnotationConfigApplicationContext)context).close();
 	}
 
 }
