@@ -1,6 +1,5 @@
 package com.bridgelabz.springbootstarter.topic;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,14 +33,14 @@ public class TopicController {
 		topicService.addTopic(topic);
 	}
 	
-	@RequestMapping("/topics/{id}")//{foo}
+	@RequestMapping(method = RequestMethod.DELETE,value="/topics/{id}")//{foo}
 	public void deleteTopic(@PathVariable String id)//@PathVariable("foo") String id
 	{
 		topicService.deleteTopic(id);
 	}
 	
-	@RequestMapping( method = RequestMethod.POST,value="/topics/{id}")
-	public void updatePost(@RequestBody Topic topic,@PathVariable String id)//will get an instance of a Topic which is already available and add topic into it
+	@RequestMapping(method = RequestMethod.PUT,value="/topics/{id}")
+	public void updatePost(@RequestBody Topic topic,@PathVariable String id)//will get an instance of a Topic which is already available and update topic into it
 	{
 		topicService.updateTopic(id,topic);
 	}
