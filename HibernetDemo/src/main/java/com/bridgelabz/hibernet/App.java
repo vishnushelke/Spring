@@ -34,7 +34,7 @@ public class App {
 		//getting data from database
 		telusko=(Alien)session.get(Alien.class, 101);
 		Transaction tx = session.beginTransaction();
-		session.save(telusko);
+//		session.save(telusko);
 		tx.commit();
 		System.out.println(telusko);
 	}

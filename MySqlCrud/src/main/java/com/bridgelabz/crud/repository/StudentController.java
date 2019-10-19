@@ -20,34 +20,29 @@ import com.bridgelabz.crud.repository.StudentRepository;
 public class StudentController {
 	@Autowired
 	private StudentRepository studentRepository;
-	
-	
+
 	@GetMapping("/studs")
-	public List<Student> getAllStudents(){
+	public List<Student> getAllStudents() {
 		return studentRepository.findAll();
 	}
-	
-	
-	
+
 	@GetMapping("/studs/{id}")
-	public Student getStudent(@PathVariable (value="id") int id) {
+	public Student getStudent(@PathVariable(value = "id") int id) {
 		return studentRepository.findById(id).orElse(null);
 	}
-	
-	
+
 	@PostMapping("/studs")
 	public Student addStudent(@RequestBody Student student) {
 		return studentRepository.save(student);
 	}
-	
+
 	@PutMapping("/studs/{id}")
-	public Student updateStudent(@PathVariable (value="id") int id,@RequestBody Student student) {
+	public Student updateStudent(@PathVariable(value = "id") int id, @RequestBody Student student) {
 		return studentRepository.save(student);
 	}
-	
-	
+
 	@DeleteMapping("/studs/{id}")
-	public String deleteStudent(@PathVariable (value="id") int id) {
+	public String deleteStudent(@PathVariable(value = "id") int id) {
 		return "student deleted";
 	}
 
