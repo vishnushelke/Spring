@@ -1,6 +1,5 @@
 package com.bridgelabz.fundoo.user.utility;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 

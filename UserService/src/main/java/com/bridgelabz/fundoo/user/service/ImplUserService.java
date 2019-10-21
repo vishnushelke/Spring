@@ -71,12 +71,8 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public void setPassword(SetPasswordDTO setPasswordDTO) {
-		// TODO Auto-generated method stub
 		
-		if (alreadyRegistered(setPasswordDTO.getEmail())) {
-			User user = modelMapper.map(setPasswordDTO, User.class);
-			userRepository.save(user);
-		}
+		
 	}
 
 	@Override
