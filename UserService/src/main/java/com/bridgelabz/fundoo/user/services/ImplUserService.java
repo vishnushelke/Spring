@@ -2,9 +2,11 @@ package com.bridgelabz.fundoo.user.services;
 
 import java.util.Date;
 
+import com.bridgelabz.fundoo.user.exception.custom.ForgetPasswordException;
 import com.bridgelabz.fundoo.user.exception.custom.LoginException;
 
 import com.bridgelabz.fundoo.user.exception.custom.RegistrationException;
+import com.bridgelabz.fundoo.user.exception.custom.SetPasswordException;
 import com.bridgelabz.fundoo.user.exception.custom.ValidationException;
 
 import org.modelmapper.ModelMapper;
@@ -59,7 +61,7 @@ public class ImplUserService implements IUserService {
 			return repository.save(user);
 
 		} else {
-			throw new RegistrationException("email already registered");
+			throw new RegistrationException("email not yet registered");
 		}
 
 	}
@@ -68,7 +70,7 @@ public class ImplUserService implements IUserService {
 	public boolean loginUser(LoginDTO loginDTO) {
 		// TODO Auto-generated method stub
 		System.out.println(loginDTO.getEmail()+" "+loginDTO.getPassword().length());
-		if(loginDTO.getEmail().equals(null) || loginDTO.getPassword().length()<6)
+		if(!(loginDTO.getEmail().equals(null) || loginDTO.getPassword().length()<6))
 		{
 			return repository.findAll().stream().anyMatch(t -> t.getEmail().equals(loginDTO.getEmail())
 					&& config.passEndcode().matches(loginDTO.getPassword(), t.getPassword()));
@@ -90,6 +92,10 @@ public class ImplUserService implements IUserService {
 			SimpleMailMessage message = utility.getMessage(token);
 			mailSender.send(message);
 		}
+		else
+		{
+			throw new ForgetPasswordException("Email id you entered is not registered");
+		}
 		return null;
 	}
 
@@ -98,12 +104,17 @@ public class ImplUserService implements IUserService {
 		// TODO Auto-generated method stub
 		Claims claim = Jwts.parser().setSigningKey("secretKey").parseClaimsJws(token).getBody();
 		String email = claim.getSubject();
-
-		System.out.println(claim.toString());
-
-		User user = alreadyAvailableUser(email);
-		user.setPassword(config.passEndcode().encode(setPasswordDTO.getPassword()));
-		return repository.save(user);
+		if(alreadyAvailable(email))
+		{
+			User user = alreadyAvailableUser(email);
+			user.setPassword(config.passEndcode().encode(setPasswordDTO.getPassword()));
+			return repository.save(user);	
+		}
+		else
+		{
+			throw new SetPasswordException("This is not valid link");
+		}
+		
 	}
 
 	public boolean alreadyAvailable(String email) {

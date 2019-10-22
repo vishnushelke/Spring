@@ -1,5 +1,8 @@
 package com.bridgelabz.fundoo.user.controller;
 
+import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -7,39 +10,54 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.bridgelabz.fundoo.user.dto.ForgetDTO;
-import com.bridgelabz.fundoo.user.dto.LoginDTO;
-import com.bridgelabz.fundoo.user.dto.RegisterDTO;
-import com.bridgelabz.fundoo.user.dto.SetPasswordDTO;
-import com.bridgelabz.fundoo.user.model.User;
-import com.bridgelabz.fundoo.user.service.ImplUserService;
+import com.bridgelabz.fundoo.user.DTO.ForgetDTO;
+import com.bridgelabz.fundoo.user.DTO.LoginDTO;
+import com.bridgelabz.fundoo.user.DTO.RegisterDTO;
+import com.bridgelabz.fundoo.user.DTO.setPasswordDTO;
+import com.bridgelabz.fundoo.user.repository.UserRepository;
+import com.bridgelabz.fundoo.user.services.ImplUserService;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
-	@Autowired
-	private ImplUserService service;
+	private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 
-	@PutMapping("/login")
+	@Autowired
+	UserRepository repository;
+
+	@Autowired
+	ModelMapper mapper;
+
+	@Autowired
+	ImplUserService service;
+
+	@PostMapping("/login")
 	public boolean loginUser(@RequestBody LoginDTO loginDTO) {
+		LOG.info("register API");
 		return service.loginUser(loginDTO);
 	}
 
 	@PostMapping("/register")
-	public User registerUser(@RequestBody RegisterDTO registerDTO) {
-		System.out.println(registerDTO);
-		return service.registerUser(registerDTO);
+	public void registerUser(@RequestBody RegisterDTO registerDTO) {
+		LOG.info("register API");
+		service.registerUser(registerDTO);
 	}
 
-	@PostMapping("/forget")
-	public User forgetPassword(@RequestBody ForgetDTO forgetDTO) {
-		return service.forgetPassword(forgetDTO);
+	@PostMapping("/fogetPassword")
+	public void forgetPassword(@RequestBody ForgetDTO forgetDTO) {
+		service.forgetPassword(forgetDTO);
 	}
 
-	@PutMapping("/setPassword/{token}")
-	public void setPassword(@RequestBody SetPasswordDTO setPasswordDTO, @PathVariable(name = "token") String token) {
-		service.setPassword(setPasswordDTO);
+	@PutMapping("/setpassword/{token}")
+	public void setPassword(@RequestBody setPasswordDTO setPasswordDTO,@PathVariable String token) {
+		service.setPassword(setPasswordDTO,token);
 	}
+	
+	@PutMapping("/validate/{token}")
+	public void validateUser(@PathVariable String token)
+	{
+		service.validateUser(token);
+	}
+
 }

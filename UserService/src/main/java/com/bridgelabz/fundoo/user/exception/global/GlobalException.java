@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.bridgelabz.fundoo.user.exception.custom.ForgetPasswordException;
 import com.bridgelabz.fundoo.user.exception.custom.LoginException;
 import com.bridgelabz.fundoo.user.exception.custom.RegistrationException;
 import com.bridgelabz.fundoo.user.exception.custom.ValidationException;
@@ -20,7 +21,7 @@ public class GlobalException {
 	
 	@ExceptionHandler(LoginException.class)
 	public ResponseEntity<ErrorResponse> loginExceptionHandler(Exception ex) {
-		return new ResponseEntity<>(new ErrorResponse(500, "login fields are not right", null),HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(new ErrorResponse(500, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(RegistrationException.class)
@@ -30,6 +31,10 @@ public class GlobalException {
 	
 	@ExceptionHandler(ValidationException.class)
 	public ResponseEntity<ErrorResponse> validationExceptionHandler(Exception ex) {
-		return new ResponseEntity<>(new ErrorResponse(500, "", null),HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(new ErrorResponse(500, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
+	}
+	@ExceptionHandler(ForgetPasswordException.class)
+	public ResponseEntity<ErrorResponse> forgetPasswordExceptionHandler(Exception ex) {
+		return new ResponseEntity<>(new ErrorResponse(500, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
 	}
 }

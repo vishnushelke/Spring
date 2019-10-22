@@ -21,48 +21,41 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "u_id")
-	private Integer id;
-	private String name;
-	private String lastName;
+	private int uId;
+	private String firstname;
+	private String lastname;
 	private String email;
+	private boolean isactive;
 	private String password;
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
-	private Date dateOfRegistration;
+	private Date creationDate;
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date updationDate;
 
-	public Integer getId() {
-		return id;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
-	public String getName() {
-		return name;
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String emailId) {
-		this.email = emailId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -73,20 +66,31 @@ public class User {
 		this.password = password;
 	}
 
-	public Date getDateOfRegistration() {
-		return dateOfRegistration;
+	public int getId() {
+		return uId;
 	}
 
-	public void setDateOfRegistration(Date dateOfRegistration) {
-		this.dateOfRegistration = dateOfRegistration;
+	public Date getCreationDate() {
+		return creationDate;
 	}
 
 	public Date getUpdationDate() {
 		return updationDate;
 	}
 
-	public void setUpdationDate(Date updationDate) {
-		this.updationDate = updationDate;
+	public boolean isIsactive() {
+		return isactive;
+	}
+
+	public void setIsactive(boolean isactive) {
+		this.isactive = isactive;
+	}
+
+	@Override
+	public String toString() {
+		return "User [uId=" + uId + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
+				+ ", isactive=" + isactive + ", password=" + password + ", creationDate=" + creationDate
+				+ ", updationDate=" + updationDate + "]";
 	}
 
 }
