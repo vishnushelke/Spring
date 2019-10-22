@@ -54,6 +54,7 @@ public class ImplUserService implements IUserService {
 			String token = Jwts.builder().setSubject(registerDTO.getEmail()).setIssuedAt(new Date())
 					.signWith(SignatureAlgorithm.HS256, "registerUser").compact();
 			SimpleMailMessage message = utility.getMessage(token);
+			System.out.println(message.getFrom());
 			message.setSubject("response to your registration");
 			message.setTo("shelkeva@gmail.com");
 			message.setText("validate your email" + "\n" + "http://localhost:8080/user/validate/" + token);
