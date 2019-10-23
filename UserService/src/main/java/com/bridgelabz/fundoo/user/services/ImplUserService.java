@@ -8,10 +8,10 @@
 package com.bridgelabz.fundoo.user.services;
 
 import java.util.Date;
-import com.bridgelabz.fundoo.user.dto.ForgetDTO;
-import com.bridgelabz.fundoo.user.dto.LoginDTO;
-import com.bridgelabz.fundoo.user.dto.RegisterDTO;
-import com.bridgelabz.fundoo.user.dto.setPasswordDTO;
+import com.bridgelabz.fundoo.user.dto.ForgetDto;
+import com.bridgelabz.fundoo.user.dto.LoginDto;
+import com.bridgelabz.fundoo.user.dto.RegisterDto;
+import com.bridgelabz.fundoo.user.dto.setPasswordDto;
 import com.bridgelabz.fundoo.user.exception.custom.ForgetPasswordException;
 import com.bridgelabz.fundoo.user.exception.custom.LoginException;
 import com.bridgelabz.fundoo.user.exception.custom.RegistrationException;
@@ -59,7 +59,7 @@ public class ImplUserService implements IUserService {
 
 
 	@Override
-	public Response registerUser(RegisterDTO registerDTO) {
+	public Response registerUser(RegisterDto registerDTO) {
 		registerDTO.setPassword(config.passEndcode().encode(registerDTO.getPassword()));
 		if (!alreadyAvailable(registerDTO.getEmail())) {
 			User user = mapper.map(registerDTO, User.class);
@@ -88,7 +88,7 @@ public class ImplUserService implements IUserService {
 	 * @return Response to your action
 	 */
 	@Override
-	public Response loginUser(LoginDTO loginDTO) {
+	public Response loginUser(LoginDto loginDTO) {
 		System.out.println(loginDTO.getEmail() + " " + loginDTO.getPassword().length());
 		if (!(loginDTO.getEmail().equals(null) || loginDTO.getPassword().length() < 6)) {
 			repository.findAll().stream().anyMatch(t -> t.getEmail().equals(loginDTO.getEmail())
@@ -108,7 +108,7 @@ public class ImplUserService implements IUserService {
 	 * @return Response to your action
 	 */
 	@Override
-	public Response forgetPassword(ForgetDTO forgetDTO) {
+	public Response forgetPassword(ForgetDto forgetDTO) {
 		if (alreadyAvailable(forgetDTO.getEmail())) {
 
 			String token = Jwts.builder().setSubject(forgetDTO.getEmail()).setIssuedAt(new Date())
@@ -131,7 +131,7 @@ public class ImplUserService implements IUserService {
 	 * @return Response to your action
 	 */
 	@Override
-	public Response setPassword(setPasswordDTO setPasswordDTO, String token) {
+	public Response setPassword(setPasswordDto setPasswordDTO, String token) {
 		Claims claim = Jwts.parser().setSigningKey(StaticReference.SECRET_KEY).parseClaimsJws(token).getBody();
 		String email = claim.getSubject();
 		if (alreadyAvailable(email)) {

@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.bridgelabz.fundoo.user.dto.ForgetDTO;
-import com.bridgelabz.fundoo.user.dto.LoginDTO;
-import com.bridgelabz.fundoo.user.dto.RegisterDTO;
-import com.bridgelabz.fundoo.user.dto.setPasswordDTO;
+import com.bridgelabz.fundoo.user.dto.ForgetDto;
+import com.bridgelabz.fundoo.user.dto.LoginDto;
+import com.bridgelabz.fundoo.user.dto.RegisterDto;
+import com.bridgelabz.fundoo.user.dto.setPasswordDto;
 import com.bridgelabz.fundoo.user.response.Response;
 import com.bridgelabz.fundoo.user.services.ImplUserService;
 
@@ -44,62 +44,62 @@ public class UserController {
 	 * @return Response to your action
 	 */
 	@PutMapping("/login")
-	public ResponseEntity<Response> loginUser(@RequestBody LoginDTO loginDTO) {
+	public ResponseEntity<Response> loginUser(@RequestBody LoginDto loginDto) {
 
 		LOGGER.info("login logger");
-		return new ResponseEntity<Response>(service.loginUser(loginDTO), HttpStatus.OK);
+		return new ResponseEntity<Response>(service.loginUser(loginDto), HttpStatus.OK);
 	}
 
 	/**
 	 * purpose This method will send an email to your mail Id for verification if
 	 * you have entered right credentials else it will throw exception
 	 * 
-	 * @param registerDTO Data Transfer object while registering
+	 * @param registerDto Data Transfer object while registering
 	 * 
 	 * @return Response to your action
 	 */
 
 	@PostMapping("/register")
-	public ResponseEntity<Response> registerUser(@RequestBody RegisterDTO registerDTO) {
+	public ResponseEntity<Response> registerUser(@RequestBody RegisterDto registerDto) {
 
 		LOGGER.info("registration logger");
-		return new ResponseEntity<Response>(service.registerUser(registerDTO), HttpStatus.OK);
+		return new ResponseEntity<Response>(service.registerUser(registerDto), HttpStatus.OK);
 	}
 
 	/**
 	 * purpose This method will take email as input and sends a mail to your
 	 * registered emailId for resetting your password
 	 * 
-	 * @param forgetDTO Data Transfer object
+	 * @param forgetDto Data Transfer object
 	 * 
 	 * @return Response to your action
 	 */
 	@PutMapping("/forgetpassword")
-	public ResponseEntity<Response> forgetPassword(@RequestBody ForgetDTO forgetDTO) {
+	public ResponseEntity<Response> forgetPassword(@RequestBody ForgetDto forgetDto) {
 		LOGGER.info("forgetPassword logger");
-		return new ResponseEntity<Response>(service.forgetPassword(forgetDTO), HttpStatus.OK);
+		return new ResponseEntity<Response>(service.forgetPassword(forgetDto), HttpStatus.OK);
 
 	}
 
 	/**
 	 * purpose This method will Change your password if you have gone on right link
 	 * 
-	 * @param setPasswordDTO Data Transfer object while registering, token
+	 * @param setPasswordDto Data Transfer object while registering, token
 	 * 
 	 * @return true if you are registered after putting appropriate values
 	 */
 	@PutMapping("/resetpassword")
-	public ResponseEntity<Response> setPassword(@RequestBody setPasswordDTO setPasswordDTO,
+	public ResponseEntity<Response> setPassword(@RequestBody setPasswordDto setPasswordDto,
 			@RequestHeader String token) {
 		LOGGER.info("resetPassword logger");
-		return new ResponseEntity<Response>(service.setPassword(setPasswordDTO, token), HttpStatus.OK);
+		return new ResponseEntity<Response>(service.setPassword(setPasswordDto, token), HttpStatus.OK);
 
 	}
 
 	/**
 	 * purpose This method will validate your account if you have gone on right link
 	 * 
-	 * @param setPasswordDTO Data Transfer object while registering, token
+	 * @param setPasswordDto Data Transfer object while registering, token
 	 * 
 	 * @return true if you are registered after putting appropriate values
 	 */

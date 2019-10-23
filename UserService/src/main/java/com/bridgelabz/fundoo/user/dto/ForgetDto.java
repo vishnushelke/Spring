@@ -7,25 +7,18 @@
 *  @since   23-10-2019
 *
 ******************************************************************************/
-
 package com.bridgelabz.fundoo.user.dto;
 
-public class LoginDTO {
-	
+public class ForgetDto {
+
 	private String email;
-	private String password;
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
 
 }

@@ -8,10 +8,10 @@
 ******************************************************************************/
 package com.bridgelabz.fundoo.user.services;
 
-import com.bridgelabz.fundoo.user.dto.ForgetDTO;
-import com.bridgelabz.fundoo.user.dto.LoginDTO;
-import com.bridgelabz.fundoo.user.dto.RegisterDTO;
-import com.bridgelabz.fundoo.user.dto.setPasswordDTO;
+import com.bridgelabz.fundoo.user.dto.ForgetDto;
+import com.bridgelabz.fundoo.user.dto.LoginDto;
+import com.bridgelabz.fundoo.user.dto.RegisterDto;
+import com.bridgelabz.fundoo.user.dto.setPasswordDto;
 import com.bridgelabz.fundoo.user.response.Response;
 
 public interface IUserService {
@@ -23,7 +23,7 @@ public interface IUserService {
 	 * 
 	 * @return Response to your action
 	 */
-	public Response registerUser(RegisterDTO registerDTO);
+	public Response registerUser(RegisterDto registerDTO);
 	
 	/**
 	 * purpose This is service method for user login
@@ -32,7 +32,7 @@ public interface IUserService {
 	 * 
 	 * @return Response to your action
 	 */
-	public Response loginUser(LoginDTO registerDTO);
+	public Response loginUser(LoginDto registerDTO);
 	
 	/**
 	 * purpose This is service method for forget Password
@@ -41,16 +41,16 @@ public interface IUserService {
 	 * 
 	 * @return Response to your action
 	 */
-	public Response forgetPassword(ForgetDTO registerDTO);
+	public Response forgetPassword(ForgetDto registerDTO);
 	
 	/**
 	 * purpose This is service method for resetting Password
 	 * 
-	 * @param setPasswordDTO Data Transfer object,token
+	 * @param setPasswordDto Data Transfer object,token
 	 * 
 	 * @return Response to your action
 	 */
-	public Response setPassword(setPasswordDTO registerDTO,String token);
+	public Response setPassword(setPasswordDto registerDTO,String token);
 	
 	/**
 	 * purpose This is service method for validating User

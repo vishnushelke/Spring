@@ -9,7 +9,7 @@
 ******************************************************************************/
 package com.bridgelabz.fundoo.user.dto;
 
-public class RegisterDTO {
+public class RegisterDto {
 
 	private String firstname;
 	private String lastname;
