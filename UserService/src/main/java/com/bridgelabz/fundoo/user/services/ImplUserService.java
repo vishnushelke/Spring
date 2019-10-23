@@ -72,7 +72,7 @@ public class ImplUserService implements IUserService {
 			mailSender.send(message);
 			repository.save(user);
 
-			return new Response(200, StaticReference.VALIDATE_ACCOUNT, null);
+			return new Response(200, StaticReference.VALIDATE_ACCOUNT, user);
 
 		} else {
 			throw new RegistrationException(StaticReference.EMAIL_ALREADY_REGISTERED);
@@ -93,7 +93,7 @@ public class ImplUserService implements IUserService {
 		if (!(loginDTO.getEmail().equals(null) || loginDTO.getPassword().length() < 6)) {
 			repository.findAll().stream().anyMatch(t -> t.getEmail().equals(loginDTO.getEmail())
 					&& config.passEndcode().matches(loginDTO.getPassword(), t.getPassword()));
-			return new Response(200, StaticReference.LOGIN_SUCCESS, null);
+			return new Response(200, StaticReference.LOGIN_SUCCESS, true);
 		} else {
 			throw new LoginException(StaticReference.LOGIN_FAIL);
 		}
@@ -117,7 +117,7 @@ public class ImplUserService implements IUserService {
 			message.setSubject(StaticReference.FORGET_PASSWORD_RESPONSE);
 			message.setText(StaticReference.FORGET_MAIL_TEXT +token);
 			mailSender.send(message);
-			return new Response(200, StaticReference.FORGET_ACTION_SUCCESS, null);
+			return new Response(200, StaticReference.FORGET_ACTION_SUCCESS, true);
 		} else {
 			throw new ForgetPasswordException(StaticReference.EMAIL_NOT_FOUND);
 		}
@@ -138,7 +138,7 @@ public class ImplUserService implements IUserService {
 			User user = alreadyAvailableUser(email);
 			user.setPassword(config.passEndcode().encode(setPasswordDTO.getPassword()));
 			repository.save(user);
-			return new Response(200, StaticReference.SET_PASSWORD_SUCCESS, null);
+			return new Response(200, StaticReference.SET_PASSWORD_SUCCESS, user);
 		} else {
 			throw new SetPasswordException(StaticReference.INVALID_LINK);
 		}
@@ -184,7 +184,7 @@ public class ImplUserService implements IUserService {
 			User user = repository.findAll().stream().filter(i -> i.getEmail().equals(email)).findAny().orElse(null);
 			user.setIsactive(true);
 			repository.save(user);
-			return new Response(200, StaticReference.VERIFICATION_SUCCESS, null);
+			return new Response(200, StaticReference.VERIFICATION_SUCCESS, user);
 		} else {
 			throw new ValidationException(StaticReference.INVALID_LINK);
 		}

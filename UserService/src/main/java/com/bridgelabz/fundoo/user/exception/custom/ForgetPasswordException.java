@@ -6,7 +6,7 @@ public class ForgetPasswordException extends RuntimeException {
 	
 	
 	/**
-	 * purpose this method will create an exception for forget password
+	 * purpose: this method will create an exception for forget password
 	 * @param message
 	 */
 	public ForgetPasswordException(String message)

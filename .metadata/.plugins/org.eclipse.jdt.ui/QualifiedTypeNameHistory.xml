@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.dto.SetPasswordDTO"/>
-    <fullyQualifiedTypeName name="javax.persistence.Id"/>
-    <fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
     <fullyQualifiedTypeName name="javax.persistence.GenerationType"/>
     <fullyQualifiedTypeName name="org.hibernate.annotations.CreationTimestamp"/>
     <fullyQualifiedTypeName name="javax.persistence.Temporal"/>
@@ -47,11 +44,8 @@
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestControllerAdvice"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ExceptionHandler"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.exception.global.GlobalException"/>
-    <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.response.ErrorResponse"/>
-    <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
     <fullyQualifiedTypeName name="javax.validation.ValidationException"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.exception.custom.ValidationException"/>
     <fullyQualifiedTypeName name="java.lang.Throwable"/>
     <fullyQualifiedTypeName name="javax.security.auth.login.LoginException"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.exception.custom.LoginException"/>
@@ -60,4 +54,10 @@
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.exception.custom.SetPasswordException"/>
     <fullyQualifiedTypeName name="java.lang.System.Logger"/>
     <fullyQualifiedTypeName name="java.lang.System.Logger.Level"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestHeader"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.exception.custom.ValidationException"/>
+    <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.response.Response"/>
+    <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.services.StaticReference"/>
 </qualifiedTypeNameHistroy>
