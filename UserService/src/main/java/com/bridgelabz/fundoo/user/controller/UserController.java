@@ -36,7 +36,7 @@ public class UserController {
 	ImplUserService service;
 
 	/**
-	 * purpose This method will login if you have entered right credentials else it
+	 * purpose: This method will login if you have entered right credentials else it
 	 * will throw exception
 	 * 
 	 * @param loginDTO Data Transfer object while logging in
@@ -51,7 +51,7 @@ public class UserController {
 	}
 
 	/**
-	 * purpose This method will send an email to your mail Id for verification if
+	 * purpose: This method will send an email to your mail Id for verification if
 	 * you have entered right credentials else it will throw exception
 	 * 
 	 * @param registerDto Data Transfer object while registering
@@ -67,7 +67,7 @@ public class UserController {
 	}
 
 	/**
-	 * purpose This method will take email as input and sends a mail to your
+	 * purpose: This method will take email as input and sends a mail to your
 	 * registered emailId for resetting your password
 	 * 
 	 * @param forgetDto Data Transfer object
@@ -82,7 +82,7 @@ public class UserController {
 	}
 
 	/**
-	 * purpose This method will Change your password if you have gone on right link
+	 * purpose: This method will Change your password if you have gone on right link
 	 * 
 	 * @param setPasswordDto Data Transfer object while registering, token
 	 * 
@@ -97,7 +97,7 @@ public class UserController {
 	}
 
 	/**
-	 * purpose This method will validate your account if you have gone on right link
+	 * purpose: This method will validate your account if you have gone on right link
 	 * 
 	 * @param setPasswordDto Data Transfer object while registering, token
 	 * 

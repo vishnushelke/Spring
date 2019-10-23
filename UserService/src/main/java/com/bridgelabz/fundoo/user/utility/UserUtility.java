@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class UserUtility {
 	
 	/**
-	 * Purpose This method will create an object of SimpleMailMessage and returns
+	 * Purpose: This method will create an object of SimpleMailMessage and returns
 	 * 
 	 * @return SimpleMailMessage
 	 */

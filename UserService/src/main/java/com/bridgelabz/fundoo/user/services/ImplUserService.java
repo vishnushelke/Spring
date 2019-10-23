@@ -50,7 +50,7 @@ public class ImplUserService implements IUserService {
 	ModelMapper mapper;
 	
 	/**
-	 * purpose This is service method for user registration
+	 * purpose: This is service method for user registration
 	 * 
 	 * @param registerDTO Data Transfer object while registering
 	 * 
@@ -81,7 +81,7 @@ public class ImplUserService implements IUserService {
 	}
 
 	/**
-	 * purpose This is service method for user login
+	 * purpose: This is service method for user login
 	 * 
 	 * @param loginDTO Data Transfer object while logging in
 	 * 
@@ -101,7 +101,7 @@ public class ImplUserService implements IUserService {
 	}
 
 	/**
-	 * purpose This is service method for forget Password
+	 * purpose: This is service method for forget Password
 	 * 
 	 * @param forgetDTO Data Transfer object
 	 * 
@@ -124,7 +124,7 @@ public class ImplUserService implements IUserService {
 	}
 
 	/**
-	 * purpose This is service method for resetting Password
+	 * purpose: This is service method for resetting Password
 	 * 
 	 * @param setPasswordDTO Data Transfer object,token
 	 * 
@@ -146,7 +146,7 @@ public class ImplUserService implements IUserService {
 	}
 
 	/**
-	 * purpose This method will check if email is registered or not
+	 * purpose: This method will check if email is registered or not
 	 * 
 	 * @param emailId
 	 * 
@@ -158,7 +158,7 @@ public class ImplUserService implements IUserService {
 	}
 
 	/**
-	 * purpose This method will check if email is registered or not and gives that user object
+	 * purpose: This method will check if email is registered or not and gives that user object
 	 * 
 	 * @param emailId
 	 * 
@@ -170,7 +170,7 @@ public class ImplUserService implements IUserService {
 	}
 
 	/**
-	 * purpose This is service method for validating User
+	 * purpose: This is service method for validating User
 	 * 
 	 * @param token
 	 * 

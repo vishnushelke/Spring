@@ -27,7 +27,7 @@ import com.bridgelabz.fundoo.user.response.Response;
 public class GlobalException {
 
 	/**
-	 * purpose This will be used when you want to throw a global exception
+	 * purpose: This will be used when you want to throw a global exception
 	 * @param ex exception
 	 * @return response entity of global exception
 	 */
@@ -37,7 +37,7 @@ public class GlobalException {
 	}
 	
 	/**
-	 * purpose This will be used when you want to throw a login exception
+	 * purpose: This will be used when you want to throw a login exception
 	 * @param ex exception
 	 * @return response entity of login exception
 	 */
@@ -47,7 +47,7 @@ public class GlobalException {
 	}
 
 	/**
-	 * purpose This will be used when you want to throw a register exception
+	 * purpose: This will be used when you want to throw a register exception
 	 * @param ex exception
 	 * @return response entity of registration exception
 	 */
@@ -57,7 +57,7 @@ public class GlobalException {
 	}
 	
 	/**
-	 * purpose This will be used when you want to throw a validation exception
+	 * purpose: This will be used when you want to throw a validation exception
 	 * @param ex exception
 	 * @return response entity of validation exception
 	 */
@@ -67,7 +67,7 @@ public class GlobalException {
 	}
 	
 	/**
-	 * purpose This will be used when you want to throw a forget Password exception
+	 * purpose: This will be used when you want to throw a forget Password exception
 	 * @param ex exception
 	 * @return response entity of forget Password exception
 	 */

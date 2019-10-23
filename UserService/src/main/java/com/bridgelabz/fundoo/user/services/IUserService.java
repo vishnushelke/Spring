@@ -17,7 +17,7 @@ import com.bridgelabz.fundoo.user.response.Response;
 public interface IUserService {
 	
 	/**
-	 * purpose This is service method for user registration
+	 * purpose: This is service method for user registration
 	 * 
 	 * @param registerDTO Data Transfer object while registering
 	 * 
@@ -26,7 +26,7 @@ public interface IUserService {
 	public Response registerUser(RegisterDto registerDTO);
 	
 	/**
-	 * purpose This is service method for user login
+	 * purpose: This is service method for user login
 	 * 
 	 * @param loginDTO Data Transfer object while logging in
 	 * 
@@ -35,7 +35,7 @@ public interface IUserService {
 	public Response loginUser(LoginDto registerDTO);
 	
 	/**
-	 * purpose This is service method for forget Password
+	 * purpose: This is service method for forget Password
 	 * 
 	 * @param forgetDTO Data Transfer object
 	 * 
@@ -44,7 +44,7 @@ public interface IUserService {
 	public Response forgetPassword(ForgetDto registerDTO);
 	
 	/**
-	 * purpose This is service method for resetting Password
+	 * purpose: This is service method for resetting Password
 	 * 
 	 * @param setPasswordDto Data Transfer object,token
 	 * 
@@ -53,7 +53,7 @@ public interface IUserService {
 	public Response setPassword(setPasswordDto registerDTO,String token);
 	
 	/**
-	 * purpose This is service method for validating User
+	 * purpose: This is service method for validating User
 	 * 
 	 * @param token
 	 * 
