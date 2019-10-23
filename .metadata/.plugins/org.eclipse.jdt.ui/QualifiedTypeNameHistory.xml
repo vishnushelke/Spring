@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties.Jwt"/>
-    <fullyQualifiedTypeName name="org.springframework.security.config.web.server.ServerHttpSecurity.OAuth2ResourceServerSpec.JwtSpec"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.dto.SetPasswordDTO"/>
     <fullyQualifiedTypeName name="javax.persistence.Id"/>
     <fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
@@ -60,4 +58,6 @@
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.exception.custom.RegistrationException"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.exception.custom.ForgetPasswordException"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.exception.custom.SetPasswordException"/>
+    <fullyQualifiedTypeName name="java.lang.System.Logger"/>
+    <fullyQualifiedTypeName name="java.lang.System.Logger.Level"/>
 </qualifiedTypeNameHistroy>

@@ -8,6 +8,7 @@ import com.bridgelabz.fundoo.user.model.User;
 
 public interface IUserService {
 	
+	
 	public User registerUser(RegisterDTO registerDTO);
 	
 	public boolean loginUser(LoginDTO registerDTO);

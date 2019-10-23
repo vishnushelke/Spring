@@ -7,14 +7,11 @@ import com.bridgelabz.fundoo.user.exception.custom.LoginException;
 
 import com.bridgelabz.fundoo.user.exception.custom.RegistrationException;
 import com.bridgelabz.fundoo.user.exception.custom.SetPasswordException;
-import com.bridgelabz.fundoo.user.exception.custom.ValidationException;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
-
 import com.bridgelabz.fundoo.user.DTO.ForgetDTO;
 import com.bridgelabz.fundoo.user.DTO.LoginDTO;
 import com.bridgelabz.fundoo.user.DTO.RegisterDTO;
@@ -23,7 +20,6 @@ import com.bridgelabz.fundoo.user.model.User;
 import com.bridgelabz.fundoo.user.repository.UserConfig;
 import com.bridgelabz.fundoo.user.repository.UserRepository;
 import com.bridgelabz.fundoo.user.utility.UserUtility;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -62,14 +58,13 @@ public class ImplUserService implements IUserService {
 			return repository.save(user);
 
 		} else {
-			throw new RegistrationException("email not yet registered");
+			throw new RegistrationException("email already registered");
 		}
 
 	}
 
 	@Override
 	public boolean loginUser(LoginDTO loginDTO) {
-		// TODO Auto-generated method stub
 		System.out.println(loginDTO.getEmail()+" "+loginDTO.getPassword().length());
 		if(!(loginDTO.getEmail().equals(null) || loginDTO.getPassword().length()<6))
 		{
@@ -85,7 +80,6 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public User forgetPassword(ForgetDTO forgetDTO) {
-		// TODO Auto-generated method stub
 		if (alreadyAvailable(forgetDTO.getEmail())) {
 
 			String token = Jwts.builder().setSubject(forgetDTO.getEmail()).setIssuedAt(new Date())
@@ -102,7 +96,6 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public User setPassword(setPasswordDTO setPasswordDTO, String token) {
-		// TODO Auto-generated method stub
 		Claims claim = Jwts.parser().setSigningKey("secretKey").parseClaimsJws(token).getBody();
 		String email = claim.getSubject();
 		if(alreadyAvailable(email))
@@ -130,7 +123,6 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public boolean validateUser(String token) {
-		// TODO Auto-generated method stub
 		Claims claim = Jwts.parser().setSigningKey("registerUser").parseClaimsJws(token).getBody();
 		String email = claim.getSubject();
 		System.out.println(email);
