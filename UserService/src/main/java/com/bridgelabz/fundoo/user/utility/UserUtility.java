@@ -1,3 +1,11 @@
+/******************************************************************************
+*  Purpose: This is a utility containing all methods which called in program
+*  @author  Vishnu Shelke
+*  @version 1.0
+*  @since   23-10-2019
+*
+******************************************************************************/
+
 package com.bridgelabz.fundoo.user.utility;
 
 import org.springframework.mail.SimpleMailMessage;
@@ -6,12 +14,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserUtility {
 	
-	public SimpleMailMessage getMessage(String token)
+	/**
+	 * Purpose This method will create an object of SimpleMailMessage and returns
+	 * 
+	 * @return SimpleMailMessage
+	 */
+	public SimpleMailMessage getMessage()
 	{
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo("shelkeva@gmail.com");
-		message.setSubject("response to your forget password");
-		message.setText("http://localhost:8080/user/setpassword/"+token);
 		return message;
 	}
 

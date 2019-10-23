@@ -1,12 +1,21 @@
+/******************************************************************************
+*  Purpose: This class is response for all controller actions
+*
+*  @author  Vishnu Shelke
+*  @version 1.0
+*  @since   23-10-2019
+*
+******************************************************************************/
+
 package com.bridgelabz.fundoo.user.response;
 
-public class ErrorResponse {
+public class Response {
 	private int statusCode;
 	private String message;
 	private Object data;
 	
 	
-	public ErrorResponse(int statusCode, String message, Object data) {
+	public Response(int statusCode, String message, Object data) {
 		super();
 		this.statusCode = statusCode;
 		this.message = message;

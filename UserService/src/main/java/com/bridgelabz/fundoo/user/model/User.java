@@ -1,3 +1,11 @@
+/******************************************************************************
+*  Purpose: This class is an entity
+*
+*  @author  Vishnu Shelke
+*  @version 1.0
+*  @since   23-10-2019
+*
+******************************************************************************/
 package com.bridgelabz.fundoo.user.model;
 
 import java.util.Date;
