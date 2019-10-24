@@ -1,0 +1,103 @@
+package com.bridgelabz.fundoo.note.model;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+@Entity
+@Table(name = "note")
+public class Note {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "node_id")
+	private int noteId;
+	private int userId;
+	private String title;
+	private String text;
+	private boolean trash;
+	private boolean pin;
+	private boolean archive;
+	@Temporal(TemporalType.TIMESTAMP)
+	@CreationTimestamp
+	private Date noteCreationDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	@UpdateTimestamp
+	private Date noteUpdationDate;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public boolean isTrash() {
+		return trash;
+	}
+
+	public void setTrash(boolean trash) {
+		this.trash = trash;
+	}
+
+	public boolean isPin() {
+		return pin;
+	}
+
+	public void setPin(boolean pin) {
+		this.pin = pin;
+	}
+
+	public boolean isArchive() {
+		return archive;
+	}
+
+	public void setArchive(boolean archive) {
+		this.archive = archive;
+	}
+
+	public int getNoteId() {
+		return noteId;
+	}
+
+	public Date getNoteCreationDate() {
+		return noteCreationDate;
+	}
+
+	public Date getNoteUpdationDate() {
+		return noteUpdationDate;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	@Override
+	public String toString() {
+		return "Note [noteId=" + noteId + ", title=" + title + ", text=" + text + ", trash=" + trash + ", pin=" + pin
+				+ ", archive=" + archive + ", noteCreationDate=" + noteCreationDate + ", noteUpdationDate="
+				+ noteUpdationDate + "]";
+	}
+
+}

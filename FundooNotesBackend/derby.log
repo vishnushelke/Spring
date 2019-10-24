@@ -1,0 +1,16 @@
+----------------------------------------------------------------
+Thu Oct 24 12:19:13 IST 2019:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-016d-fc86-c2b4-0000046904e0 
+on database directory memory:/home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/FundooNotesBackend/testdb with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@3d4eac69 
+Loaded from file:/home/user/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=11.0.3+7-Ubuntu-1ubuntu218.10.1
+user.dir=/home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/FundooNotesBackend
+os.name=Linux
+os.arch=amd64
+os.version=4.18.0-25-generic
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Thu Oct 24 12:19:15 IST 2019:
+Shutting down instance a816c00e-016d-fc86-c2b4-0000046904e0 on database directory memory:/home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/FundooNotesBackend/testdb with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@3d4eac69 
