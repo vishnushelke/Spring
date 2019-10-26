@@ -49,15 +49,27 @@ public class Note {
 		this.text = text;
 	}
 
-	public boolean isTrash() {
+	public boolean getTrash() {
 		return trash;
+	}
+
+	public void setNoteId(int noteId) {
+		this.noteId = noteId;
+	}
+
+	public void setNoteCreationDate(Date noteCreationDate) {
+		this.noteCreationDate = noteCreationDate;
+	}
+
+	public void setNoteUpdationDate(Date noteUpdationDate) {
+		this.noteUpdationDate = noteUpdationDate;
 	}
 
 	public void setTrash(boolean trash) {
 		this.trash = trash;
 	}
 
-	public boolean isPin() {
+	public boolean getPin() {
 		return pin;
 	}
 
@@ -65,7 +77,7 @@ public class Note {
 		this.pin = pin;
 	}
 
-	public boolean isArchive() {
+	public boolean getArchive() {
 		return archive;
 	}
 

@@ -1,8 +1,6 @@
 package com.bridgelabz.fundoo.note.services;
 
 import com.bridgelabz.fundoo.note.dto.CreateNoteDto;
-import com.bridgelabz.fundoo.note.dto.DeleteNoteDto;
-import com.bridgelabz.fundoo.note.dto.ReadNoteDto;
 import com.bridgelabz.fundoo.note.dto.UpdateNoteDto;
 import com.bridgelabz.fundoo.note.model.Response;
 
@@ -10,9 +8,19 @@ public interface INoteService {
 	
 	public Response createNote(CreateNoteDto createNoteDto);
 	
-	public Response getNote(ReadNoteDto readNoteDto);
+	public Response getNote(int userId);
 	
-	public Response deleteNote(DeleteNoteDto deleteNoteDto);
+	public Response deleteNote(int NoteId);
 	
 	public Response updateNote(UpdateNoteDto updateNoteDto);
+	
+	public Response archiveUnarchiveNote(int NoteId);
+	
+	public Response trashUntrashNote(int NoteId);
+	
+	public Response pinUnpinNote(int NoteId);
+	
+	public Response sortNoteByTitle();
+	
+	public Response sortNoteByUpdationDate();
 }
