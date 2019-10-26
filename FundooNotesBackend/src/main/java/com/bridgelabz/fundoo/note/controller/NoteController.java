@@ -1,7 +1,6 @@
 package com.bridgelabz.fundoo.note.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.support.Repositories;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.fundoo.note.dto.CreateNoteDto;
 import com.bridgelabz.fundoo.note.dto.UpdateNoteDto;
-import com.bridgelabz.fundoo.note.model.Note;
 import com.bridgelabz.fundoo.note.model.Response;
 import com.bridgelabz.fundoo.note.services.ImplNoteService;
 
@@ -63,5 +61,15 @@ public class NoteController {
 	public ResponseEntity<Response> trashNote(@RequestHeader int noteId)
 	{
 		return new ResponseEntity<Response>(service.trashUntrashNote(noteId),HttpStatus.OK);
+	}
+	@GetMapping("sortbyupdationdate")
+	public ResponseEntity<Response> sortByUpdationDate(@RequestHeader int userId)
+	{
+		return new ResponseEntity<Response>(service.sortNoteByUpdationDate(userId),HttpStatus.OK);
+	}
+	@GetMapping("sortbytitle")
+	public ResponseEntity<Response> sortByTitle(@RequestHeader int userId)
+	{
+		return new ResponseEntity<Response>(service.sortNoteByTitle(userId),HttpStatus.OK);
 	}
 }

@@ -15,5 +15,13 @@ public class StaticReference {
 	public static final String NOTE_TRASH_SUCCESS="Note trashed/untrashed successfully";
 	
 	public static final String NOTE_ARCHIVED_SUCCESS="Note archived/unarchived successfully";
+	
+	public static final String NOTE_SORTED_TITLE_SUCCESS="Notes successfully sorted using title";
 
+	public static final String NOTE_SORTED_UPDATION_DATE_SUCCESS="Notes successfully sorted using updateion Date";
+	
+	//Exception Messages
+	public static final String USER_NOT_FOUND="User not found";
+	
+	public static final String NOTE_NOT_FOUND="Note not found";
 }

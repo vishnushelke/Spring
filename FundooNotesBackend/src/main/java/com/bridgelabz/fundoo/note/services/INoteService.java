@@ -20,7 +20,7 @@ public interface INoteService {
 	
 	public Response pinUnpinNote(int NoteId);
 	
-	public Response sortNoteByTitle();
+	public Response sortNoteByTitle(int userId);
 	
-	public Response sortNoteByUpdationDate();
+	public Response sortNoteByUpdationDate(int userId);
 }
