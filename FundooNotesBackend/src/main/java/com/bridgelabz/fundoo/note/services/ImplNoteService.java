@@ -50,7 +50,7 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response getNote(int userId) {
-		if (isAvailable(userId) == null) {
+		if (repository.findById(userId).isEmpty()) {
 			throw new GetNoteExcepion(StaticReference.USER_NOT_FOUND);
 		}
 		Stream<Note> notes = repository.findAll().stream().filter(i -> i.getUserId() == userId);
@@ -64,7 +64,7 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response deleteNote(int noteId) {
-		if (repository.findById(noteId) == null) {
+		if (repository.findById(noteId).isEmpty()) {
 			throw new DeleteNoteExcepion(StaticReference.NOTE_NOT_FOUND);
 		}
 		repository.deleteById(noteId);
@@ -78,7 +78,7 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response updateNote(UpdateNoteDto updateNoteDto) {
-		if (repository.findById(updateNoteDto.getNoteId()) == null) {
+		if (repository.findById(updateNoteDto.getNoteId()).isEmpty()) {
 			throw new UpdateNoteExcepion(StaticReference.NOTE_NOT_FOUND);
 		}
 		Note note = repository.findById(updateNoteDto.getNoteId()).orElse(null);
@@ -96,7 +96,7 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response archiveUnarchiveNote(int noteId) {
-		if (repository.findById(noteId) == null) {
+		if (repository.findById(noteId).isEmpty()) {
 			throw new ArchiveNoteExcepion(StaticReference.NOTE_NOT_FOUND);
 		}
 		Note note = repository.findById(noteId).orElse(null);
@@ -112,7 +112,7 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response trashUntrashNote(int noteId) {
-		if (repository.findById(noteId) == null) {
+		if (repository.findById(noteId).isEmpty()) {
 			throw new TrashNoteExcepion(StaticReference.NOTE_NOT_FOUND);
 		}
 		Note note = repository.findById(noteId).orElse(null);
@@ -128,7 +128,7 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response pinUnpinNote(int noteId) {
-		if (repository.findById(noteId) == null) {
+		if (repository.findById(noteId).isEmpty()) {
 			throw new PinNoteExcepion(StaticReference.NOTE_NOT_FOUND);
 		}
 		Note note = repository.findById(noteId).orElse(null);
