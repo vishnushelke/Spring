@@ -20,6 +20,7 @@ public class Note {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "node_id")
 	private int noteId;
+	@Column(name = "user_id")
 	private int userId;
 	private String title;
 	private String text;

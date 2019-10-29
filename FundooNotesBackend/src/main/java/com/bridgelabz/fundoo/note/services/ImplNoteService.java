@@ -50,7 +50,7 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response getNote(int userId) {
-		if (repository.findById(userId).isEmpty()) {
+		if (!isAvailable(userId)) {
 			throw new GetNoteExcepion(StaticReference.USER_NOT_FOUND);
 		}
 		Stream<Note> notes = repository.findAll().stream().filter(i -> i.getUserId() == userId);
@@ -144,7 +144,7 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response sortNoteByTitle(int userId) {
-		if (repository.findById(userId).isEmpty()) {
+		if (!isAvailable(userId)) {
 			throw new SortByTitleNoteExcepion(StaticReference.NOTE_NOT_FOUND);
 		}
 		Stream<Note> notes = repository.findAll().stream().filter(i -> i.getUserId() == userId)
@@ -160,7 +160,7 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response sortNoteByUpdationDate(int userId) {
-		if (repository.findById(userId).isEmpty()) {
+		if (!isAvailable(userId)) {
 			throw new SortByUpdationDateNoteExcepion(StaticReference.NOTE_NOT_FOUND);
 		}
 		Stream<Note> notes = repository.findAll().stream().filter(i -> i.getUserId() == userId)
@@ -175,8 +175,10 @@ public class ImplNoteService implements INoteService {
 	 * @param userId of the user whose notes are to be fetched
 	 * @return if at least one note is available of that user then it will fetch and return that note,else it will retunr null
 	 */
-	public Note isAvailable(int userId) {
-		return repository.findAll().stream().findAny().filter(i -> i.getUserId() == userId).get();
+	public boolean isAvailable(int userId) {
+		System.out.println("hiiii");
+//		System.out.println(repository.findAll().stream().findAny().filter(i -> i.getUserId() == userId).get());
+		return repository.findAll().stream().anyMatch(i -> i.getUserId() == userId);
 	}
 
 }
