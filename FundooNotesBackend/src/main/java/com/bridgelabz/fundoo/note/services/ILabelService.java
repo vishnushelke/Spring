@@ -5,12 +5,38 @@ import com.bridgelabz.fundoo.note.model.Response;
 
 public interface ILabelService {
 	
+	/**
+	 * purpose: This method is used for creating a label in a database of a
+	 * particular user.
+	 * 
+	 * @param addLabelDto Data Transfer Object sent while creating a label
+	 * @return Response according to the result
+	 */
 	public Response createLabel(AddLabelDto addLabelDto);
 	
-	public Response getLabel(String name);
+	/**
+	 * purpose: This method is used for displays label in a database of a particular
+	 * user.
+	 * 
+	 * @param tokenLabelId of the user whose label to be displayed
+	 * @return Response according to the result
+	 */
+	public Response getLabel(String tokenLabelId);
 	
-	public Response updateLabel(String name,String updationName);
+	/**
+	 * purpose: This method is used for updating a particular label in a database.
+	 * 
+	 * @param updateNoteDto Data Transfer Object sent while updating a label,tokenLabelId of a label
+	 * @return Response according to the result
+	 */
+	public Response updateLabel(String tokenLabelId,AddLabelDto addLabelDto);
 	
-	public Response deleteLabel(String name);
+	/**
+	 * purpose: This method is used for updating a particular label in a database.
+	 * 
+	 * @param updateNoteDto Data Transfer Object sent while updating a label,tokenLabelId of a label
+	 * @return Response according to the result
+	 */
+	public Response deleteLabel(String tokenLabelId);
 
 }

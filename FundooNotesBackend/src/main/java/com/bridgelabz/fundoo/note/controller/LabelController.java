@@ -19,30 +19,53 @@ import com.bridgelabz.fundoo.note.services.ImplLabelService;
 @RestController
 @RequestMapping("/user/labels")
 public class LabelController {
-	
+
 	@Autowired
 	ImplLabelService service;
-	
+
+	/**
+	 * purpose: This method is used for creating a label in a database of a
+	 * particular user.
+	 * 
+	 * @param addLabelDto Data Transfer Object sent while creating a label
+	 * @return Response according to the result
+	 */
 	@PostMapping
-	public ResponseEntity<Response> createLabel(@RequestBody AddLabelDto addLabelDto)
-	{
-		return new ResponseEntity<Response>(service.createLabel(addLabelDto),HttpStatus.OK);
-	}
-	
-	@GetMapping
-	public ResponseEntity<Response> getLabel(@RequestHeader String name)
-	{
-		return new ResponseEntity<Response>(service.getLabel(name),HttpStatus.OK);
-	}
-	@PutMapping
-	public ResponseEntity<Response> updateLabel(@RequestHeader String name,@RequestHeader String updationName)
-	{
-		return new ResponseEntity<Response>(service.updateLabel(name, updationName),HttpStatus.OK);
+	public ResponseEntity<Response> createLabel(@RequestBody AddLabelDto addLabelDto) {
+		return new ResponseEntity<Response>(service.createLabel(addLabelDto), HttpStatus.OK);
 	}
 
+	/**
+	 * purpose: This method is used for displays label in a database of a particular
+	 * user.
+	 * 
+	 * @param tokenLabelId of the user whose label to be displayed
+	 * @return Response according to the result
+	 */
+	@GetMapping
+	public ResponseEntity<Response> getLabel(@RequestHeader String tokenLabelId) {
+		return new ResponseEntity<Response>(service.getLabel(tokenLabelId), HttpStatus.OK);
+	}
+
+	/**
+	 * purpose: This method is used for updating a particular label in a database.
+	 * 
+	 * @param updateNoteDto Data Transfer Object sent while updating a label,tokenLabelId of a label
+	 * @return Response according to the result
+	 */
+	@PutMapping
+	public ResponseEntity<Response> updateLabel(@RequestHeader String tokenLabelId, @RequestBody AddLabelDto addLabelDto) {
+		return new ResponseEntity<Response>(service.updateLabel(tokenLabelId, addLabelDto), HttpStatus.OK);
+	}
+
+	/**
+	 * purpose: This method is used for deleting a particular label in a database.
+	 * 
+	 * @param tokenLabelId of the label which is to be deleted
+	 * @return Response according to the result
+	 */
 	@DeleteMapping
-	public ResponseEntity<Response> deleteLabel(@RequestHeader String name)
-	{
-		return new ResponseEntity<Response>(service.deleteLabel(name),HttpStatus.OK);
+	public ResponseEntity<Response> deleteLabel(@RequestHeader String tokenLabelId) {
+		return new ResponseEntity<Response>(service.deleteLabel(tokenLabelId), HttpStatus.OK);
 	}
 }

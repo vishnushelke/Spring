@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class NoteConfig {
 
+	/**
+	 * @return object of model mapper
+	 */
 	@Bean
 	public ModelMapper getMapper()
 	{

@@ -16,18 +16,18 @@ import com.bridgelabz.fundoo.note.userexception.TrashNoteExcepion;
 import com.bridgelabz.fundoo.note.userexception.UpdateNoteExcepion;
 
 @RestControllerAdvice
-public class Global{
+public class NoteGlobalException{
 
 	/**
 	 * purpose this is method is used to throw an exception when we get an exception which is not declared
 	 * @param ex Exception
 	 * @return Response according to the result
 	 */
-//	@ExceptionHandler(Exception.class)
-//	public ResponseEntity<Response> globalException(Exception ex)
-//	{
-//		return new ResponseEntity<Response>(new Response(500, ex.getMessage(), null),HttpStatus.INTERNAL_SERVER_ERROR);
-//	}
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<Response> globalException(Exception ex)
+	{
+		return new ResponseEntity<Response>(new Response(500, ex.getMessage(), null),HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 	
 	/**
 	 * purpose this is method is used to throw an exception when we get an exception while getting user notes

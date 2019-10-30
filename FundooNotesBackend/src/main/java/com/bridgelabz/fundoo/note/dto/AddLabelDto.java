@@ -1,15 +1,19 @@
 package com.bridgelabz.fundoo.note.dto;
 
+import java.util.Date;
+
+import javax.validation.constraints.NotNull;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class AddLabelDto {
 
+	@NotNull(message = "name cannot be null")
 	private String name;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	private Date creationTime;
+	private Date updationTime;
 	
 }

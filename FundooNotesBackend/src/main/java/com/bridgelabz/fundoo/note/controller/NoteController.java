@@ -41,9 +41,9 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@GetMapping
-	public ResponseEntity<Response> getNotes(@RequestHeader int userId)
+	public ResponseEntity<Response> getNotes(@RequestHeader String tokenUserId)
 	{
-		return new ResponseEntity<Response>(service.getNote(userId),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.getNote(tokenUserId),HttpStatus.OK);
 	}
 	
 	/**
@@ -52,9 +52,9 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@DeleteMapping
-	public ResponseEntity<Response> deleteNote(@RequestHeader int noteId)
+	public ResponseEntity<Response> deleteNote(@RequestHeader String tokenUserId,@RequestHeader String tokenNoteId)
 	{
-		return new ResponseEntity<Response>(service.deleteNote(noteId),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.deleteNote(tokenUserId,tokenNoteId),HttpStatus.OK);
 	}
 	
 	/**
@@ -63,9 +63,9 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@PutMapping
-	public ResponseEntity<Response> updateNote(@RequestBody UpdateNoteDto updateNoteDto)
+	public ResponseEntity<Response> updateNote(@RequestBody UpdateNoteDto updateNoteDto,@RequestHeader String tokenUserId,@RequestHeader String tokenNoteId)
 	{
-		return new ResponseEntity<Response>(service.updateNote(updateNoteDto),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.updateNote(updateNoteDto,tokenUserId,tokenNoteId),HttpStatus.OK);
 	}
 	
 	/**
@@ -74,9 +74,9 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@PutMapping("/archive")
-	public ResponseEntity<Response> archieveNote(@RequestHeader int noteId)
+	public ResponseEntity<Response> archieveNote(@RequestHeader String tokenNoteId,@RequestHeader String tokenUserId )
 	{
-		return new ResponseEntity<Response>(service.archiveUnarchiveNote(noteId),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.archiveUnarchiveNote(tokenNoteId,tokenUserId),HttpStatus.OK);
 	}
 	
 	/**
@@ -85,9 +85,9 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@PutMapping("/pin")
-	public ResponseEntity<Response> pinNote(@RequestHeader int noteId)
+	public ResponseEntity<Response> pinNote(@RequestHeader String tokenNoteId,@RequestHeader String tokenUserId)
 	{
-		return new ResponseEntity<Response>(service.pinUnpinNote(noteId),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.pinUnpinNote(tokenNoteId,tokenUserId),HttpStatus.OK);
 	}
 	/**
 	 * purpose: This method is used for moving/removing a particular note in a trash. 
@@ -95,9 +95,9 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@PutMapping("/trash")
-	public ResponseEntity<Response> trashNote(@RequestHeader int noteId)
+	public ResponseEntity<Response> trashNote(@RequestHeader String tokenNoteId,@RequestHeader String tokenUserId)
 	{
-		return new ResponseEntity<Response>(service.trashUntrashNote(noteId),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.trashUntrashNote(tokenNoteId,tokenUserId),HttpStatus.OK);
 	}
 	
 	/**
@@ -106,9 +106,9 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@GetMapping("sortbyupdationdate")
-	public ResponseEntity<Response> sortByUpdationDate(@RequestHeader int userId)
+	public ResponseEntity<Response> sortByUpdationDate(@RequestHeader String tokenUserId)
 	{
-		return new ResponseEntity<Response>(service.sortNoteByUpdationDate(userId),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.sortNoteByUpdationDate(tokenUserId),HttpStatus.OK);
 	}
 	
 	/**
@@ -117,8 +117,8 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@GetMapping("sortbytitle")
-	public ResponseEntity<Response> sortByTitle(@RequestHeader int userId)
+	public ResponseEntity<Response> sortByTitle(@RequestHeader String tokenUserId)
 	{
-		return new ResponseEntity<Response>(service.sortNoteByTitle(userId),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.sortNoteByTitle(tokenUserId),HttpStatus.OK);
 	}
 }

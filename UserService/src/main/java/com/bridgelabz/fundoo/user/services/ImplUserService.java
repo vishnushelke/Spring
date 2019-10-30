@@ -91,9 +91,9 @@ public class ImplUserService implements IUserService {
 	public Response loginUser(LoginDto loginDTO) {
 		System.out.println(loginDTO.getEmail() + " " + loginDTO.getPassword().length());
 		if (!(loginDTO.getEmail().equals(null) || loginDTO.getPassword().length() < 6)) {
-			repository.findAll().stream().anyMatch(t -> t.getEmail().equals(loginDTO.getEmail())
-					&& config.passEndcode().matches(loginDTO.getPassword(), t.getPassword()));
-			return new Response(200, StaticReference.LOGIN_SUCCESS, true);
+			User user = repository.findAll().stream().filter(i->i.getEmail().equals(loginDTO.getEmail())).findAny().get();
+			String token = Jwts.builder().setSubject(String.valueOf(user.getId())).signWith(SignatureAlgorithm.HS256, "secretKey").compact();
+			return new Response(200, StaticReference.LOGIN_SUCCESS, token);
 		} else {
 			throw new LoginException(StaticReference.LOGIN_FAIL);
 		}

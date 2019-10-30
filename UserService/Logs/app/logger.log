@@ -1,168 +1,621 @@
-2019-10-23 17:12:24.116  INFO 19204 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Starting UserServeApplication on FH400 with PID 19204 (started by user in /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/UserService)
-2019-10-23 17:12:24.159  INFO 19204 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : No active profile set, falling back to default profiles: default
-2019-10-23 17:12:24.375  INFO 19204 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2019-10-23 17:12:24.375  INFO 19204 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2019-10-23 17:12:26.261  INFO 19204 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-10-23 17:12:26.412  INFO 19204 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 137ms. Found 1 repository interfaces.
-2019-10-23 17:12:27.059  INFO 19204 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$439131ce] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-10-23 17:12:27.842  INFO 19204 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2019-10-23 17:12:27.898  INFO 19204 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-10-23 17:12:27.898  INFO 19204 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.26]
-2019-10-23 17:12:28.304  INFO 19204 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-10-23 17:12:28.304  INFO 19204 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3929 ms
-2019-10-23 17:12:28.704  INFO 19204 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2019-10-23 17:12:28.884  INFO 19204 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2019-10-23 17:12:28.957  INFO 19204 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+2019-10-30 15:45:21.102  INFO 13447 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Starting UserServeApplication on FH400 with PID 13447 (started by user in /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService)
+2019-10-30 15:45:21.253  INFO 13447 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : No active profile set, falling back to default profiles: default
+2019-10-30 15:45:21.425  INFO 13447 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-10-30 15:45:21.425  INFO 13447 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-10-30 15:45:23.194  INFO 13447 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-10-30 15:45:23.270  INFO 13447 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 68ms. Found 1 repository interfaces.
+2019-10-30 15:45:23.791  INFO 13447 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$c6068476] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-30 15:45:24.368  INFO 13447 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2019-10-30 15:45:24.412  INFO 13447 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-10-30 15:45:24.413  INFO 13447 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.26]
+2019-10-30 15:45:24.700  INFO 13447 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-10-30 15:45:24.701  INFO 13447 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3275 ms
+2019-10-30 15:45:25.038  INFO 13447 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-10-30 15:45:25.207  INFO 13447 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-10-30 15:45:25.274  INFO 13447 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
 	name: default
 	...]
-2019-10-23 17:12:29.071  INFO 19204 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.12.Final}
-2019-10-23 17:12:29.077  INFO 19204 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
-2019-10-23 17:12:29.284  INFO 19204 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
-2019-10-23 17:12:29.445  INFO 19204 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-2019-10-23 17:12:30.311  INFO 19204 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2019-10-23 17:12:30.369  INFO 19204 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2019-10-23 17:12:31.276  INFO 19204 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-10-23 17:12:31.329  WARN 19204 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2019-10-23 17:12:31.934  INFO 19204 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-10-23 17:12:31.938  INFO 19204 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Started UserServeApplication in 8.564 seconds (JVM running for 10.451)
-2019-10-23 17:13:01.103  INFO 19204 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-10-23 17:13:01.104  INFO 19204 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-10-23 17:13:01.115  INFO 19204 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms
-2019-10-23 17:13:01.236  INFO 19204 --- [http-nio-8080-exec-2] c.b.f.user.services.ImplUserService      : registration logger
-2019-10-23 17:13:01.614  INFO 19204 --- [http-nio-8080-exec-2] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
-2019-10-23 17:16:41.814  INFO 19204 --- [http-nio-8080-exec-1] c.b.f.user.services.ImplUserService      : validate email logger
-2019-10-23 17:17:10.760  INFO 19204 --- [http-nio-8080-exec-2] c.b.f.user.services.ImplUserService      : login logger
-2019-10-23 17:24:39.964  INFO 19204 --- [Thread-4] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-10-23 17:24:39.966  INFO 19204 --- [Thread-4] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2019-10-23 17:24:39.972  INFO 19204 --- [Thread-4] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2019-10-23 17:24:39.986  INFO 19204 --- [Thread-4] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2019-10-23 17:24:40.263  INFO 19204 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Starting UserServeApplication on FH400 with PID 19204 (started by user in /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/UserService)
-2019-10-23 17:24:40.264  INFO 19204 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : No active profile set, falling back to default profiles: default
-2019-10-23 17:24:40.835  INFO 19204 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-10-23 17:24:40.853  INFO 19204 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17ms. Found 1 repository interfaces.
-2019-10-23 17:24:40.953  INFO 19204 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$439131ce] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-10-23 17:24:41.340  INFO 19204 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2019-10-23 17:24:41.342  INFO 19204 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-10-23 17:24:41.343  INFO 19204 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.26]
-2019-10-23 17:24:41.361  INFO 19204 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-10-23 17:24:41.361  INFO 19204 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1094 ms
-2019-10-23 17:24:41.443  INFO 19204 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
-2019-10-23 17:24:41.448  INFO 19204 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
-2019-10-23 17:24:41.459  INFO 19204 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+2019-10-30 15:45:25.354  INFO 13447 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.12.Final}
+2019-10-30 15:45:25.356  INFO 13447 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-10-30 15:45:25.554  INFO 13447 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-10-30 15:45:25.690  INFO 13447 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-10-30 15:45:26.299  INFO 13447 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-10-30 15:45:26.382  INFO 13447 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-10-30 15:45:27.320  INFO 13447 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-30 15:45:27.383  WARN 13447 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-10-30 15:45:27.814  INFO 13447 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2019-10-30 15:45:27.826  INFO 13447 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Started UserServeApplication in 8.036 seconds (JVM running for 9.563)
+2019-10-30 15:46:06.148  INFO 13447 --- [http-nio-8080-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-30 15:46:06.154  INFO 13447 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-10-30 15:46:06.168  INFO 13447 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed initialization in 14 ms
+2019-10-30 15:46:31.212  WARN 13447 --- [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2019-10-30 15:46:42.537  INFO 13447 --- [http-nio-8080-exec-5] c.b.f.user.services.ImplUserService      : login logger
+2019-10-30 15:46:42.542  WARN 13447 --- [http-nio-8080-exec-5] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.NullPointerException]
+2019-10-30 15:48:29.854  INFO 13447 --- [http-nio-8080-exec-6] c.b.f.user.services.ImplUserService      : login logger
+2019-10-30 15:48:29.865  WARN 13447 --- [http-nio-8080-exec-6] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.NullPointerException]
+2019-10-30 15:50:10.045  WARN 13447 --- [http-nio-8080-exec-9] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
+2019-10-30 15:50:19.814  INFO 13447 --- [http-nio-8080-exec-10] c.b.f.user.services.ImplUserService      : login logger
+2019-10-30 15:50:19.817  WARN 13447 --- [http-nio-8080-exec-10] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.NullPointerException]
+2019-10-30 15:51:41.627  INFO 13447 --- [Thread-4] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-10-30 15:51:41.637  INFO 13447 --- [Thread-4] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-10-30 15:51:41.647  INFO 13447 --- [Thread-4] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-10-30 15:51:41.671  INFO 13447 --- [Thread-4] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-10-30 15:51:42.149  INFO 13447 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Starting UserServeApplication on FH400 with PID 13447 (started by user in /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService)
+2019-10-30 15:51:42.150  INFO 13447 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : No active profile set, falling back to default profiles: default
+2019-10-30 15:51:46.475  INFO 13891 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Starting UserServeApplication on FH400 with PID 13891 (started by user in /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService)
+2019-10-30 15:51:46.488  INFO 13891 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : No active profile set, falling back to default profiles: default
+2019-10-30 15:51:46.613  INFO 13891 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-10-30 15:51:46.614  INFO 13891 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-10-30 15:51:47.760  INFO 13891 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-10-30 15:51:47.845  INFO 13891 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 76ms. Found 1 repository interfaces.
+2019-10-30 15:51:48.717  INFO 13891 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$fabb7913] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-30 15:51:49.215  INFO 13891 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2019-10-30 15:51:49.262  INFO 13891 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-10-30 15:51:49.263  INFO 13891 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.26]
+2019-10-30 15:51:49.397  INFO 13891 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-10-30 15:51:49.398  INFO 13891 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2784 ms
+2019-10-30 15:51:49.619  INFO 13891 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-10-30 15:51:49.800  INFO 13891 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-10-30 15:51:49.875  INFO 13891 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
 	name: default
 	...]
-2019-10-23 17:24:41.470  INFO 19204 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-2019-10-23 17:24:41.533  INFO 19204 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2019-10-23 17:24:41.556  INFO 19204 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2019-10-23 17:24:41.777  INFO 19204 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-10-23 17:24:41.789  WARN 19204 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2019-10-23 17:24:41.914  INFO 19204 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-10-23 17:24:41.915  INFO 19204 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Started UserServeApplication in 1.727 seconds (JVM running for 740.428)
-2019-10-23 17:24:41.918  INFO 19204 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2019-10-23 17:25:49.671  INFO 19204 --- [Thread-9] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-10-23 17:25:49.673  INFO 19204 --- [Thread-9] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2019-10-23 17:25:49.675  INFO 19204 --- [Thread-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
-2019-10-23 17:25:49.680  INFO 19204 --- [Thread-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
-2019-10-23 17:25:49.959  INFO 19204 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Starting UserServeApplication on FH400 with PID 19204 (started by user in /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/UserService)
-2019-10-23 17:25:49.960  INFO 19204 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : No active profile set, falling back to default profiles: default
-2019-10-23 17:25:50.717  INFO 19204 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-10-23 17:25:50.729  INFO 19204 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11ms. Found 1 repository interfaces.
-2019-10-23 17:25:50.807  INFO 19204 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$439131ce] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-10-23 17:25:50.911  INFO 19204 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2019-10-23 17:25:51.055  INFO 19204 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-10-23 17:25:51.055  INFO 19204 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.26]
-2019-10-23 17:25:51.074  INFO 19204 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-10-23 17:25:51.075  INFO 19204 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1093 ms
-2019-10-23 17:25:51.142  INFO 19204 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
-2019-10-23 17:25:51.147  INFO 19204 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
-2019-10-23 17:25:51.156  INFO 19204 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+2019-10-30 15:51:49.949  INFO 13891 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.12.Final}
+2019-10-30 15:51:49.951  INFO 13891 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-10-30 15:51:50.158  INFO 13891 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-10-30 15:51:50.321  INFO 13891 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-10-30 15:51:51.120  INFO 13891 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-10-30 15:51:51.202  INFO 13891 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-10-30 15:51:51.905  INFO 13891 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-30 15:51:51.957  WARN 13891 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-10-30 15:51:52.246  INFO 13891 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2019-10-30 15:51:52.251  INFO 13891 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Started UserServeApplication in 6.424 seconds (JVM running for 7.903)
+2019-10-30 15:51:54.674  INFO 13891 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-30 15:51:54.685  INFO 13891 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-10-30 15:51:54.710  INFO 13891 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 25 ms
+2019-10-30 15:51:54.875  INFO 13891 --- [http-nio-8080-exec-2] c.b.f.user.services.ImplUserService      : login logger
+2019-10-30 15:51:54.906 ERROR 13891 --- [http-nio-8080-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
+
+java.lang.NullPointerException: null
+	at com.bridgelabz.fundoo.user.services.ImplUserService.loginUser(ImplUserService.java:93) ~[classes/:na]
+	at com.bridgelabz.fundoo.user.controller.UserController.loginUser(UserController.java:50) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:893) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:798) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPut(FrameworkServlet.java:920) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:663) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:94) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1589) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2019-10-30 15:54:35.711  INFO 13891 --- [http-nio-8080-exec-5] c.b.f.user.services.ImplUserService      : login logger
+2019-10-30 15:54:35.713 ERROR 13891 --- [http-nio-8080-exec-5] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
+
+java.lang.NullPointerException: null
+	at com.bridgelabz.fundoo.user.services.ImplUserService.loginUser(ImplUserService.java:93) ~[classes/:na]
+	at com.bridgelabz.fundoo.user.controller.UserController.loginUser(UserController.java:50) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:893) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:798) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPut(FrameworkServlet.java:920) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:663) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:94) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1589) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2019-10-30 15:55:51.621  INFO 13891 --- [http-nio-8080-exec-7] c.b.f.user.services.ImplUserService      : registration logger
+2019-10-30 15:55:52.209  INFO 13891 --- [http-nio-8080-exec-7] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-10-30 15:56:00.435 ERROR 13891 --- [http-nio-8080-exec-7] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.mail.MailAuthenticationException: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials l11sm3368867pgf.73 - gsmtp
+] with root cause
+
+javax.mail.AuthenticationFailedException: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials l11sm3368867pgf.73 - gsmtp
+
+	at com.sun.mail.smtp.SMTPTransport$Authenticator.authenticate(SMTPTransport.java:965) ~[javax.mail-1.6.2.jar:1.6.2]
+	at com.sun.mail.smtp.SMTPTransport.authenticate(SMTPTransport.java:876) ~[javax.mail-1.6.2.jar:1.6.2]
+	at com.sun.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:780) ~[javax.mail-1.6.2.jar:1.6.2]
+	at javax.mail.Service.connect(Service.java:366) ~[javax.mail-1.6.2.jar:1.6.2]
+	at org.springframework.mail.javamail.JavaMailSenderImpl.connectTransport(JavaMailSenderImpl.java:518) ~[spring-context-support-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.mail.javamail.JavaMailSenderImpl.doSend(JavaMailSenderImpl.java:437) ~[spring-context-support-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.mail.javamail.JavaMailSenderImpl.send(JavaMailSenderImpl.java:323) ~[spring-context-support-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.mail.javamail.JavaMailSenderImpl.send(JavaMailSenderImpl.java:312) ~[spring-context-support-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at com.bridgelabz.fundoo.user.services.ImplUserService.registerUser(ImplUserService.java:72) ~[classes/:na]
+	at com.bridgelabz.fundoo.user.controller.UserController.registerUser(UserController.java:66) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:893) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:798) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:94) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1589) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2019-10-30 15:56:42.419  INFO 13891 --- [http-nio-8080-exec-9] c.b.f.user.services.ImplUserService      : registration logger
+2019-10-30 15:56:44.382 ERROR 13891 --- [http-nio-8080-exec-9] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.mail.MailAuthenticationException: Authentication failed; nested exception is javax.mail.AuthenticationFailedException: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials e5sm2211271pfa.110 - gsmtp
+] with root cause
+
+javax.mail.AuthenticationFailedException: 535-5.7.8 Username and Password not accepted. Learn more at
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials e5sm2211271pfa.110 - gsmtp
+
+	at com.sun.mail.smtp.SMTPTransport$Authenticator.authenticate(SMTPTransport.java:965) ~[javax.mail-1.6.2.jar:1.6.2]
+	at com.sun.mail.smtp.SMTPTransport.authenticate(SMTPTransport.java:876) ~[javax.mail-1.6.2.jar:1.6.2]
+	at com.sun.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:780) ~[javax.mail-1.6.2.jar:1.6.2]
+	at javax.mail.Service.connect(Service.java:366) ~[javax.mail-1.6.2.jar:1.6.2]
+	at org.springframework.mail.javamail.JavaMailSenderImpl.connectTransport(JavaMailSenderImpl.java:518) ~[spring-context-support-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.mail.javamail.JavaMailSenderImpl.doSend(JavaMailSenderImpl.java:437) ~[spring-context-support-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.mail.javamail.JavaMailSenderImpl.send(JavaMailSenderImpl.java:323) ~[spring-context-support-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.mail.javamail.JavaMailSenderImpl.send(JavaMailSenderImpl.java:312) ~[spring-context-support-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at com.bridgelabz.fundoo.user.services.ImplUserService.registerUser(ImplUserService.java:72) ~[classes/:na]
+	at com.bridgelabz.fundoo.user.controller.UserController.registerUser(UserController.java:66) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:893) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:798) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:94) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1589) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2019-10-30 15:59:28.013  INFO 14211 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Starting UserServeApplication on FH400 with PID 14211 (started by user in /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService)
+2019-10-30 15:59:28.018  INFO 14211 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : No active profile set, falling back to default profiles: default
+2019-10-30 15:59:28.295  INFO 14211 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-10-30 15:59:28.296  INFO 14211 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-10-30 15:59:31.234  INFO 14211 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-10-30 15:59:31.524  INFO 14211 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 268ms. Found 1 repository interfaces.
+2019-10-30 15:59:32.954  INFO 14211 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$1563cf34] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-30 15:59:33.925  INFO 14211 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2019-10-30 15:59:33.993  INFO 14211 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-10-30 15:59:33.993  INFO 14211 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.26]
+2019-10-30 15:59:34.209  INFO 14211 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-10-30 15:59:34.210  INFO 14211 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 5914 ms
+2019-10-30 15:59:34.532  INFO 14211 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-10-30 15:59:34.852  INFO 14211 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-10-30 15:59:35.086  INFO 14211 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
 	name: default
 	...]
-2019-10-23 17:25:51.167  INFO 19204 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-2019-10-23 17:25:51.251  INFO 19204 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2019-10-23 17:25:51.274  INFO 19204 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2019-10-23 17:25:51.457  INFO 19204 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-10-23 17:25:51.468  WARN 19204 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2019-10-23 17:25:51.568  INFO 19204 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-10-23 17:25:51.569  INFO 19204 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Started UserServeApplication in 1.677 seconds (JVM running for 810.081)
-2019-10-23 17:25:51.571  INFO 19204 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2019-10-23 17:26:02.755  INFO 19204 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-10-23 17:26:02.756  INFO 19204 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-10-23 17:26:02.766  INFO 19204 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 10 ms
-2019-10-23 17:26:02.781  INFO 19204 --- [http-nio-8080-exec-1] c.b.f.user.services.ImplUserService      : forgetPassword logger
-2019-10-23 17:26:02.795  INFO 19204 --- [http-nio-8080-exec-1] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
-2019-10-23 17:27:02.106  INFO 19204 --- [http-nio-8080-exec-3] c.b.f.user.services.ImplUserService      : resetPassword logger
-2019-10-23 17:29:38.230  INFO 19204 --- [Thread-15] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-10-23 17:29:38.231  INFO 19204 --- [Thread-15] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2019-10-23 17:29:38.249  INFO 19204 --- [Thread-15] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
-2019-10-23 17:29:38.281  INFO 19204 --- [Thread-15] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
-2019-10-23 17:29:38.684  INFO 19204 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Starting UserServeApplication on FH400 with PID 19204 (started by user in /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/UserService)
-2019-10-23 17:29:38.684  INFO 19204 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : No active profile set, falling back to default profiles: default
-2019-10-23 17:29:39.080  INFO 19204 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-10-23 17:29:39.094  INFO 19204 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13ms. Found 1 repository interfaces.
-2019-10-23 17:29:39.160  INFO 19204 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$439131ce] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-10-23 17:29:39.253  INFO 19204 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2019-10-23 17:29:39.255  INFO 19204 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-10-23 17:29:39.256  INFO 19204 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.26]
-2019-10-23 17:29:39.273  INFO 19204 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-10-23 17:29:39.274  INFO 19204 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 585 ms
-2019-10-23 17:29:39.334  INFO 19204 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
-2019-10-23 17:29:39.343  INFO 19204 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
-2019-10-23 17:29:39.351  INFO 19204 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+2019-10-30 15:59:35.334  INFO 14211 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.12.Final}
+2019-10-30 15:59:35.343  INFO 14211 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-10-30 15:59:35.776  INFO 14211 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-10-30 15:59:36.314  INFO 14211 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-10-30 15:59:37.898  INFO 14211 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-10-30 15:59:38.034  WARN 14211 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2019-10-30 15:59:39.278  INFO 14211 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-30 15:59:39.392  WARN 14211 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-10-30 15:59:40.063 ERROR 14211 --- [restartedMain] org.apache.catalina.util.LifecycleBase   : Failed to start component [Connector[HTTP/1.1-8080]]
+
+org.apache.catalina.LifecycleException: Protocol handler start failed
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1008) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:183) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardService.addConnector(StandardService.java:227) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.addPreviouslyRemovedConnectors(TomcatWebServer.java:263) ~[spring-boot-2.1.9.RELEASE.jar:2.1.9.RELEASE]
+	at org.springframework.boot.web.embedded.tomcat.TomcatWebServer.start(TomcatWebServer.java:195) ~[spring-boot-2.1.9.RELEASE.jar:2.1.9.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.startWebServer(ServletWebServerApplicationContext.java:297) ~[spring-boot-2.1.9.RELEASE.jar:2.1.9.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.finishRefresh(ServletWebServerApplicationContext.java:163) ~[spring-boot-2.1.9.RELEASE.jar:2.1.9.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:552) ~[spring-context-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:141) ~[spring-boot-2.1.9.RELEASE.jar:2.1.9.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:744) ~[spring-boot-2.1.9.RELEASE.jar:2.1.9.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:391) ~[spring-boot-2.1.9.RELEASE.jar:2.1.9.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:312) ~[spring-boot-2.1.9.RELEASE.jar:2.1.9.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1215) ~[spring-boot-2.1.9.RELEASE.jar:2.1.9.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1204) ~[spring-boot-2.1.9.RELEASE.jar:2.1.9.RELEASE]
+	at com.bridgelabz.fundoo.user.UserServeApplication.main(UserServeApplication.java:19) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) ~[spring-boot-devtools-2.1.9.RELEASE.jar:2.1.9.RELEASE]
+Caused by: java.net.BindException: Address already in use
+	at java.base/sun.nio.ch.Net.bind0(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.bind(Net.java:461) ~[na:na]
+	at java.base/sun.nio.ch.Net.bind(Net.java:453) ~[na:na]
+	at java.base/sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:227) ~[na:na]
+	at java.base/sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:80) ~[na:na]
+	at org.apache.tomcat.util.net.NioEndpoint.initServerSocket(NioEndpoint.java:230) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.util.net.NioEndpoint.bind(NioEndpoint.java:213) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.util.net.AbstractEndpoint.bindWithCleanup(AbstractEndpoint.java:1124) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.util.net.AbstractEndpoint.start(AbstractEndpoint.java:1210) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.coyote.AbstractProtocol.start(AbstractProtocol.java:585) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.connector.Connector.startInternal(Connector.java:1005) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	... 19 common frames omitted
+
+2019-10-30 15:59:40.115  INFO 14211 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2019-10-30 15:59:40.173  INFO 14211 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-10-30 15:59:40.192 ERROR 14211 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The Tomcat connector configured to listen on port 8080 failed to start. The port may already be in use or the connector may be misconfigured.
+
+Action:
+
+Verify the connector's configuration, identify and stop any process that's listening on port 8080, or configure this application to listen on another port.
+
+2019-10-30 15:59:40.210  INFO 14211 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-10-30 15:59:40.214  INFO 14211 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-10-30 15:59:40.237  INFO 14211 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-10-30 15:59:40.282  INFO 14211 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-10-30 16:01:37.577  INFO 13891 --- [RMI TCP Connection(12)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2019-10-30 16:01:37.591  INFO 13891 --- [RMI TCP Connection(12)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-10-30 16:01:37.592  INFO 13891 --- [RMI TCP Connection(12)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-10-30 16:01:37.602  INFO 13891 --- [RMI TCP Connection(12)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-10-30 16:01:37.625  INFO 13891 --- [RMI TCP Connection(12)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-10-30 16:01:44.387  INFO 14471 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Starting UserServeApplication on FH400 with PID 14471 (started by user in /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService)
+2019-10-30 16:01:44.399  INFO 14471 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : No active profile set, falling back to default profiles: default
+2019-10-30 16:01:44.518  INFO 14471 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-10-30 16:01:44.519  INFO 14471 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-10-30 16:01:45.646  INFO 14471 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-10-30 16:01:45.730  INFO 14471 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 76ms. Found 1 repository interfaces.
+2019-10-30 16:01:46.229  INFO 14471 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$7a35de8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-30 16:01:47.025  INFO 14471 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2019-10-30 16:01:47.068  INFO 14471 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-10-30 16:01:47.069  INFO 14471 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.26]
+2019-10-30 16:01:47.410  INFO 14471 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-10-30 16:01:47.411  INFO 14471 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2892 ms
+2019-10-30 16:01:47.606  INFO 14471 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-10-30 16:01:47.760  INFO 14471 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-10-30 16:01:47.819  INFO 14471 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
 	name: default
 	...]
-2019-10-23 17:29:39.366  INFO 19204 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-2019-10-23 17:29:39.494  INFO 19204 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2019-10-23 17:29:39.554  INFO 19204 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2019-10-23 17:29:39.776  INFO 19204 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-10-23 17:29:39.787  WARN 19204 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2019-10-23 17:29:39.896  INFO 19204 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-10-23 17:29:39.902  INFO 19204 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Started UserServeApplication in 1.301 seconds (JVM running for 1038.415)
-2019-10-23 17:29:39.904  INFO 19204 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2019-10-23 17:29:43.443  INFO 19204 --- [RMI TCP Connection(21)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
-2019-10-23 17:29:43.453  INFO 19204 --- [RMI TCP Connection(21)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-10-23 17:29:43.454  INFO 19204 --- [RMI TCP Connection(21)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2019-10-23 17:29:43.457  INFO 19204 --- [RMI TCP Connection(21)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
-2019-10-23 17:29:43.480  INFO 19204 --- [RMI TCP Connection(21)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
-2019-10-23 19:16:18.884  INFO 24356 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Starting UserServeApplication on FH400 with PID 24356 (started by user in /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/UserService)
-2019-10-23 19:16:18.890  INFO 24356 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : No active profile set, falling back to default profiles: default
-2019-10-23 19:16:19.034  INFO 24356 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2019-10-23 19:16:19.036  INFO 24356 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2019-10-23 19:16:21.359  INFO 24356 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-10-23 19:16:21.443  INFO 24356 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 70ms. Found 1 repository interfaces.
-2019-10-23 19:16:22.190  INFO 24356 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$98631430] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-10-23 19:16:22.967  INFO 24356 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2019-10-23 19:16:23.003  INFO 24356 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-10-23 19:16:23.004  INFO 24356 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.26]
-2019-10-23 19:16:23.327  INFO 24356 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-10-23 19:16:23.328  INFO 24356 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4287 ms
-2019-10-23 19:16:23.681  INFO 24356 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2019-10-23 19:16:23.845  INFO 24356 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2019-10-23 19:16:23.911  INFO 24356 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+2019-10-30 16:01:47.879  INFO 14471 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.12.Final}
+2019-10-30 16:01:47.881  INFO 14471 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-10-30 16:01:48.065  INFO 14471 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-10-30 16:01:48.225  INFO 14471 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-10-30 16:01:49.084  INFO 14471 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-10-30 16:01:49.148  INFO 14471 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-10-30 16:01:49.769  INFO 14471 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-30 16:01:49.824  WARN 14471 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-10-30 16:01:50.151  INFO 14471 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2019-10-30 16:01:50.156  INFO 14471 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Started UserServeApplication in 6.412 seconds (JVM running for 8.565)
+2019-10-30 16:01:57.150  INFO 14471 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-30 16:01:57.152  INFO 14471 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-10-30 16:01:57.165  INFO 14471 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms
+2019-10-30 16:01:57.322  INFO 14471 --- [http-nio-8080-exec-1] c.b.f.user.services.ImplUserService      : registration logger
+2019-10-30 16:01:57.912  INFO 14471 --- [http-nio-8080-exec-1] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-10-30 16:06:20.075  INFO 14471 --- [http-nio-8080-exec-5] c.b.f.user.services.ImplUserService      : validate email logger
+2019-10-30 16:06:20.283 ERROR 14471 --- [http-nio-8080-exec-5] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException] with root cause
+
+java.lang.NullPointerException: null
+	at com.bridgelabz.fundoo.user.services.ImplUserService.lambda$1(ImplUserService.java:157) ~[classes/:na]
+	at java.base/java.util.stream.MatchOps$1MatchSink.accept(MatchOps.java:90) ~[na:na]
+	at java.base/java.util.ArrayList$ArrayListSpliterator.tryAdvance(ArrayList.java:1631) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEachWithCancel(ReferencePipeline.java:127) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyIntoWithCancel(AbstractPipeline.java:502) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:488) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474) ~[na:na]
+	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:230) ~[na:na]
+	at java.base/java.util.stream.MatchOps$MatchOp.evaluateSequential(MatchOps.java:196) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.anyMatch(ReferencePipeline.java:528) ~[na:na]
+	at com.bridgelabz.fundoo.user.services.ImplUserService.alreadyAvailable(ImplUserService.java:157) ~[classes/:na]
+	at com.bridgelabz.fundoo.user.services.ImplUserService.validateUser(ImplUserService.java:183) ~[classes/:na]
+	at com.bridgelabz.fundoo.user.controller.UserController.validateUser(UserController.java:109) ~[classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:105) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:893) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:798) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1040) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:943) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPut(FrameworkServlet.java:920) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:663) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883) ~[spring-webmvc-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:94) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119) ~[spring-web-5.1.10.RELEASE.jar:5.1.10.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:526) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:860) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1589) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.26.jar:9.0.26]
+	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+
+2019-10-30 16:08:32.742  WARN 14471 --- [http-nio-8080-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
+2019-10-30 16:08:45.625  INFO 14471 --- [http-nio-8080-exec-8] c.b.f.user.services.ImplUserService      : registration logger
+2019-10-30 16:09:19.796  INFO 14471 --- [http-nio-8080-exec-9] c.b.f.user.services.ImplUserService      : validate email logger
+2019-10-30 16:09:19.814  WARN 14471 --- [http-nio-8080-exec-9] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.bridgelabz.fundoo.user.exception.custom.ValidationException: This is an invalid link]
+2019-10-30 16:09:54.694  INFO 14471 --- [http-nio-8080-exec-3] c.b.f.user.services.ImplUserService      : validate email logger
+2019-10-30 16:11:54.242  INFO 14471 --- [RMI TCP Connection(14)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2019-10-30 16:11:54.254  INFO 14471 --- [RMI TCP Connection(14)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-10-30 16:11:54.255  INFO 14471 --- [RMI TCP Connection(14)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-10-30 16:11:54.263  INFO 14471 --- [RMI TCP Connection(14)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-10-30 16:11:54.293  INFO 14471 --- [RMI TCP Connection(14)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-10-30 16:43:32.313  INFO 16058 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Starting UserServeApplication on FH400 with PID 16058 (started by user in /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService)
+2019-10-30 16:43:32.324  INFO 16058 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : No active profile set, falling back to default profiles: default
+2019-10-30 16:43:32.461  INFO 16058 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-10-30 16:43:32.462  INFO 16058 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-10-30 16:43:33.685  INFO 16058 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-10-30 16:43:33.768  INFO 16058 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 73ms. Found 1 repository interfaces.
+2019-10-30 16:43:34.272  INFO 16058 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$c98ac21a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-30 16:43:34.772  INFO 16058 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2019-10-30 16:43:34.819  INFO 16058 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-10-30 16:43:34.820  INFO 16058 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.26]
+2019-10-30 16:43:35.003  INFO 16058 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-10-30 16:43:35.004  INFO 16058 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2541 ms
+2019-10-30 16:43:35.251  INFO 16058 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-10-30 16:43:35.418  INFO 16058 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-10-30 16:43:35.485  INFO 16058 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
 	name: default
 	...]
-2019-10-23 19:16:24.005  INFO 24356 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.12.Final}
-2019-10-23 19:16:24.007  INFO 24356 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
-2019-10-23 19:16:24.160  INFO 24356 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
-2019-10-23 19:16:24.521  INFO 24356 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-2019-10-23 19:16:25.172  INFO 24356 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2019-10-23 19:16:25.229  INFO 24356 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2019-10-23 19:16:26.508  INFO 24356 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-10-23 19:16:26.559  WARN 24356 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2019-10-23 19:16:27.166  INFO 24356 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2019-10-23 19:16:27.170  INFO 24356 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Started UserServeApplication in 10.172 seconds (JVM running for 12.775)
-2019-10-23 19:17:10.828  INFO 24356 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-10-23 19:17:10.829  INFO 24356 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-10-23 19:17:10.843  INFO 24356 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 13 ms
-2019-10-23 19:17:10.996  INFO 24356 --- [http-nio-8080-exec-2] c.b.f.user.services.ImplUserService      : registration logger
-2019-10-23 19:17:11.337  INFO 24356 --- [http-nio-8080-exec-2] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
-2019-10-23 19:18:08.659  WARN 24356 --- [http-nio-8080-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
-2019-10-23 19:18:14.104  INFO 24356 --- [http-nio-8080-exec-7] c.b.f.user.services.ImplUserService      : validate email logger
-2019-10-23 19:19:19.635  INFO 24356 --- [http-nio-8080-exec-10] c.b.f.user.services.ImplUserService      : login logger
-2019-10-23 19:19:43.106  INFO 24356 --- [http-nio-8080-exec-1] c.b.f.user.services.ImplUserService      : forgetPassword logger
-2019-10-23 19:20:34.711  INFO 24356 --- [http-nio-8080-exec-4] c.b.f.user.services.ImplUserService      : resetPassword logger
-2019-10-23 19:21:29.022  INFO 24356 --- [RMI TCP Connection(8)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
-2019-10-23 19:21:29.028  INFO 24356 --- [RMI TCP Connection(8)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-10-23 19:21:29.029  INFO 24356 --- [RMI TCP Connection(8)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2019-10-23 19:21:29.036  INFO 24356 --- [RMI TCP Connection(8)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2019-10-23 19:21:29.195  INFO 24356 --- [RMI TCP Connection(8)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-10-30 16:43:35.580  INFO 16058 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.12.Final}
+2019-10-30 16:43:35.589  INFO 16058 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-10-30 16:43:35.779  INFO 16058 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-10-30 16:43:35.937  INFO 16058 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-10-30 16:43:36.668  INFO 16058 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-10-30 16:43:36.748  INFO 16058 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-10-30 16:43:37.446  INFO 16058 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-30 16:43:37.496  WARN 16058 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-10-30 16:43:37.875  INFO 16058 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2019-10-30 16:43:37.880  INFO 16058 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Started UserServeApplication in 6.384 seconds (JVM running for 8.107)
+2019-10-30 16:44:00.747  INFO 16058 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-30 16:44:00.749  INFO 16058 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-10-30 16:44:00.764  INFO 16058 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 14 ms
+2019-10-30 16:44:00.902  INFO 16058 --- [http-nio-8080-exec-2] c.b.f.user.services.ImplUserService      : login logger
+2019-10-30 16:44:01.002  INFO 16058 --- [http-nio-8080-exec-2] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-10-30 16:44:24.226  INFO 16058 --- [RMI TCP Connection(3)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2019-10-30 16:44:24.235  INFO 16058 --- [RMI TCP Connection(3)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-10-30 16:44:24.242  INFO 16058 --- [RMI TCP Connection(3)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-10-30 16:44:24.251  INFO 16058 --- [RMI TCP Connection(3)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-10-30 16:44:24.269  INFO 16058 --- [RMI TCP Connection(3)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-10-30 17:11:30.215  INFO 17452 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Starting UserServeApplication on FH400 with PID 17452 (started by user in /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService)
+2019-10-30 17:11:30.226  INFO 17452 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : No active profile set, falling back to default profiles: default
+2019-10-30 17:11:30.386  INFO 17452 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-10-30 17:11:30.387  INFO 17452 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-10-30 17:11:31.913  INFO 17452 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-10-30 17:11:31.990  INFO 17452 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 68ms. Found 1 repository interfaces.
+2019-10-30 17:11:32.691  INFO 17452 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$9ff56f7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-30 17:11:33.283  INFO 17452 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2019-10-30 17:11:33.343  INFO 17452 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-10-30 17:11:33.344  INFO 17452 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.26]
+2019-10-30 17:11:33.577  INFO 17452 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-10-30 17:11:33.577  INFO 17452 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3190 ms
+2019-10-30 17:11:33.820  INFO 17452 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-10-30 17:11:33.994  INFO 17452 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-10-30 17:11:34.066  INFO 17452 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-10-30 17:11:34.136  INFO 17452 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.12.Final}
+2019-10-30 17:11:34.139  INFO 17452 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-10-30 17:11:34.359  INFO 17452 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-10-30 17:11:34.533  INFO 17452 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-10-30 17:11:35.161  INFO 17452 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-10-30 17:11:35.226  INFO 17452 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2019-10-30 17:11:35.847  INFO 17452 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-10-30 17:11:35.901  WARN 17452 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-10-30 17:11:36.529  INFO 17452 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2019-10-30 17:11:36.534  INFO 17452 --- [restartedMain] c.b.fundoo.user.UserServeApplication     : Started UserServeApplication in 7.124 seconds (JVM running for 8.913)
+2019-10-30 17:12:20.188  INFO 17452 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-30 17:12:20.190  INFO 17452 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-10-30 17:12:20.210  INFO 17452 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 20 ms
+2019-10-30 17:12:20.408  INFO 17452 --- [http-nio-8080-exec-2] c.b.f.user.services.ImplUserService      : login logger
+2019-10-30 17:12:20.535  INFO 17452 --- [http-nio-8080-exec-2] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-10-30 17:12:39.467  INFO 17452 --- [RMI TCP Connection(4)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2019-10-30 17:12:39.471  INFO 17452 --- [RMI TCP Connection(4)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-10-30 17:12:39.473  INFO 17452 --- [RMI TCP Connection(4)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-10-30 17:12:39.481  INFO 17452 --- [RMI TCP Connection(4)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-10-30 17:12:39.493  INFO 17452 --- [RMI TCP Connection(4)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

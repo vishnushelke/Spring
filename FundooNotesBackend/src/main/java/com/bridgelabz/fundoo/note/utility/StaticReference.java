@@ -24,6 +24,12 @@ public class StaticReference {
 	public static final String USER_NOT_FOUND = "User not found";
 
 	public static final String NOTE_NOT_FOUND = "Note not found";
+	
+	public static final String NOTE_NOT_TRASHED = "Note not trashed yet";
+	
+	public static final String LABEL_NOT_FOUND = "Label not found";
+	
+	public static final String NOTE_CANNOT_BE_CREATED = "Text and title both cannot be null";
 
 	// Label Messages
 	public static final String LABEL_SAVE_SUCCESS = "Label successfully created";
