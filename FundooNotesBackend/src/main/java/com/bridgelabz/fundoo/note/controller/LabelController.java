@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.fundoo.note.dto.AddLabelDto;
-import com.bridgelabz.fundoo.note.dto.CreateNoteDto;
 import com.bridgelabz.fundoo.note.model.Response;
 import com.bridgelabz.fundoo.note.services.ImplLabelService;
 
 @RestController
-@RequestMapping("/user/notes")
+@RequestMapping("/user/labels")
 public class LabelController {
 	
 	@Autowired
