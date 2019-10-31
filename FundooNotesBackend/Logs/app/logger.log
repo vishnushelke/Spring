@@ -4271,3 +4271,8 @@ Caused by: java.lang.Error: Unresolved compilation problems:
 2019-10-31 19:08:20.988  INFO 18598 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2019-10-31 19:08:20.994  INFO 18598 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 6 ms
 2019-10-31 19:08:21.006  INFO 18598 --- [http-nio-8080-exec-1] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-10-31 19:21:00.645  WARN 18598 --- [http-nio-8080-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1452, SQLState: 23000
+2019-10-31 19:21:00.649 ERROR 18598 --- [http-nio-8080-exec-6] o.h.engine.jdbc.spi.SqlExceptionHelper   : Cannot add or update a child row: a foreign key constraint fails (`userinfo`.`note_labels`, CONSTRAINT `FKf8408ubootr24v37iar84ux39` FOREIGN KEY (`labels_label_id`) REFERENCES `label` (`label_id`))
+2019-10-31 19:21:00.654  INFO 18598 --- [http-nio-8080-exec-6] o.h.e.j.b.internal.AbstractBatchImpl     : HHH000010: On release of batch it still contained JDBC statements
+2019-10-31 19:21:00.661 ERROR 18598 --- [http-nio-8080-exec-6] o.h.i.ExceptionMapperStandardImpl        : HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+2019-10-31 19:21:00.691  WARN 18598 --- [http-nio-8080-exec-6] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [null]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement]
