@@ -49,7 +49,8 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response createNote(CreateNoteDto createNoteDto) {
-		if((createNoteDto.getText()!=null && createNoteDto.getText()!=null) && (createNoteDto.getText().length()!=0 && createNoteDto.getTitle().length()!=0))
+		System.out.println(createNoteDto.getText().isBlank()+" "+createNoteDto.getText().isBlank());
+		if(!(createNoteDto.getText().isBlank() && createNoteDto.getText().isBlank()))
 		{
 			Note note = mapper.map(createNoteDto, Note.class);
 			repository.save(note);

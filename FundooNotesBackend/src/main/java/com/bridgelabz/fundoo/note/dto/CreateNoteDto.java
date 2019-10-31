@@ -1,6 +1,9 @@
 package com.bridgelabz.fundoo.note.dto;
 
 import java.util.Date;
+import java.util.List;
+
+import com.bridgelabz.fundoo.note.model.Label;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,5 +21,5 @@ public class CreateNoteDto {
 	private boolean archive;
 	private Date noteCreationDate;
 	private Date noteUpdationDate;
-
+	private List<Label> labels;
 }

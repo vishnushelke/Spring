@@ -1,12 +1,16 @@
 package com.bridgelabz.fundoo.note.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,12 +19,15 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Getter;
 import lombok.Setter;
+
 @Entity
 @Table(name = "note")
-@Setter
 @Getter
+@Setter
 public class Note {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,5 +47,8 @@ public class Note {
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date noteUpdationDate;
+	@JsonIgnoreProperties(value = "notes")
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	private List<Label> labels;
 
 }
