@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.bridgelabz.fundoo.note.model.Response;
+import com.bridgelabz.fundoo.note.userexception.AddNoteToLabelExcepion;
 import com.bridgelabz.fundoo.note.userexception.ArchiveNoteExcepion;
 import com.bridgelabz.fundoo.note.userexception.DeleteNoteExcepion;
 import com.bridgelabz.fundoo.note.userexception.GetNoteExcepion;
@@ -107,6 +108,16 @@ public class NoteGlobalException{
 	 */
 	@ExceptionHandler(SortByUpdationDateNoteExcepion.class)
 	public ResponseEntity<Response> sortByUpdationDateNoteException(Exception ex)
+	{
+		return new ResponseEntity<Response>(new Response(400, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
+	}
+	/**
+	 * purpose this is method is used to throw an exception when we get an exception while adding notes to label
+	 * @param ex Exception
+	 * @return Response according to the result
+	 */
+	@ExceptionHandler(AddNoteToLabelExcepion.class)
+	public ResponseEntity<Response> addNoteToLabelException(Exception ex)
 	{
 		return new ResponseEntity<Response>(new Response(400, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
 	}

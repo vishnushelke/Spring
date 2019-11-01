@@ -1,6 +1,7 @@
 package com.bridgelabz.fundoo.note.services;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -8,10 +9,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bridgelabz.fundoo.note.dto.AddNoteToLabelDto;
 import com.bridgelabz.fundoo.note.dto.CreateNoteDto;
 import com.bridgelabz.fundoo.note.dto.UpdateNoteDto;
+import com.bridgelabz.fundoo.note.model.Label;
 import com.bridgelabz.fundoo.note.model.Note;
 import com.bridgelabz.fundoo.note.model.Response;
+import com.bridgelabz.fundoo.note.repository.ILabelRepository;
 import com.bridgelabz.fundoo.note.repository.INoteRepository;
 import com.bridgelabz.fundoo.note.userexception.ArchiveNoteExcepion;
 import com.bridgelabz.fundoo.note.userexception.CreateNoteExcepion;
@@ -40,6 +44,9 @@ public class ImplNoteService implements INoteService {
 	@Autowired
 	private TokenUtility utility;
 
+	@Autowired
+	private ILabelRepository labelRepository;
+
 	/**
 	 * purpose: This method is used for creating a note in a database of a
 	 * particular user.
@@ -49,14 +56,13 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response createNote(CreateNoteDto createNoteDto) {
-		System.out.println(createNoteDto.getText().isBlank()+" "+createNoteDto.getText().isBlank());
-		if(!(createNoteDto.getText().isBlank() && createNoteDto.getText().isBlank()))
-		{
+		System.out.println(createNoteDto.getText().isBlank() + " " + createNoteDto.getText().isBlank());
+		if (!(createNoteDto.getText().isBlank() && createNoteDto.getText().isBlank())) {
 			Note note = mapper.map(createNoteDto, Note.class);
 			repository.save(note);
 			String tokenNoteId = Jwts.builder().setSubject(String.valueOf(note.getNoteId()))
 					.signWith(SignatureAlgorithm.HS256, "secretKey").compact();
-			return new Response(200, StaticReference.NOTE_SAVE_SUCCESS, tokenNoteId);	
+			return new Response(200, StaticReference.NOTE_SAVE_SUCCESS, tokenNoteId);
 		}
 		throw new CreateNoteExcepion(StaticReference.NOTE_CANNOT_BE_CREATED);
 	}
@@ -93,10 +99,9 @@ public class ImplNoteService implements INoteService {
 		if (!(repository.findAll().stream().anyMatch(i -> (i.getUserId() == userId) && i.getNoteId() == noteId))) {
 			throw new DeleteNoteExcepion(StaticReference.NOTE_NOT_FOUND);
 		}
-		if(repository.findAll().stream().anyMatch(i->i.getNoteId()==noteId && i.isTrash()))
-		{
+		if (repository.findAll().stream().anyMatch(i -> i.getNoteId() == noteId && i.isTrash())) {
 			repository.deleteById(noteId);
-			return new Response(200, StaticReference.NOTE_DELETE_SUCCESS, true);	
+			return new Response(200, StaticReference.NOTE_DELETE_SUCCESS, true);
 		}
 		throw new DeleteNoteExcepion(StaticReference.NOTE_NOT_TRASHED);
 	}
@@ -137,12 +142,9 @@ public class ImplNoteService implements INoteService {
 			throw new ArchiveNoteExcepion(StaticReference.NOTE_NOT_FOUND);
 		}
 		Note note = repository.findById(noteId).orElse(null);
-		if(note.isArchive())
-		{
+		if (note.isArchive()) {
 			note.setArchive(false);
-		}
-		else
-		{
+		} else {
 			note.setPin(false);
 			note.setArchive(true);
 		}
@@ -164,13 +166,10 @@ public class ImplNoteService implements INoteService {
 			throw new TrashNoteExcepion(StaticReference.NOTE_NOT_FOUND);
 		}
 		Note note = repository.findById(noteId).orElse(null);
-		if(note.isTrash())
-		{
-			
+		if (note.isTrash()) {
+
 			note.setTrash(false);
-		}
-		else
-		{
+		} else {
 			note.setPin(false);
 			note.setTrash(true);
 		}
@@ -192,12 +191,9 @@ public class ImplNoteService implements INoteService {
 			throw new PinNoteExcepion(StaticReference.NOTE_NOT_FOUND);
 		}
 		Note note = repository.findById(noteId).orElse(null);
-		if(note.isPin())
-		{
+		if (note.isPin()) {
 			note.setPin(false);
-		}
-		else
-		{
+		} else {
 			note.setArchive(false);
 			note.setPin(true);
 		}
@@ -241,6 +237,48 @@ public class ImplNoteService implements INoteService {
 				.sorted((Note n1, Note n2) -> n1.getNoteUpdationDate().compareTo(n2.getNoteUpdationDate())).parallel();
 
 		return new Response(200, StaticReference.NOTE_SORTED_UPDATION_DATE_SUCCESS, notes);
+	}
+
+	/**
+	 * purpose: This method is used for adding note of a particular user into label
+	 * 
+	 * @param noteId of the user whose notes to be sorted,addNoteToLabelDto Data
+	 *               transfer Object while adding note to labels
+	 * @return Response according to the result
+	 */
+	@Override
+	public Response addNoteToLabel(AddNoteToLabelDto addNoteToLabelDto, int noteId) {
+		List<Integer> labelIds = addNoteToLabelDto.getLabelId();
+		Note note = repository.findById(noteId).get();
+		List<Label> labels = note.getLabels();
+		for (int j = 0; j < labelIds.size(); j++) {
+			int labelId = labelIds.get(j);
+			if (labelRepository.existsById(labelId))
+				continue;
+			Label label = labelRepository.findById(labelId).get();
+			labels.add(label);
+		}
+		note.setLabels(labels);
+		repository.save(note);
+		return new Response(200, StaticReference.NOTE_ADDED_TO_LABEL, true);
+	}
+
+	public Response removeNoteFromLabel(AddNoteToLabelDto addNoteToLabelDto, int noteId) {
+		// TODO Auto-generated method stub
+		List<Integer> labelIds = addNoteToLabelDto.getLabelId();
+		Note note = repository.findById(noteId).get();
+		List<Label> labels = note.getLabels();
+		for (int j = 0; j < labelIds.size(); j++) {
+			int labelId = labelIds.get(j);
+			if (!labelRepository.existsById(labelId))
+				continue;
+//			Label label = labelRepository.findById(labelId).get();
+//			labels.add(label);
+			labels.remove(j);
+		}
+		note.setLabels(labels);
+		repository.save(note);
+		return new Response(200, StaticReference.NOTE_ADDED_TO_LABEL, true);
 	}
 
 }

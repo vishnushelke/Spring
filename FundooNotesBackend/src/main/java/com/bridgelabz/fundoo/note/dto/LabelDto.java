@@ -9,11 +9,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AddLabelDto {
+public class LabelDto {
 
 	@NotNull(message = "name cannot be null")
 	private String name;
 	private Date creationTime;
 	private Date updationTime;
-	
 }

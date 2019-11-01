@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bridgelabz.fundoo.note.dto.AddNoteToLabelDto;
 import com.bridgelabz.fundoo.note.dto.CreateNoteDto;
 import com.bridgelabz.fundoo.note.dto.UpdateNoteDto;
 import com.bridgelabz.fundoo.note.model.Response;
@@ -120,5 +121,29 @@ public class NoteController {
 	public ResponseEntity<Response> sortByTitle(@RequestHeader String tokenUserId)
 	{
 		return new ResponseEntity<Response>(service.sortNoteByTitle(tokenUserId),HttpStatus.OK);
+	}
+	/**
+	 * purpose: This method is used for adding note of a particular user into label
+	 * 
+	 * @param noteId of the user whose notes to be sorted,addNoteToLabelDto Data
+	 *               transfer Object while adding note to labels
+	 * @return Response according to the result
+	 */
+	@PutMapping("/addtolabel")
+	public ResponseEntity<Response> addNoteToLabel(@RequestHeader int noteId,@RequestBody AddNoteToLabelDto addNoteToLabelDto)
+	{
+		return new ResponseEntity<Response>(service.addNoteToLabel(addNoteToLabelDto,noteId),HttpStatus.OK);
+	}
+	/**
+	 * purpose: This method is used for removing note of a particular user from label
+	 * 
+	 * @param noteId of the user whose notes to be sorted,addNoteToLabelDto Data
+	 *               transfer Object while adding note to labels
+	 * @return Response according to the result
+	 */
+	@PutMapping("/removefromlabel")
+	public ResponseEntity<Response> removeNoteFromLabel(@RequestHeader int noteId,@RequestBody AddNoteToLabelDto addNoteToLabelDto)
+	{
+		return new ResponseEntity<Response>(service.removeNoteFromLabel(addNoteToLabelDto,noteId),HttpStatus.OK);
 	}
 }

@@ -19,6 +19,10 @@ public class StaticReference {
 	public static final String NOTE_SORTED_TITLE_SUCCESS = "Notes successfully sorted using title";
 
 	public static final String NOTE_SORTED_UPDATION_DATE_SUCCESS = "Notes successfully sorted using updateion Date";
+	
+	public static final String NOTE_ADDED_TO_LABEL = "Note successfully added in labels";
+	
+	public static final String NOTE_REMOVED_FROM_LABEL = "Note successfully removed from labels";
 
 	// Exception Messages
 	public static final String USER_NOT_FOUND = "User not found";
@@ -28,6 +32,8 @@ public class StaticReference {
 	public static final String NOTE_NOT_TRASHED = "Note not trashed yet";
 	
 	public static final String LABEL_NOT_FOUND = "Label not found";
+	
+	public static final String NOTE_CANNOT_ADD_TO_LABEL = "Label or note not found in database";
 	
 	public static final String NOTE_CANNOT_BE_CREATED = "Text and title both cannot be null";
 

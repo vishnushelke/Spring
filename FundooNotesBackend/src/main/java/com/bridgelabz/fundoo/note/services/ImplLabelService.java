@@ -4,7 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bridgelabz.fundoo.note.dto.AddLabelDto;
+import com.bridgelabz.fundoo.note.dto.LabelDto;
 import com.bridgelabz.fundoo.note.model.Response;
 import com.bridgelabz.fundoo.note.repository.ILabelRepository;
 import com.bridgelabz.fundoo.note.userexception.GetLabelExcepion;
@@ -33,7 +33,7 @@ public class ImplLabelService implements ILabelService {
 	 * @return Response according to the result
 	 */
 	@Override
-	public Response createLabel(AddLabelDto addLabelDto) {
+	public Response createLabel(LabelDto addLabelDto) {
 		Label label = mapper.map(addLabelDto, Label.class);
 		repository.save(label);
 		String tokenLabelId = utility.createToken(label.getLabelId());
@@ -64,12 +64,12 @@ public class ImplLabelService implements ILabelService {
 	 * @return Response according to the result
 	 */
 	@Override
-	public Response updateLabel(String tokenLabelId, AddLabelDto addLabelDto) {
+	public Response updateLabel(String tokenLabelId, LabelDto labelDto) {
 		int labelId = utility.getIdFromToken(tokenLabelId);
 		if (repository.findById(labelId) == null)
 			throw new GetLabelExcepion(StaticReference.LABEL_NOT_FOUND);
 		Label label = repository.findAll().stream().findAny().filter(i -> i.getLabelId() == labelId).orElse(null);
-		label.setName(addLabelDto.getName());
+		label.setName(labelDto.getName());
 		repository.save(label);
 		return new Response(200, StaticReference.LABEL_UPDATE_SUCCESS, label);
 	}

@@ -1,6 +1,6 @@
 package com.bridgelabz.fundoo.note.services;
 
-import com.bridgelabz.fundoo.note.dto.AddLabelDto;
+import com.bridgelabz.fundoo.note.dto.LabelDto;
 import com.bridgelabz.fundoo.note.model.Response;
 
 public interface ILabelService {
@@ -12,7 +12,7 @@ public interface ILabelService {
 	 * @param addLabelDto Data Transfer Object sent while creating a label
 	 * @return Response according to the result
 	 */
-	public Response createLabel(AddLabelDto addLabelDto);
+	public Response createLabel(LabelDto addLabelDto);
 	
 	/**
 	 * purpose: This method is used for displays label in a database of a particular
@@ -29,7 +29,7 @@ public interface ILabelService {
 	 * @param updateNoteDto Data Transfer Object sent while updating a label,tokenLabelId of a label
 	 * @return Response according to the result
 	 */
-	public Response updateLabel(String tokenLabelId,AddLabelDto addLabelDto);
+	public Response updateLabel(String tokenLabelId,LabelDto addLabelDto);
 	
 	/**
 	 * purpose: This method is used for updating a particular label in a database.

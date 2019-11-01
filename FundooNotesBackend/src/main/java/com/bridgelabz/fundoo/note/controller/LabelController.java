@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bridgelabz.fundoo.note.dto.AddLabelDto;
+import com.bridgelabz.fundoo.note.dto.LabelDto;
 import com.bridgelabz.fundoo.note.model.Response;
 import com.bridgelabz.fundoo.note.services.ImplLabelService;
 
@@ -31,7 +31,7 @@ public class LabelController {
 	 * @return Response according to the result
 	 */
 	@PostMapping
-	public ResponseEntity<Response> createLabel(@RequestBody AddLabelDto addLabelDto) {
+	public ResponseEntity<Response> createLabel(@RequestBody LabelDto addLabelDto) {
 		return new ResponseEntity<Response>(service.createLabel(addLabelDto), HttpStatus.OK);
 	}
 
@@ -54,7 +54,7 @@ public class LabelController {
 	 * @return Response according to the result
 	 */
 	@PutMapping
-	public ResponseEntity<Response> updateLabel(@RequestHeader String tokenLabelId, @RequestBody AddLabelDto addLabelDto) {
+	public ResponseEntity<Response> updateLabel(@RequestHeader String tokenLabelId, @RequestBody LabelDto addLabelDto) {
 		return new ResponseEntity<Response>(service.updateLabel(tokenLabelId, addLabelDto), HttpStatus.OK);
 	}
 

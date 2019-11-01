@@ -1,5 +1,6 @@
 package com.bridgelabz.fundoo.note.services;
 
+import com.bridgelabz.fundoo.note.dto.AddNoteToLabelDto;
 import com.bridgelabz.fundoo.note.dto.CreateNoteDto;
 import com.bridgelabz.fundoo.note.dto.UpdateNoteDto;
 import com.bridgelabz.fundoo.note.model.Response;
@@ -68,4 +69,21 @@ public interface INoteService {
 	 * @return Response according to the result
 	 */
 	public Response sortNoteByUpdationDate(String token);
+	
+	/**
+	 * purpose: This method is used for adding note of a particular user into label
+	 * 
+	 * @param noteId of the user whose notes to be sorted,addNoteToLabelDto Data
+	 *               transfer Object while adding note to labels
+	 * @return Response according to the result
+	 */
+	public Response addNoteToLabel(AddNoteToLabelDto addNoteToLabelDto,int noteId);
+	/**
+	 * purpose: This method is used for removing note of a particular user from label
+	 * 
+	 * @param noteId of the user whose notes to be sorted,addNoteToLabelDto Data
+	 *               transfer Object while adding note to labels
+	 * @return Response according to the result
+	 */
+	public Response removeNoteFromLabel(AddNoteToLabelDto addNoteToLabelDto, int noteId);
 }
