@@ -22,7 +22,11 @@ public class StaticReference {
 	
 	public static final String NOTE_ADDED_TO_LABEL = "Note successfully added in labels";
 	
+	public static final String NOTE_ALREADY_ADDED_TO_LABEL = "Note is already added in labels";
+	
 	public static final String NOTE_REMOVED_FROM_LABEL = "Note successfully removed from labels";
+	
+	public static final String REMINDER_SET_SUCCES = "Reminder set successfully";
 
 	// Exception Messages
 	public static final String USER_NOT_FOUND = "User not found";

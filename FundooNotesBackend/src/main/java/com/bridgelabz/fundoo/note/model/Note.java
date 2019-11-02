@@ -1,5 +1,6 @@
 package com.bridgelabz.fundoo.note.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -21,13 +22,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.Getter;
-import lombok.Setter;
-
+import lombok.Data;
 @Entity
 @Table(name = "note")
-@Getter
-@Setter
+@Data
 public class Note {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +39,7 @@ public class Note {
 	private boolean trash;
 	private boolean pin;
 	private boolean archive;
+	private LocalDateTime reminder;
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date noteCreationDate;

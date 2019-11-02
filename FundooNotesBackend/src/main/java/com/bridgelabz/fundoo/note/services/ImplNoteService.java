@@ -1,15 +1,22 @@
 package com.bridgelabz.fundoo.note.services;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
-import com.bridgelabz.fundoo.note.dto.AddNoteToLabelDto;
 import com.bridgelabz.fundoo.note.dto.CreateNoteDto;
 import com.bridgelabz.fundoo.note.dto.UpdateNoteDto;
 import com.bridgelabz.fundoo.note.model.Label;
@@ -56,7 +63,6 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response createNote(CreateNoteDto createNoteDto) {
-		System.out.println(createNoteDto.getText().isBlank() + " " + createNoteDto.getText().isBlank());
 		if (!(createNoteDto.getText().isBlank() && createNoteDto.getText().isBlank())) {
 			Note note = mapper.map(createNoteDto, Note.class);
 			repository.save(note);
@@ -93,9 +99,8 @@ public class ImplNoteService implements INoteService {
 	 * @return Response according to the result
 	 */
 	@Override
-	public Response deleteNote(String tokenUserId, String tokenNoteId) {
+	public Response deleteNote(String tokenUserId, int noteId) {
 		int userId = utility.getIdFromToken(tokenUserId);
-		int noteId = utility.getIdFromToken(tokenNoteId);
 		if (!(repository.findAll().stream().anyMatch(i -> (i.getUserId() == userId) && i.getNoteId() == noteId))) {
 			throw new DeleteNoteExcepion(StaticReference.NOTE_NOT_FOUND);
 		}
@@ -113,11 +118,9 @@ public class ImplNoteService implements INoteService {
 	 * @return Response according to the result
 	 */
 	@Override
-	public Response updateNote(UpdateNoteDto updateNoteDto, String tokenUserId, String tokenNoteId) {
+	public Response updateNote(UpdateNoteDto updateNoteDto, String tokenUserId, int noteId) {
 
 		int userId = utility.getIdFromToken(tokenUserId);
-		int noteId = utility.getIdFromToken(tokenNoteId);
-
 		if (!(repository.findAll().stream().anyMatch(i -> (i.getNoteId() == noteId) && i.getUserId() == userId))) {
 			throw new UpdateNoteExcepion(StaticReference.NOTE_NOT_FOUND);
 		}
@@ -136,8 +139,7 @@ public class ImplNoteService implements INoteService {
 	 * @return Response according to the result
 	 */
 	@Override
-	public Response archiveUnarchiveNote(String tokenNoteId, String tokenUserId) {
-		int noteId = utility.getIdFromToken(tokenNoteId);
+	public Response archiveUnarchiveNote(int noteId, String tokenUserId) {
 		if (repository.findById(noteId).isEmpty()) {
 			throw new ArchiveNoteExcepion(StaticReference.NOTE_NOT_FOUND);
 		}
@@ -160,8 +162,7 @@ public class ImplNoteService implements INoteService {
 	 * @return Response according to the result
 	 */
 	@Override
-	public Response trashUntrashNote(String tokenNoteId, String tokenUserId) {
-		int noteId = utility.getIdFromToken(tokenNoteId);
+	public Response trashUntrashNote(int noteId, String tokenUserId) {
 		if (repository.findById(noteId).isEmpty()) {
 			throw new TrashNoteExcepion(StaticReference.NOTE_NOT_FOUND);
 		}
@@ -185,8 +186,7 @@ public class ImplNoteService implements INoteService {
 	 * @return Response according to the result
 	 */
 	@Override
-	public Response pinUnpinNote(String tokenNoteId, String tokenUserId) {
-		int noteId = utility.getIdFromToken(tokenNoteId);
+	public Response pinUnpinNote(int noteId, String tokenUserId) {
 		if (repository.findById(noteId).isEmpty()) {
 			throw new PinNoteExcepion(StaticReference.NOTE_NOT_FOUND);
 		}
@@ -247,38 +247,60 @@ public class ImplNoteService implements INoteService {
 	 * @return Response according to the result
 	 */
 	@Override
-	public Response addNoteToLabel(AddNoteToLabelDto addNoteToLabelDto, int noteId) {
-		List<Integer> labelIds = addNoteToLabelDto.getLabelId();
+	public Response addNoteToLabel(int labelId, int noteId, String tokenUserId) {
+		if (!(repository.existsById(utility.getIdFromToken(tokenUserId))))
+			return new Response(200, StaticReference.USER_NOT_FOUND, false);
 		Note note = repository.findById(noteId).get();
 		List<Label> labels = note.getLabels();
-		for (int j = 0; j < labelIds.size(); j++) {
-			int labelId = labelIds.get(j);
-			if (labelRepository.existsById(labelId))
-				continue;
-			Label label = labelRepository.findById(labelId).get();
-			labels.add(label);
+		for (int i = 0; i < labels.size(); i++) {
+			if (labels.get(i).getLabelId() == labelId) {
+				return new Response(200, StaticReference.NOTE_ALREADY_ADDED_TO_LABEL, false);
+			}
 		}
+		Label label = labelRepository.findById(labelId).get();
+		labels.add(label);
 		note.setLabels(labels);
 		repository.save(note);
 		return new Response(200, StaticReference.NOTE_ADDED_TO_LABEL, true);
 	}
 
-	public Response removeNoteFromLabel(AddNoteToLabelDto addNoteToLabelDto, int noteId) {
-		// TODO Auto-generated method stub
-		List<Integer> labelIds = addNoteToLabelDto.getLabelId();
+	/**
+	 * purpose: This method is used for removing note of a particular user from
+	 * label
+	 * 
+	 * @param noteId of the user whose notes to be sorted,addNoteToLabelDto Data
+	 *               transfer Object while adding note to labels
+	 * @return Response according to the result
+	 */
+
+	public Response removeNoteFromLabel(int labelId, int noteId, String tokenUserId) {
+		if (!(repository.existsById(utility.getIdFromToken(tokenUserId))))
+			return new Response(200, StaticReference.USER_NOT_FOUND, false);
 		Note note = repository.findById(noteId).get();
 		List<Label> labels = note.getLabels();
-		for (int j = 0; j < labelIds.size(); j++) {
-			int labelId = labelIds.get(j);
-			if (!labelRepository.existsById(labelId))
-				continue;
-//			Label label = labelRepository.findById(labelId).get();
-//			labels.add(label);
-			labels.remove(j);
-		}
+		labels.removeIf(i -> i.getLabelId() == labelId);
 		note.setLabels(labels);
 		repository.save(note);
-		return new Response(200, StaticReference.NOTE_ADDED_TO_LABEL, true);
+		return new Response(200, StaticReference.NOTE_REMOVED_FROM_LABEL, true);
+	}
+
+	/**
+	 * purpose: This method is used for adding a reminder of note of a particular
+	 * 			user
+	 * 
+	 * @param noteId of the note whose reminder is to be added
+	 * 
+	 * @return Response according to the result
+	 */
+	@Override
+	public Response addReminder(LocalDateTime reminderTime,int noteId,String tokenUserId) {
+		if(!(repository.existsById(utility.getIdFromToken(tokenUserId))))
+			return new Response(200, StaticReference.USER_NOT_FOUND, false);
+
+		Note note = repository.findById(noteId).get();
+		note.setReminder(reminderTime);
+		repository.save(note);
+		return new Response(200, StaticReference.REMINDER_SET_SUCCES, false);
 	}
 
 }

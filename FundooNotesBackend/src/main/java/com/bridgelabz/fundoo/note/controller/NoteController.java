@@ -1,18 +1,24 @@
 package com.bridgelabz.fundoo.note.controller;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bridgelabz.fundoo.note.dto.AddNoteToLabelDto;
 import com.bridgelabz.fundoo.note.dto.CreateNoteDto;
 import com.bridgelabz.fundoo.note.dto.UpdateNoteDto;
 import com.bridgelabz.fundoo.note.model.Response;
@@ -53,9 +59,9 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@DeleteMapping
-	public ResponseEntity<Response> deleteNote(@RequestHeader String tokenUserId,@RequestHeader String tokenNoteId)
+	public ResponseEntity<Response> deleteNote(@RequestHeader String tokenUserId,@RequestHeader int noteId)
 	{
-		return new ResponseEntity<Response>(service.deleteNote(tokenUserId,tokenNoteId),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.deleteNote(tokenUserId,noteId),HttpStatus.OK);
 	}
 	
 	/**
@@ -64,9 +70,9 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@PutMapping
-	public ResponseEntity<Response> updateNote(@RequestBody UpdateNoteDto updateNoteDto,@RequestHeader String tokenUserId,@RequestHeader String tokenNoteId)
+	public ResponseEntity<Response> updateNote(@RequestBody UpdateNoteDto updateNoteDto,@RequestHeader String tokenUserId,@RequestHeader int noteId)
 	{
-		return new ResponseEntity<Response>(service.updateNote(updateNoteDto,tokenUserId,tokenNoteId),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.updateNote(updateNoteDto,tokenUserId,noteId),HttpStatus.OK);
 	}
 	
 	/**
@@ -75,9 +81,9 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@PutMapping("/archive")
-	public ResponseEntity<Response> archieveNote(@RequestHeader String tokenNoteId,@RequestHeader String tokenUserId )
+	public ResponseEntity<Response> archieveNote(@RequestHeader int noteId,@RequestHeader String tokenUserId )
 	{
-		return new ResponseEntity<Response>(service.archiveUnarchiveNote(tokenNoteId,tokenUserId),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.archiveUnarchiveNote(noteId,tokenUserId),HttpStatus.OK);
 	}
 	
 	/**
@@ -86,9 +92,9 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@PutMapping("/pin")
-	public ResponseEntity<Response> pinNote(@RequestHeader String tokenNoteId,@RequestHeader String tokenUserId)
+	public ResponseEntity<Response> pinNote(@RequestHeader int noteId,@RequestHeader String tokenUserId)
 	{
-		return new ResponseEntity<Response>(service.pinUnpinNote(tokenNoteId,tokenUserId),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.pinUnpinNote(noteId,tokenUserId),HttpStatus.OK);
 	}
 	/**
 	 * purpose: This method is used for moving/removing a particular note in a trash. 
@@ -96,9 +102,9 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@PutMapping("/trash")
-	public ResponseEntity<Response> trashNote(@RequestHeader String tokenNoteId,@RequestHeader String tokenUserId)
+	public ResponseEntity<Response> trashNote(@RequestHeader int noteId,@RequestHeader String tokenUserId)
 	{
-		return new ResponseEntity<Response>(service.trashUntrashNote(tokenNoteId,tokenUserId),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.trashUntrashNote(noteId,tokenUserId),HttpStatus.OK);
 	}
 	
 	/**
@@ -130,9 +136,9 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@PutMapping("/addtolabel")
-	public ResponseEntity<Response> addNoteToLabel(@RequestHeader int noteId,@RequestBody AddNoteToLabelDto addNoteToLabelDto)
+	public ResponseEntity<Response> addNoteToLabel(@RequestHeader int noteId,@RequestHeader int labelId,@RequestHeader String tokenUserId)
 	{
-		return new ResponseEntity<Response>(service.addNoteToLabel(addNoteToLabelDto,noteId),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.addNoteToLabel(labelId,noteId,tokenUserId),HttpStatus.OK);
 	}
 	/**
 	 * purpose: This method is used for removing note of a particular user from label
@@ -142,8 +148,23 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@PutMapping("/removefromlabel")
-	public ResponseEntity<Response> removeNoteFromLabel(@RequestHeader int noteId,@RequestBody AddNoteToLabelDto addNoteToLabelDto)
+	public ResponseEntity<Response> removeNoteFromLabel(@RequestHeader int noteId,@RequestHeader int labelId,@RequestHeader String tokenUserId)
 	{
-		return new ResponseEntity<Response>(service.removeNoteFromLabel(addNoteToLabelDto,noteId),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.removeNoteFromLabel(labelId,noteId,tokenUserId),HttpStatus.OK);
 	}
+	
+	/**
+	 * purpose: This method is used for adding a reminder of note of a particular
+	 * 			user
+	 * 
+	 * @param noteId of the note whose reminder is to be added
+	 * 
+	 * @return Response according to the result
+	 */
+	@PutMapping("/addreminder")
+	public ResponseEntity<Response> addReminder(@RequestHeader int noteId,@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime reminderTime,@RequestHeader String tokenUserId)
+	{
+		return new ResponseEntity<Response>(service.addReminder(reminderTime,noteId,tokenUserId),HttpStatus.OK);
+	}
+	 
 }
