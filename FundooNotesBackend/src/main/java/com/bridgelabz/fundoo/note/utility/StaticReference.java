@@ -27,6 +27,10 @@ public class StaticReference {
 	public static final String NOTE_REMOVED_FROM_LABEL = "Note successfully removed from labels";
 	
 	public static final String REMINDER_SET_SUCCES = "Reminder set successfully";
+	
+	public static final String REMINDER_UPDATE_SUCCES = "Reminder updated successfully";
+	
+	public static final String REMINDER_REMOVE_SUCCES = "Reminder removed successfully";
 
 	// Exception Messages
 	public static final String USER_NOT_FOUND = "User not found";
@@ -49,4 +53,6 @@ public class StaticReference {
 	public static final String LABEL_DELETE_SUCCESS = "Label deleted successfully";
 
 	public static final String LABEL_UPDATE_SUCCESS = "Label updated successfully";
+	
+	public static final String LABEL_ALREADY_AVAILABLE = "Label already available";
 }

@@ -1,21 +1,15 @@
 package com.bridgelabz.fundoo.note.services;
 
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.bridgelabz.fundoo.note.dto.CreateNoteDto;
 import com.bridgelabz.fundoo.note.dto.UpdateNoteDto;
@@ -140,9 +134,8 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response archiveUnarchiveNote(int noteId, String tokenUserId) {
-		if (repository.findById(noteId).isEmpty()) {
-			throw new ArchiveNoteExcepion(StaticReference.NOTE_NOT_FOUND);
-		}
+		if(!(repository.findById(noteId).get().getUserId()==utility.getIdFromToken(tokenUserId)))
+			return new Response(200, StaticReference.USER_NOT_FOUND, false);
 		Note note = repository.findById(noteId).orElse(null);
 		if (note.isArchive()) {
 			note.setArchive(false);
@@ -163,9 +156,8 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response trashUntrashNote(int noteId, String tokenUserId) {
-		if (repository.findById(noteId).isEmpty()) {
-			throw new TrashNoteExcepion(StaticReference.NOTE_NOT_FOUND);
-		}
+		if(!(repository.findById(noteId).get().getUserId()==utility.getIdFromToken(tokenUserId)))
+			return new Response(200, StaticReference.USER_NOT_FOUND, false);
 		Note note = repository.findById(noteId).orElse(null);
 		if (note.isTrash()) {
 
@@ -187,9 +179,8 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response pinUnpinNote(int noteId, String tokenUserId) {
-		if (repository.findById(noteId).isEmpty()) {
-			throw new PinNoteExcepion(StaticReference.NOTE_NOT_FOUND);
-		}
+		if(!(repository.findById(noteId).get().getUserId()==utility.getIdFromToken(tokenUserId)))
+			return new Response(200, StaticReference.USER_NOT_FOUND, false);
 		Note note = repository.findById(noteId).orElse(null);
 		if (note.isPin()) {
 			note.setPin(false);
@@ -248,7 +239,7 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response addNoteToLabel(int labelId, int noteId, String tokenUserId) {
-		if (!(repository.existsById(utility.getIdFromToken(tokenUserId))))
+		if(!(repository.findById(noteId).get().getUserId()==utility.getIdFromToken(tokenUserId)))
 			return new Response(200, StaticReference.USER_NOT_FOUND, false);
 		Note note = repository.findById(noteId).get();
 		List<Label> labels = note.getLabels();
@@ -274,7 +265,7 @@ public class ImplNoteService implements INoteService {
 	 */
 
 	public Response removeNoteFromLabel(int labelId, int noteId, String tokenUserId) {
-		if (!(repository.existsById(utility.getIdFromToken(tokenUserId))))
+		if(!(repository.findById(noteId).get().getUserId()==utility.getIdFromToken(tokenUserId)))
 			return new Response(200, StaticReference.USER_NOT_FOUND, false);
 		Note note = repository.findById(noteId).get();
 		List<Label> labels = note.getLabels();
@@ -294,13 +285,61 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response addReminder(LocalDateTime reminderTime,int noteId,String tokenUserId) {
-		if(!(repository.existsById(utility.getIdFromToken(tokenUserId))))
+		if(!(repository.findById(noteId).get().getUserId()==utility.getIdFromToken(tokenUserId)))
 			return new Response(200, StaticReference.USER_NOT_FOUND, false);
-
 		Note note = repository.findById(noteId).get();
 		note.setReminder(reminderTime);
 		repository.save(note);
 		return new Response(200, StaticReference.REMINDER_SET_SUCCES, false);
+	}
+
+	/**
+	 * purpose: This method is used for updating a reminder of note of a particular
+	 * 			user
+	 * 
+	 * @param noteId of the note whose reminder is to be updated
+	 * 
+	 * @return Response according to the result
+	 */
+	@Override
+	public Response updateReminder(LocalDateTime reminderTime, int noteId, String tokenUserId) {
+		if(!(repository.findById(noteId).get().getUserId()==utility.getIdFromToken(tokenUserId)))
+			return new Response(200, StaticReference.USER_NOT_FOUND, false);
+		Note note = repository.findById(noteId).get();
+		note.setReminder(reminderTime);
+		repository.save(note);
+		return new Response(200, StaticReference.LABEL_UPDATE_SUCCESS, false);
+	}
+
+	/**
+	 * purpose: This method is used for removing a reminder of note of a particular
+	 * 			user
+	 * 
+	 * @param noteId of the note whose reminder is to be removed
+	 * 
+	 * @return Response according to the result
+	 */
+	@Override
+	public Response removeReminder(int noteId, String tokenUserId) {
+		if(!(repository.findById(noteId).get().getUserId()==utility.getIdFromToken(tokenUserId)))
+			return new Response(200, StaticReference.USER_NOT_FOUND, false);
+		Note note = repository.findById(noteId).get();
+		note.setReminder(null);
+		repository.save(note);
+		return new Response(200, StaticReference.REMINDER_REMOVE_SUCCES, false);
+	}
+
+	/**
+	 * purpose: This method is used for adding an image to note of a particular
+	 * 			user
+	 * 
+	 * @param noteId of the note in which image is to be added
+	 * 
+	 * @return Response according to the result
+	 */
+	public Response addImage(String filePath) {
+		
+		return null;
 	}
 
 }

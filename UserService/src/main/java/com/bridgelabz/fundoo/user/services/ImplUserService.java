@@ -7,6 +7,10 @@
 ******************************************************************************/
 package com.bridgelabz.fundoo.user.services;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Date;
 import com.bridgelabz.fundoo.user.dto.ForgetDto;
 import com.bridgelabz.fundoo.user.dto.LoginDto;
@@ -22,6 +26,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.bridgelabz.fundoo.user.model.User;
 import com.bridgelabz.fundoo.user.repository.UserConfig;
 import com.bridgelabz.fundoo.user.repository.UserRepository;
@@ -48,7 +55,7 @@ public class ImplUserService implements IUserService {
 
 	@Autowired
 	ModelMapper mapper;
-	
+
 	/**
 	 * purpose: This is service method for user registration
 	 * 
@@ -56,7 +63,6 @@ public class ImplUserService implements IUserService {
 	 * 
 	 * @return Response to your action
 	 */
-
 
 	@Override
 	public Response registerUser(RegisterDto registerDTO) {
@@ -68,7 +74,7 @@ public class ImplUserService implements IUserService {
 			SimpleMailMessage message = utility.getMessage();
 			System.out.println(message.getFrom());
 			message.setSubject(StaticReference.REGISTRATION_RESPONSE);
-			message.setText(StaticReference.REGISTRATION_MAIL_TEXT+ token);
+			message.setText(StaticReference.REGISTRATION_MAIL_TEXT + token);
 			mailSender.send(message);
 			repository.save(user);
 
@@ -91,8 +97,10 @@ public class ImplUserService implements IUserService {
 	public Response loginUser(LoginDto loginDTO) {
 		System.out.println(loginDTO.getEmail() + " " + loginDTO.getPassword().length());
 		if (!(loginDTO.getEmail().equals(null) || loginDTO.getPassword().length() < 6)) {
-			User user = repository.findAll().stream().filter(i->i.getEmail().equals(loginDTO.getEmail())).findAny().get();
-			String token = Jwts.builder().setSubject(String.valueOf(user.getId())).signWith(SignatureAlgorithm.HS256, "secretKey").compact();
+			User user = repository.findAll().stream().filter(i -> i.getEmail().equals(loginDTO.getEmail())).findAny()
+					.get();
+			String token = Jwts.builder().setSubject(String.valueOf(user.getUId()))
+					.signWith(SignatureAlgorithm.HS256, "secretKey").compact();
 			return new Response(200, StaticReference.LOGIN_SUCCESS, token);
 		} else {
 			throw new LoginException(StaticReference.LOGIN_FAIL);
@@ -115,7 +123,7 @@ public class ImplUserService implements IUserService {
 					.signWith(SignatureAlgorithm.HS256, StaticReference.SECRET_KEY).compact();
 			SimpleMailMessage message = utility.getMessage();
 			message.setSubject(StaticReference.FORGET_PASSWORD_RESPONSE);
-			message.setText(StaticReference.FORGET_MAIL_TEXT +token);
+			message.setText(StaticReference.FORGET_MAIL_TEXT + token);
 			mailSender.send(message);
 			return new Response(200, StaticReference.FORGET_ACTION_SUCCESS, true);
 		} else {
@@ -158,7 +166,8 @@ public class ImplUserService implements IUserService {
 	}
 
 	/**
-	 * purpose: This method will check if email is registered or not and gives that user object
+	 * purpose: This method will check if email is registered or not and gives that
+	 * user object
 	 * 
 	 * @param emailId
 	 * 
@@ -189,6 +198,49 @@ public class ImplUserService implements IUserService {
 			throw new ValidationException(StaticReference.INVALID_LINK);
 		}
 
+	}
+
+	/**
+	 * purpose: This is service method for uploading profile picture of User
+	 * 
+	 * @param token
+	 * 
+	 * @return Response to your action
+	 */
+	@Override
+	public Response addProfile(String path, String token) {
+		// TODO Auto-generated method stub
+
+		Claims claim = Jwts.parser().setSigningKey(StaticReference.SECRET_KEY).parseClaimsJws(token).getBody();
+		int userId = Integer.parseInt(claim.getSubject());
+		User user = repository.findAll().stream().filter(i -> i.getUId() == userId).findAny().get();
+		user.setProfilePicture(path);
+		repository.save(user);
+		return new Response(200, StaticReference.PROFILE_PICTURE_SUCCESS, user);
+	}
+
+	@Override
+	public Response getProfile(String token) {
+		// TODO Auto-generated method stub
+		Claims claim = Jwts.parser().setSigningKey(StaticReference.SECRET_KEY).parseClaimsJws(token).getBody();
+		int userId = Integer.parseInt(claim.getSubject());
+		return new Response(200, StaticReference.PROFILE_PICTURE_SUCCESS,
+				repository.findById(userId).get().getProfilePicture());
+	}
+
+	public String upload(Model model, MultipartFile[] files) {
+		StringBuilder fileNames = new StringBuilder();
+		for (MultipartFile file : files) {
+			Path fileNameAndPath = Paths.get(System.getProperty("user.dir" + "/uploads"), file.getOriginalFilename());
+			fileNames.append(file.getOriginalFilename() + " ");
+			try {
+				Files.write(fileNameAndPath, file.getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		model.addAttribute("msg", "Successfully uploaded files " + fileNames.toString());
+		return "uploadstatusview";
 	}
 
 }

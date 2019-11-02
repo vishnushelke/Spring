@@ -61,4 +61,21 @@ public interface IUserService {
 	 */
 	public Response validateUser(String token);
 
+	/**
+	 * purpose: This is service method for uploading profile picture of User
+	 * 
+	 * @param token
+	 * 
+	 * @return Response to your action
+	 */
+	public Response addProfile(String path,String token);
+	
+	/**
+	 * purpose: This is service method for getting profile picture of User
+	 * 
+	 * @param token
+	 * 
+	 * @return Response to your action
+	 */
+	public Response getProfile(String token);
 }

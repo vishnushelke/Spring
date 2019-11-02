@@ -1,16 +1,13 @@
 package com.bridgelabz.fundoo.note.controller;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -166,5 +163,45 @@ public class NoteController {
 	{
 		return new ResponseEntity<Response>(service.addReminder(reminderTime,noteId,tokenUserId),HttpStatus.OK);
 	}
-	 
+	
+	/**
+	 * purpose: This method is used for updating a reminder of note of a particular
+	 * 			user
+	 * 
+	 * @param noteId of the note whose reminder is to be added
+	 * 
+	 * @return Response according to the result
+	 */
+	@PutMapping("/updatereminder")
+	public ResponseEntity<Response> updateReminder(@RequestHeader int noteId,@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime reminderTime,@RequestHeader String tokenUserId)
+	{
+		return new ResponseEntity<Response>(service.updateReminder(reminderTime,noteId,tokenUserId),HttpStatus.OK);
+	}
+	/**
+	 * purpose: This method is used for updating a reminder of note of a particular
+	 * 			user
+	 * 
+	 * @param noteId of the note whose reminder is to be added
+	 * 
+	 * @return Response according to the result
+	 */
+	@PutMapping("/removereminder")
+	public ResponseEntity<Response> removeReminder(@RequestHeader int noteId,@RequestHeader String tokenUserId)
+	{
+		return new ResponseEntity<Response>(service.removeReminder(noteId,tokenUserId),HttpStatus.OK);
+	}
+
+	/**
+	 * purpose: This method is used for updating a reminder of note of a particular
+	 * 			user
+	 * 
+	 * @param noteId of the note whose reminder is to be added
+	 * 
+	 * @return Response according to the result
+	 */
+	@PutMapping("/removereminder")
+	public ResponseEntity<Response> addImage(@RequestParam String filePath,@RequestHeader String tokenUserId)
+	{
+		return new ResponseEntity<Response>(service.addImage(filePath),HttpStatus.OK);
+	}
 }

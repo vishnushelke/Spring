@@ -39,6 +39,10 @@ public class StaticReference {
 	
 	public static final String FORGET_PASSWORD_RESPONSE = "response to your forget password";
 	
+	public static final String PROFILE_PICTURE_SUCCESS = "Profile picture is set successfully";
+	
+	public static final String PROFILE_PICTURE_FETCH_SUCCESS = "Profile picture is fetched successfully";
+	
 	
 	//keys
 	public static final String SECRET_KEY = "secretKey";

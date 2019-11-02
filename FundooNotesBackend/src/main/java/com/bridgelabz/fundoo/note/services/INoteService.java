@@ -1,10 +1,6 @@
 package com.bridgelabz.fundoo.note.services;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.WebDataBinder;
 
 import com.bridgelabz.fundoo.note.dto.CreateNoteDto;
 import com.bridgelabz.fundoo.note.dto.UpdateNoteDto;
@@ -119,4 +115,34 @@ public interface INoteService {
 	 * @return Response according to the result
 	 */
 	public Response addReminder(LocalDateTime reminderTime,int noteId,String tokenUserId);
+	
+	/**
+	 * purpose: This method is used for updating a reminder of note of a particular
+	 * 			user
+	 * 
+	 * @param noteId of the note whose reminder is to be updated
+	 * 
+	 * @return Response according to the result
+	 */
+	public Response updateReminder(LocalDateTime reminderTime, int noteId, String tokenUserId);
+	
+	/**
+	 * purpose: This method is used for removing a reminder of note of a particular
+	 * 			user
+	 * 
+	 * @param noteId of the note whose reminder is to be removed
+	 * 
+	 * @return Response according to the result
+	 */
+	public Response removeReminder(int noteId, String tokenUserId);
+	
+	/**
+	 * purpose: This method is used for adding an image to note of a particular
+	 * 			user
+	 * 
+	 * @param noteId of the note in which image is to be added
+	 * 
+	 * @return Response according to the result
+	 */
+	public Response addImage(String filePath);
 }

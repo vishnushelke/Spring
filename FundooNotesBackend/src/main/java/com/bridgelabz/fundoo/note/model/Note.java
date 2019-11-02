@@ -19,6 +19,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -40,6 +41,7 @@ public class Note {
 	private boolean pin;
 	private boolean archive;
 	private LocalDateTime reminder;
+	private MultipartFile image;
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date noteCreationDate;

@@ -34,6 +34,10 @@ public class ImplLabelService implements ILabelService {
 	 */
 	@Override
 	public Response createLabel(LabelDto addLabelDto) {
+		if(repository.findAll().stream().anyMatch(i->i.getName().equals(addLabelDto.getName())))
+		{
+			return new Response(200, StaticReference.LABEL_ALREADY_AVAILABLE, false);
+		}
 		Label label = mapper.map(addLabelDto, Label.class);
 		repository.save(label);
 		String tokenLabelId = utility.createToken(label.getLabelId());

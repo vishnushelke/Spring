@@ -13,11 +13,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.bridgelabz.fundoo.user.dto.ForgetDto;
 import com.bridgelabz.fundoo.user.dto.LoginDto;
@@ -109,5 +111,38 @@ public class UserController {
 		return new ResponseEntity<Response>(service.validateUser(token), HttpStatus.OK);
 
 	}
+	
+	/**
+	 * purpose: This is method for uploading profile picture of User
+	 * 
+	 * @param token,path of file
+	 * 
+	 * @return Response to your action
+	 */
+	@PutMapping("/addprofile")
+	public ResponseEntity<Response> addProfileOfUser(@RequestParam String path,@RequestHeader String token) {
+		LOGGER.info("validate email logger");
+		return new ResponseEntity<Response>(service.addProfile(path,token), HttpStatus.OK);
+
+	} 
+	/**
+	 * purpose: This is method for getting profile picture of User
+	 * 
+	 * @param token,path of file
+	 * 
+	 * @return Response to your action
+	 */
+	@GetMapping("/getprofile")
+	public ResponseEntity<Response> getProfileOfUser(@RequestHeader String token) {
+		return new ResponseEntity<Response>(service.getProfile(token), HttpStatus.OK);
+
+	} 
+	
+	@PostMapping("/uploadphotos")
+	public ResponseEntity<Response> addProfileOfUser(@RequestParam String path,@RequestHeader String token) {
+		LOGGER.info("validate email logger");
+		return new ResponseEntity<Response>(service.addProfile(path,token), HttpStatus.OK);
+
+	} 
 
 }
