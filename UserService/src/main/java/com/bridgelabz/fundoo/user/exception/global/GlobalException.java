@@ -31,10 +31,10 @@ public class GlobalException {
 	 * @param ex exception
 	 * @return response entity of global exception
 	 */
-//	@ExceptionHandler(Exception.class)
-//	public ResponseEntity<Response> globalExceptionHandler(Exception ex) {
-//		return new ResponseEntity<>(new Response(500, ex.getMessage(), null),HttpStatus.INTERNAL_SERVER_ERROR);
-//	}
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<Response> globalExceptionHandler(Exception ex) {
+		return new ResponseEntity<>(new Response(500, ex.getMessage(), null),HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 	
 	/**
 	 * purpose: This will be used when you want to throw a login exception

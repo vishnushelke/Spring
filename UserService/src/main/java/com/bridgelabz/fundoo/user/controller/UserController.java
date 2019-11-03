@@ -139,7 +139,7 @@ public class UserController {
 	} 
 	
 	@PostMapping("/uploadphotos")
-	public ResponseEntity<Response> addProfileOfUser(@RequestParam String path,@RequestHeader String token) {
+	public ResponseEntity<Response> uploadPhotos(@RequestParam String path,@RequestHeader String token) {
 		LOGGER.info("validate email logger");
 		return new ResponseEntity<Response>(service.addProfile(path,token), HttpStatus.OK);
 

@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.note.userexception.DeleteNoteExcepion"/>
-    <fullyQualifiedTypeName name="javax.validation.constraints.NotNull"/>
-    <fullyQualifiedTypeName name="io.jsonwebtoken.Jwts"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.note.utility.TokenUtility"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.note.userexception.GetLabelExcepion"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.note.userexception.CreateNoteExcepion"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.note.dto.AddLabelDto"/>
@@ -22,7 +18,6 @@
     <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonIgnore"/>
     <fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonIgnoreProperties"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.note.dto.LabelDto"/>
-    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.note.repository.ILabelRepository"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.note.userexception.AddNoteToLabelExcepion"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.note.utility.StaticReference"/>
@@ -60,4 +55,9 @@
     <fullyQualifiedTypeName name="java.nio.file.Files"/>
     <fullyQualifiedTypeName name="java.io.IOException"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.services.StaticReference"/>
+    <fullyQualifiedTypeName name="javax.persistence.Id"/>
+    <fullyQualifiedTypeName name="lombok.val"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="java.util.UUID"/>
 </qualifiedTypeNameHistroy>

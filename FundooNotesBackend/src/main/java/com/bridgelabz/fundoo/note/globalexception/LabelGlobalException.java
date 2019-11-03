@@ -11,8 +11,11 @@ import com.bridgelabz.fundoo.note.userexception.GetLabelExcepion;
 public class LabelGlobalException {
 
 	/**
-	 * purpose this is method is used to throw an exception when we get an exception which is not declared
+	 * purpose this is method is used to throw an exception when we get an exception which is 
+	 * 			not declared
+	 * 
 	 * @param ex Exception
+	 * 
 	 * @return Response according to the result
 	 */
 	@ExceptionHandler(Exception.class)
@@ -22,8 +25,11 @@ public class LabelGlobalException {
 	}
 	
 	/**
-	 * purpose this is method is used to throw an exception when we get dont get the note in database
+	 * purpose this is method is used to throw an exception when we get dont get the note 
+	 * 			in database
+	 * 
 	 * @param ex Exception
+	 * 
 	 * @return Response according to the result
 	 */
 	@ExceptionHandler(GetLabelExcepion.class)

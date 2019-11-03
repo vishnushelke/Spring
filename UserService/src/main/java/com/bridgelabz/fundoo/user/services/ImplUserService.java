@@ -12,6 +12,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
+import java.util.UUID;
+
 import com.bridgelabz.fundoo.user.dto.ForgetDto;
 import com.bridgelabz.fundoo.user.dto.LoginDto;
 import com.bridgelabz.fundoo.user.dto.RegisterDto;
@@ -42,19 +44,22 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class ImplUserService implements IUserService {
 
 	@Autowired
-	UserRepository repository;
+	private UserRepository repository;
 
 	@Autowired
-	MailSender mailSender;
+	private MailSender mailSender;
 
 	@Autowired
-	UserConfig config;
+	private UserConfig config;
 
 	@Autowired
-	UserUtility utility;
+	private UserUtility utility;
 
 	@Autowired
-	ModelMapper mapper;
+	private ModelMapper mapper;
+	
+	@Autowired
+	private UUID uuid;
 
 	/**
 	 * purpose: This is service method for user registration
@@ -100,7 +105,7 @@ public class ImplUserService implements IUserService {
 			User user = repository.findAll().stream().filter(i -> i.getEmail().equals(loginDTO.getEmail())).findAny()
 					.get();
 			String token = Jwts.builder().setSubject(String.valueOf(user.getUId()))
-					.signWith(SignatureAlgorithm.HS256, "secretKey").compact();
+					.signWith(SignatureAlgorithm.HS256, StaticReference.SECRET_KEY).compact();
 			return new Response(200, StaticReference.LOGIN_SUCCESS, token);
 		} else {
 			throw new LoginException(StaticReference.LOGIN_FAIL);
@@ -210,9 +215,10 @@ public class ImplUserService implements IUserService {
 	@Override
 	public Response addProfile(String path, String token) {
 		// TODO Auto-generated method stub
-
+		
 		Claims claim = Jwts.parser().setSigningKey(StaticReference.SECRET_KEY).parseClaimsJws(token).getBody();
 		int userId = Integer.parseInt(claim.getSubject());
+		
 		User user = repository.findAll().stream().filter(i -> i.getUId() == userId).findAny().get();
 		user.setProfilePicture(path);
 		repository.save(user);

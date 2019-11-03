@@ -20,8 +20,11 @@ import com.bridgelabz.fundoo.note.userexception.UpdateNoteExcepion;
 public class NoteGlobalException{
 
 	/**
-	 * purpose this is method is used to throw an exception when we get an exception which is not declared
+	 * purpose this is method is used to throw an exception when we get an exception which 
+	 * 			is not declared
+	 * 
 	 * @param ex Exception
+	 * 
 	 * @return Response according to the result
 	 */
 	@ExceptionHandler(Exception.class)
@@ -31,8 +34,11 @@ public class NoteGlobalException{
 	}
 	
 	/**
-	 * purpose this is method is used to throw an exception when we get an exception while getting user notes
+	 * purpose this is method is used to throw an exception when we get an exception while 
+	 * 			getting user notes
+	 * 
 	 * @param ex Exception
+	 * 
 	 * @return Response according to the result
 	 */
 	
@@ -42,8 +48,11 @@ public class NoteGlobalException{
 		return new ResponseEntity<Response>(new Response(400, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
 	}
 	/**
-	 * purpose this is method is used to throw an exception when we get an exception while updating a note
+	 * purpose this is method is used to throw an exception when we get an exception while 
+	 * 			updating a note
+	 * 
 	 * @param ex Exception
+	 * 
 	 * @return Response according to the result
 	 */
 	@ExceptionHandler(UpdateNoteExcepion.class)
@@ -52,8 +61,11 @@ public class NoteGlobalException{
 		return new ResponseEntity<Response>(new Response(400, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
 	}
 	/**
-	 * purpose this is method is used to throw an exception when we get an exception while deleting a note
+	 * purpose this is method is used to throw an exception when we get an exception while 
+	 * 			deleting a note
+	 * 
 	 * @param ex Exception
+	 * 
 	 * @return Response according to the result
 	 */
 	@ExceptionHandler(DeleteNoteExcepion.class)
@@ -62,8 +74,11 @@ public class NoteGlobalException{
 		return new ResponseEntity<Response>(new Response(400, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
 	}
 	/**
-	 * purpose this is method is used to throw an exception when we get an exception while archiving a note
+	 * purpose this is method is used to throw an exception when we get an exception while 
+	 * 			archiving a note
+	 * 
 	 * @param ex Exception
+	 * 
 	 * @return Response according to the result
 	 */
 	@ExceptionHandler(ArchiveNoteExcepion.class)
@@ -72,8 +87,11 @@ public class NoteGlobalException{
 		return new ResponseEntity<Response>(new Response(400, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
 	}
 	/**
-	 * purpose this is method is used to throw an exception when we get an exception while pinning a note
+	 * purpose this is method is used to throw an exception when we get an exception 
+	 * 			while pinning a note
+	 * 
 	 * @param ex Exception
+	 * 
 	 * @return Response according to the result
 	 */
 	@ExceptionHandler(PinNoteExcepion.class)
@@ -82,8 +100,11 @@ public class NoteGlobalException{
 		return new ResponseEntity<Response>(new Response(400, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
 	}
 	/**
-	 * purpose this is method is used to throw an exception when we get an exception while trashing a note
+	 * purpose this is method is used to throw an exception when we get an exception while 
+	 * 			trashing a note
+	 * 
 	 * @param ex Exception
+	 * 
 	 * @return Response according to the result
 	 */
 	@ExceptionHandler(TrashNoteExcepion.class)
@@ -92,8 +113,11 @@ public class NoteGlobalException{
 		return new ResponseEntity<Response>(new Response(400, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
 	}
 	/**
-	 * purpose this is method is used to throw an exception when we get an exception while sorting notes by title
+	 * purpose this is method is used to throw an exception when we get an exception 
+	 * 			while sorting notes by title
+	 * 
 	 * @param ex Exception
+	 * 
 	 * @return Response according to the result
 	 */
 	@ExceptionHandler(SortByTitleNoteExcepion.class)
@@ -102,8 +126,11 @@ public class NoteGlobalException{
 		return new ResponseEntity<Response>(new Response(400, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
 	}
 	/**
-	 * purpose this is method is used to throw an exception when we get an exception while sorting notes by updation Date
+	 * purpose this is method is used to throw an exception when we get an exception 
+	 * 			while sorting notes by updation Date
+	 * 
 	 * @param ex Exception
+	 * 
 	 * @return Response according to the result
 	 */
 	@ExceptionHandler(SortByUpdationDateNoteExcepion.class)
@@ -112,8 +139,11 @@ public class NoteGlobalException{
 		return new ResponseEntity<Response>(new Response(400, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
 	}
 	/**
-	 * purpose this is method is used to throw an exception when we get an exception while adding notes to label
+	 * purpose this is method is used to throw an exception when we get an exception 
+	 * 			while adding notes to label
+	 * 
 	 * @param ex Exception
+	 * 
 	 * @return Response according to the result
 	 */
 	@ExceptionHandler(AddNoteToLabelExcepion.class)
