@@ -8,6 +8,8 @@
 ******************************************************************************/
 package com.bridgelabz.fundoo.user.services;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.bridgelabz.fundoo.user.dto.ForgetDto;
 import com.bridgelabz.fundoo.user.dto.LoginDto;
 import com.bridgelabz.fundoo.user.dto.RegisterDto;
@@ -32,7 +34,7 @@ public interface IUserService {
 	 * 
 	 * @return Response to your action
 	 */
-	public Response loginUser(LoginDto registerDTO);
+	public Response loginUser(LoginDto registerDTO,String token);
 	
 	/**
 	 * purpose: This is service method for forget Password
@@ -41,7 +43,7 @@ public interface IUserService {
 	 * 
 	 * @return Response to your action
 	 */
-	public Response forgetPassword(ForgetDto registerDTO);
+	public Response forgetPassword(ForgetDto forgetDto);
 	
 	/**
 	 * purpose: This is service method for resetting Password
@@ -50,7 +52,7 @@ public interface IUserService {
 	 * 
 	 * @return Response to your action
 	 */
-	public Response setPassword(setPasswordDto registerDTO,String token);
+	public Response setPassword(setPasswordDto setPasswordDto,String token);
 	
 	/**
 	 * purpose: This is service method for validating User
@@ -64,18 +66,36 @@ public interface IUserService {
 	/**
 	 * purpose: This is service method for uploading profile picture of User
 	 * 
-	 * @param token
+	 * @param token,image
 	 * 
 	 * @return Response to your action
 	 */
-	public Response addProfile(String path,String token);
+	public Response addProfile(MultipartFile file,String token);
 	
 	/**
 	 * purpose: This is service method for getting profile picture of User
 	 * 
-	 * @param token
+	 * @param token,image
 	 * 
 	 * @return Response to your action
 	 */
 	public Response getProfile(String token);
+	
+	/**
+	 * purpose: This is service method for updating profile picture of User
+	 * 
+	 * @param token,image
+	 * 
+	 * @return Response to your action
+	 */
+	public Response updateProfilePic(MultipartFile file, String token);
+	
+	/**
+	 * purpose: This is service method for deleting profile picture of User
+	 * 
+	 * @param token
+	 * 
+	 * @return Response to your action
+	 */
+	public Response deleteProfilePic(String token);
 }

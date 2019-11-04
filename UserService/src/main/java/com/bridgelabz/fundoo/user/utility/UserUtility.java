@@ -11,6 +11,8 @@ package com.bridgelabz.fundoo.user.utility;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 
+import com.bridgelabz.fundoo.user.services.StaticReference;
+
 @Component
 public class UserUtility {
 	
@@ -19,10 +21,12 @@ public class UserUtility {
 	 * 
 	 * @return SimpleMailMessage
 	 */
-	public SimpleMailMessage getMessage()
+	public SimpleMailMessage getMessage(String token)
 	{
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo("shelkeva@gmail.com");
+		message.setSubject(StaticReference.REGISTRATION_RESPONSE);
+		message.setText(StaticReference.REGISTRATION_MAIL_TEXT + token);
 		return message;
 	}
 

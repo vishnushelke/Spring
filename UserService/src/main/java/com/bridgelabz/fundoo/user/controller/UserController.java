@@ -8,11 +8,14 @@
 ******************************************************************************/
 package com.bridgelabz.fundoo.user.controller;
 
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.bridgelabz.fundoo.user.dto.ForgetDto;
 import com.bridgelabz.fundoo.user.dto.LoginDto;
 import com.bridgelabz.fundoo.user.dto.RegisterDto;
@@ -46,10 +51,10 @@ public class UserController {
 	 * @return Response to your action
 	 */
 	@PutMapping("/login")
-	public ResponseEntity<Response> loginUser(@RequestBody LoginDto loginDto) {
+	public ResponseEntity<Response> loginUser(@RequestBody LoginDto loginDto,@RequestHeader String token) {
 
 		LOGGER.info("login logger");
-		return new ResponseEntity<Response>(service.loginUser(loginDto), HttpStatus.OK);
+		return new ResponseEntity<Response>(service.loginUser(loginDto,token), HttpStatus.OK);
 	}
 
 	/**
@@ -120,9 +125,9 @@ public class UserController {
 	 * @return Response to your action
 	 */
 	@PutMapping("/addprofile")
-	public ResponseEntity<Response> addProfileOfUser(@RequestParam String path,@RequestHeader String token) {
+	public ResponseEntity<Response> addProfileOfUser(@RequestBody MultipartFile file,@RequestHeader String token) {
 		LOGGER.info("validate email logger");
-		return new ResponseEntity<Response>(service.addProfile(path,token), HttpStatus.OK);
+		return new ResponseEntity<Response>(service.addProfile(file,token), HttpStatus.OK);
 
 	} 
 	/**
@@ -138,11 +143,31 @@ public class UserController {
 
 	} 
 	
-	@PostMapping("/uploadphotos")
-	public ResponseEntity<Response> uploadPhotos(@RequestParam String path,@RequestHeader String token) {
-		LOGGER.info("validate email logger");
-		return new ResponseEntity<Response>(service.addProfile(path,token), HttpStatus.OK);
+	/**
+	 * purpose: This is service method for updating profile picture of User
+	 * 
+	 * @param token,image
+	 * 
+	 * @return Response to your action
+	 */
+	@PutMapping("/updateprofile")
+	public ResponseEntity<Response> updateProfileOfUser(@RequestBody MultipartFile file,@RequestHeader String token) throws IOException {
+		return new ResponseEntity<Response>(service.updateProfilePic(file,token), HttpStatus.OK);
 
 	} 
+	
+	/**
+	 * purpose: This is service method for deleting profile picture of User
+	 * 
+	 * @param token
+	 * 
+	 * @return Response to your action
+	 */
+	@DeleteMapping("/deleteprofile")
+	public ResponseEntity<Response> deleteProfileOfUser(@RequestHeader String token) throws IOException {
+		return new ResponseEntity<Response>(service.deleteProfilePic(token), HttpStatus.OK);
+
+	} 
+	
 
 }

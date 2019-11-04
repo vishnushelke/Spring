@@ -28,6 +28,8 @@ public class StaticReference {
 	
 	public static final String EMAIL_NOT_FOUND = "Email you entered is not registered yet";
 	
+	public static final String ACCOUNT_NOT_ACTIVATED = "Kindly activate your account using verification link";
+	
 	
 	public static final String SET_PASSWORD_SUCCESS = "Password is set successfully";
 	
@@ -40,6 +42,10 @@ public class StaticReference {
 	public static final String FORGET_PASSWORD_RESPONSE = "response to your forget password";
 	
 	public static final String PROFILE_PICTURE_SUCCESS = "Profile picture is set successfully";
+	
+	public static final String PROFILE_PICTURE_UPDATION_SUCCESS = "Profile picture updated successfully";
+	
+	public static final String PROFILE_PICTURE_DELETE_SUCCESS = "Profile picture deleted successfully";
 	
 	public static final String PROFILE_PICTURE_FETCH_SUCCESS = "Profile picture is fetched successfully";
 	

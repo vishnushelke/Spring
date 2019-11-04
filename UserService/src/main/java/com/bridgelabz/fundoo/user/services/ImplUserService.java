@@ -7,6 +7,7 @@
 ******************************************************************************/
 package com.bridgelabz.fundoo.user.services;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,13 +21,16 @@ import com.bridgelabz.fundoo.user.dto.RegisterDto;
 import com.bridgelabz.fundoo.user.dto.setPasswordDto;
 import com.bridgelabz.fundoo.user.exception.custom.ForgetPasswordException;
 import com.bridgelabz.fundoo.user.exception.custom.LoginException;
+import com.bridgelabz.fundoo.user.exception.custom.NotActiveException;
 import com.bridgelabz.fundoo.user.exception.custom.RegistrationException;
 import com.bridgelabz.fundoo.user.exception.custom.SetPasswordException;
+import com.bridgelabz.fundoo.user.exception.custom.UserNotFoundException;
 import com.bridgelabz.fundoo.user.exception.custom.ValidationException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,6 +39,7 @@ import com.bridgelabz.fundoo.user.model.User;
 import com.bridgelabz.fundoo.user.repository.UserConfig;
 import com.bridgelabz.fundoo.user.repository.UserRepository;
 import com.bridgelabz.fundoo.user.response.Response;
+import com.bridgelabz.fundoo.user.utility.TokenUtility;
 import com.bridgelabz.fundoo.user.utility.UserUtility;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -57,9 +62,9 @@ public class ImplUserService implements IUserService {
 
 	@Autowired
 	private ModelMapper mapper;
-	
+
 	@Autowired
-	private UUID uuid;
+	private TokenUtility tokenUtility;
 
 	/**
 	 * purpose: This is service method for user registration
@@ -72,23 +77,15 @@ public class ImplUserService implements IUserService {
 	@Override
 	public Response registerUser(RegisterDto registerDTO) {
 		registerDTO.setPassword(config.passEndcode().encode(registerDTO.getPassword()));
-		if (!alreadyAvailable(registerDTO.getEmail())) {
-			User user = mapper.map(registerDTO, User.class);
-			String token = Jwts.builder().setSubject(registerDTO.getEmail()).setIssuedAt(new Date())
-					.signWith(SignatureAlgorithm.HS256, StaticReference.SECRET_KEY).compact();
-			SimpleMailMessage message = utility.getMessage();
-			System.out.println(message.getFrom());
-			message.setSubject(StaticReference.REGISTRATION_RESPONSE);
-			message.setText(StaticReference.REGISTRATION_MAIL_TEXT + token);
-			mailSender.send(message);
-			repository.save(user);
-
-			return new Response(200, StaticReference.VALIDATE_ACCOUNT, user);
-
-		} else {
+		if (repository.findAll().stream().anyMatch(i -> i.getEmail().equals(registerDTO.getEmail()))) {
 			throw new RegistrationException(StaticReference.EMAIL_ALREADY_REGISTERED);
 		}
-
+		User user = mapper.map(registerDTO, User.class);
+		String token = tokenUtility.createToken(registerDTO.getEmail());
+		SimpleMailMessage message = utility.getMessage(token);
+		mailSender.send(message);
+		repository.save(user);
+		return new Response(200, StaticReference.VALIDATE_ACCOUNT, user);
 	}
 
 	/**
@@ -99,17 +96,14 @@ public class ImplUserService implements IUserService {
 	 * @return Response to your action
 	 */
 	@Override
-	public Response loginUser(LoginDto loginDTO) {
-		System.out.println(loginDTO.getEmail() + " " + loginDTO.getPassword().length());
-		if (!(loginDTO.getEmail().equals(null) || loginDTO.getPassword().length() < 6)) {
-			User user = repository.findAll().stream().filter(i -> i.getEmail().equals(loginDTO.getEmail())).findAny()
-					.get();
-			String token = Jwts.builder().setSubject(String.valueOf(user.getUId()))
-					.signWith(SignatureAlgorithm.HS256, StaticReference.SECRET_KEY).compact();
-			return new Response(200, StaticReference.LOGIN_SUCCESS, token);
-		} else {
+	public Response loginUser(LoginDto loginDTO, String token) {
+		if (!repository.findAll().stream().anyMatch(i -> i.getEmail().equals(loginDTO.getEmail())
+				&& i.getEmail().equals(tokenUtility.getEmailIdFromToken(token)) || i.isIsactive()))
 			throw new LoginException(StaticReference.LOGIN_FAIL);
-		}
+		User user = repository.findAll().stream().filter(i -> i.getEmail().equals(loginDTO.getEmail())).findAny().get();
+		String tokenUserId = Jwts.builder().setSubject(String.valueOf(user.getUId()))
+				.signWith(SignatureAlgorithm.HS256, StaticReference.SECRET_KEY).compact();
+		return new Response(200, StaticReference.LOGIN_SUCCESS, tokenUserId);
 
 	}
 
@@ -121,19 +115,18 @@ public class ImplUserService implements IUserService {
 	 * @return Response to your action
 	 */
 	@Override
-	public Response forgetPassword(ForgetDto forgetDTO) {
-		if (alreadyAvailable(forgetDTO.getEmail())) {
-
-			String token = Jwts.builder().setSubject(forgetDTO.getEmail()).setIssuedAt(new Date())
-					.signWith(SignatureAlgorithm.HS256, StaticReference.SECRET_KEY).compact();
-			SimpleMailMessage message = utility.getMessage();
-			message.setSubject(StaticReference.FORGET_PASSWORD_RESPONSE);
-			message.setText(StaticReference.FORGET_MAIL_TEXT + token);
-			mailSender.send(message);
-			return new Response(200, StaticReference.FORGET_ACTION_SUCCESS, true);
-		} else {
+	public Response forgetPassword(ForgetDto forgetDto) {
+		if(!repository.findAll().stream().filter(i->i.getEmail().equals(forgetDto.getEmail())).findAny().get().isIsactive())
+			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
+		if (!repository.findAll().stream().anyMatch(i -> i.getEmail().equals(forgetDto.getEmail()))) {
 			throw new ForgetPasswordException(StaticReference.EMAIL_NOT_FOUND);
 		}
+		String token = tokenUtility.createToken(forgetDto.getEmail());
+		SimpleMailMessage message = utility.getMessage(token);
+		message.setSubject(StaticReference.FORGET_PASSWORD_RESPONSE);
+		message.setText(StaticReference.FORGET_MAIL_TEXT + token);
+		mailSender.send(message);
+		return new Response(200, StaticReference.FORGET_ACTION_SUCCESS, true);
 	}
 
 	/**
@@ -145,10 +138,12 @@ public class ImplUserService implements IUserService {
 	 */
 	@Override
 	public Response setPassword(setPasswordDto setPasswordDTO, String token) {
-		Claims claim = Jwts.parser().setSigningKey(StaticReference.SECRET_KEY).parseClaimsJws(token).getBody();
-		String email = claim.getSubject();
-		if (alreadyAvailable(email)) {
-			User user = alreadyAvailableUser(email);
+		if(!repository.findAll().stream().filter(i->i.getEmail().equals(setPasswordDTO.getEmail())).findAny().get().isIsactive())
+			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
+		String email = tokenUtility.getEmailIdFromToken(token);
+		if (repository.findAll().stream().anyMatch(i -> i.getEmail().equals(email))) {
+			User user = repository.findAll().stream().filter(i -> i.getEmail().equals(setPasswordDTO.getEmail()))
+					.findAny().get();
 			user.setPassword(config.passEndcode().encode(setPasswordDTO.getPassword()));
 			repository.save(user);
 			return new Response(200, StaticReference.SET_PASSWORD_SUCCESS, user);
@@ -156,31 +151,6 @@ public class ImplUserService implements IUserService {
 			throw new SetPasswordException(StaticReference.INVALID_LINK);
 		}
 
-	}
-
-	/**
-	 * purpose: This method will check if email is registered or not
-	 * 
-	 * @param emailId
-	 * 
-	 * @return returns boolean value,true if found in database
-	 */
-	public boolean alreadyAvailable(String email) {
-		System.out.println(email);
-		return repository.findAll().stream().anyMatch(t -> t.getEmail().equals(email));
-	}
-
-	/**
-	 * purpose: This method will check if email is registered or not and gives that
-	 * user object
-	 * 
-	 * @param emailId
-	 * 
-	 * @return returns user object in database
-	 */
-	public User alreadyAvailableUser(String email) {
-		System.out.println(email);
-		return repository.findAll().stream().findAny().filter(t -> t.getEmail().equals(email)).get();
 	}
 
 	/**
@@ -194,8 +164,8 @@ public class ImplUserService implements IUserService {
 	public Response validateUser(String token) {
 		Claims claim = Jwts.parser().setSigningKey(StaticReference.SECRET_KEY).parseClaimsJws(token).getBody();
 		String email = claim.getSubject();
-		if (alreadyAvailable(email)) {
-			User user = repository.findAll().stream().filter(i -> i.getEmail().equals(email)).findAny().orElse(null);
+		if (repository.findAll().stream().anyMatch(i -> i.getEmail().equals(email))) {
+			User user = repository.findAll().stream().filter(i -> i.getEmail().equals(email)).findAny().get();
 			user.setIsactive(true);
 			repository.save(user);
 			return new Response(200, StaticReference.VERIFICATION_SUCCESS, user);
@@ -213,40 +183,91 @@ public class ImplUserService implements IUserService {
 	 * @return Response to your action
 	 */
 	@Override
-	public Response addProfile(String path, String token) {
-		// TODO Auto-generated method stub
-		
-		Claims claim = Jwts.parser().setSigningKey(StaticReference.SECRET_KEY).parseClaimsJws(token).getBody();
-		int userId = Integer.parseInt(claim.getSubject());
-		
-		User user = repository.findAll().stream().filter(i -> i.getUId() == userId).findAny().get();
-		user.setProfilePicture(path);
+	public Response addProfile(MultipartFile file, String token) {
+		String email = tokenUtility.getEmailIdFromToken(token);
+		if (!repository.findAll().stream().anyMatch(i -> i.getEmail().equals(email)))
+			throw new UserNotFoundException(StaticReference.EMAIL_NOT_FOUND);
+		if(!repository.findAll().stream().filter(i->i.getEmail().equals(email)).findAny().get().isIsactive())
+			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);		
+		int userId = repository.findAll().stream().filter(i -> i.getEmail().equals(email)).findAny().get().getUId();
+		User user = repository.findById(userId).get();
+		byte[] bytes;
+		try {
+			bytes = file.getBytes();
+			String fileLocation = userId + file.getOriginalFilename();
+			Path path = Paths.get(fileLocation);
+			Files.write(path, bytes);
+			user.setProfilePicture(fileLocation);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		repository.save(user);
 		return new Response(200, StaticReference.PROFILE_PICTURE_SUCCESS, user);
 	}
 
+	/**
+	 * purpose: This is service method for getting profile picture of User
+	 * 
+	 * @param token
+	 * 
+	 * @return Response to your action
+	 */
 	@Override
 	public Response getProfile(String token) {
-		// TODO Auto-generated method stub
-		Claims claim = Jwts.parser().setSigningKey(StaticReference.SECRET_KEY).parseClaimsJws(token).getBody();
-		int userId = Integer.parseInt(claim.getSubject());
+		String email = tokenUtility.getEmailIdFromToken(token);
+		if (!repository.findAll().stream().anyMatch(i -> i.getEmail().equals(email)))
+			throw new UserNotFoundException(StaticReference.EMAIL_NOT_FOUND);
+		if(!repository.findAll().stream().filter(i->i.getEmail().equals(email)).findAny().get().isIsactive())
+			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
+		int userId = repository.findAll().stream().filter(i -> i.getEmail().equals(email)).findAny().get().getUId();
 		return new Response(200, StaticReference.PROFILE_PICTURE_SUCCESS,
 				repository.findById(userId).get().getProfilePicture());
 	}
 
-	public String upload(Model model, MultipartFile[] files) {
-		StringBuilder fileNames = new StringBuilder();
-		for (MultipartFile file : files) {
-			Path fileNameAndPath = Paths.get(System.getProperty("user.dir" + "/uploads"), file.getOriginalFilename());
-			fileNames.append(file.getOriginalFilename() + " ");
-			try {
-				Files.write(fileNameAndPath, file.getBytes());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	/**
+	 * purpose: This is service method for updating profile picture of User
+	 * 
+	 * @param token,image
+	 * 
+	 * @return Response to your action
+	 */
+	@Override
+	public Response updateProfilePic(MultipartFile file, String token) {
+		String email = tokenUtility.getEmailIdFromToken(token);
+		if (!repository.findAll().stream().anyMatch(i -> i.getEmail().equals(email)))
+			throw new UserNotFoundException(StaticReference.EMAIL_NOT_FOUND);
+		if(!repository.findAll().stream().filter(i->i.getEmail().equals(email)).findAny().get().isIsactive())
+			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
+		int userId = repository.findAll().stream().filter(i -> i.getEmail().equals(email)).findAny().get().getUId();
+		User user = repository.findById(userId).get();
+		byte[] bytes;
+		try {
+			bytes = file.getBytes();
+			String fileLocation = userId + file.getOriginalFilename();
+			Path path = Paths.get(fileLocation);
+			Files.write(path, bytes);
+			user.setProfilePicture(fileLocation);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		model.addAttribute("msg", "Successfully uploaded files " + fileNames.toString());
-		return "uploadstatusview";
+		repository.save(user);
+		return new Response(200, StaticReference.PROFILE_PICTURE_UPDATION_SUCCESS, user);
 	}
 
+	@Override
+	public Response deleteProfilePic(String token) {
+		String email = tokenUtility.getEmailIdFromToken(token);
+		User user = repository.findAll().stream().filter(i -> i.getEmail().equals(email)).findAny().get();
+		if (!repository.findAll().stream().anyMatch(i -> i.getEmail().equals(email)))
+			throw new UserNotFoundException(StaticReference.EMAIL_NOT_FOUND);
+		if(!repository.findAll().stream().filter(i->i.getEmail().equals(email)).findAny().get().isIsactive())
+			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
+		String fileLocation = user.getProfilePicture();
+		File file = new File(fileLocation);
+		file.delete();
+		user.setProfilePicture(null);
+		repository.save(user);
+		return new Response(200, StaticReference.PROFILE_PICTURE_DELETE_SUCCESS, true);
+
+	}
 }

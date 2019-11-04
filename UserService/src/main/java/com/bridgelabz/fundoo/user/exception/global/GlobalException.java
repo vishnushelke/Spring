@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.bridgelabz.fundoo.user.exception.custom.ForgetPasswordException;
 import com.bridgelabz.fundoo.user.exception.custom.LoginException;
+import com.bridgelabz.fundoo.user.exception.custom.NotActiveException;
 import com.bridgelabz.fundoo.user.exception.custom.RegistrationException;
+import com.bridgelabz.fundoo.user.exception.custom.UserNotFoundException;
 import com.bridgelabz.fundoo.user.exception.custom.ValidationException;
 import com.bridgelabz.fundoo.user.response.Response;
 
@@ -73,6 +75,24 @@ public class GlobalException {
 	 */
 	@ExceptionHandler(ForgetPasswordException.class)
 	public ResponseEntity<Response> forgetPasswordExceptionHandler(Exception ex) {
+		return new ResponseEntity<>(new Response(400, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
+	}
+	/**
+	 * purpose: This will be used when you want to throw when we dont get user in database
+	 * @param ex exception
+	 * @return response entity of forget Password exception
+	 */
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<Response> userNotExceptionHandler(Exception ex) {
+		return new ResponseEntity<>(new Response(400, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
+	}
+	/**
+	 * purpose: This will be used when you want to throw when we dont get user in database
+	 * @param ex exception
+	 * @return response entity of forget Password exception
+	 */
+	@ExceptionHandler(NotActiveException.class)
+	public ResponseEntity<Response> accountNotActiveExceptionHandler(Exception ex) {
 		return new ResponseEntity<>(new Response(400, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
 	}
 }
