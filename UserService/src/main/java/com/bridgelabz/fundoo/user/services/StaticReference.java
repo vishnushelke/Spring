@@ -51,7 +51,7 @@ public class StaticReference {
 	
 	
 	//keys
-	public static final String SECRET_KEY = "secretKey";
+	public static final String SECRET_KEY = "userId";
 	
 	//url
 	public static final String REGISTRATION_MAIL_TEXT ="validate your email\n"+"http://localhost:8080/user/validate/";

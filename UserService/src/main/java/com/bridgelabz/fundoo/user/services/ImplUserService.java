@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Date;
-import java.util.UUID;
 
 import com.bridgelabz.fundoo.user.dto.ForgetDto;
 import com.bridgelabz.fundoo.user.dto.LoginDto;
@@ -27,14 +25,14 @@ import com.bridgelabz.fundoo.user.exception.custom.SetPasswordException;
 import com.bridgelabz.fundoo.user.exception.custom.UserNotFoundException;
 import com.bridgelabz.fundoo.user.exception.custom.ValidationException;
 import org.modelmapper.ModelMapper;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bridgelabz.fundoo.user.model.RabbitMQBody;
 import com.bridgelabz.fundoo.user.model.User;
 import com.bridgelabz.fundoo.user.repository.UserConfig;
 import com.bridgelabz.fundoo.user.repository.UserRepository;
@@ -64,6 +62,9 @@ public class ImplUserService implements IUserService {
 	private ModelMapper mapper;
 
 	@Autowired
+	private RabbitTemplate template;
+	
+	@Autowired
 	private TokenUtility tokenUtility;
 
 	/**
@@ -82,8 +83,8 @@ public class ImplUserService implements IUserService {
 		}
 		User user = mapper.map(registerDTO, User.class);
 		String token = tokenUtility.createToken(registerDTO.getEmail());
-		SimpleMailMessage message = utility.getMessage(token);
-		mailSender.send(message);
+		RabbitMQBody body = utility.getRabbitBody(token, registerDTO.getEmail());
+		template.convertAndSend("userMessageQueue", body);
 		repository.save(user);
 		return new Response(200, StaticReference.VALIDATE_ACCOUNT, user);
 	}
@@ -98,9 +99,12 @@ public class ImplUserService implements IUserService {
 	@Override
 	public Response loginUser(LoginDto loginDTO, String token) {
 		if (!repository.findAll().stream().anyMatch(i -> i.getEmail().equals(loginDTO.getEmail())
-				&& i.getEmail().equals(tokenUtility.getEmailIdFromToken(token)) || i.isIsactive()))
+				&& i.getEmail().equals(tokenUtility.getEmailIdFromToken(token))))
 			throw new LoginException(StaticReference.LOGIN_FAIL);
 		User user = repository.findAll().stream().filter(i -> i.getEmail().equals(loginDTO.getEmail())).findAny().get();
+		if(!user.isIsactive())
+			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
+		
 		String tokenUserId = Jwts.builder().setSubject(String.valueOf(user.getUId()))
 				.signWith(SignatureAlgorithm.HS256, StaticReference.SECRET_KEY).compact();
 		return new Response(200, StaticReference.LOGIN_SUCCESS, tokenUserId);
@@ -122,10 +126,10 @@ public class ImplUserService implements IUserService {
 			throw new ForgetPasswordException(StaticReference.EMAIL_NOT_FOUND);
 		}
 		String token = tokenUtility.createToken(forgetDto.getEmail());
-		SimpleMailMessage message = utility.getMessage(token);
-		message.setSubject(StaticReference.FORGET_PASSWORD_RESPONSE);
-		message.setText(StaticReference.FORGET_MAIL_TEXT + token);
-		mailSender.send(message);
+		RabbitMQBody body = utility.getRabbitBody(token, forgetDto.getEmail());
+		body.setSubject(StaticReference.FORGET_PASSWORD_RESPONSE);
+		body.setBody(StaticReference.FORGET_MAIL_TEXT + token);
+		template.convertAndSend("userMessageQueue", body);
 		return new Response(200, StaticReference.FORGET_ACTION_SUCCESS, true);
 	}
 

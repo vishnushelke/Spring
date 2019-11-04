@@ -11,6 +11,7 @@ package com.bridgelabz.fundoo.user.utility;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 
+import com.bridgelabz.fundoo.user.model.RabbitMQBody;
 import com.bridgelabz.fundoo.user.services.StaticReference;
 
 @Component
@@ -30,4 +31,13 @@ public class UserUtility {
 		return message;
 	}
 
+	public RabbitMQBody getRabbitBody(String token,String email)
+	{
+		RabbitMQBody body = new RabbitMQBody();
+		body.setEmail(email);
+		body.setBody(StaticReference.REGISTRATION_MAIL_TEXT + token);
+		body.setSubject(StaticReference.REGISTRATION_RESPONSE);
+		return body;
+		
+	}
 }

@@ -1,10 +1,11 @@
 eclipse.preferences.version=1
+org.springframework.ide.eclipse.boot.wizard.PopularityTracker.amqp=1
 org.springframework.ide.eclipse.boot.wizard.PopularityTracker.data-jpa=6
 org.springframework.ide.eclipse.boot.wizard.PopularityTracker.derby=3
 org.springframework.ide.eclipse.boot.wizard.PopularityTracker.devtools=3
 org.springframework.ide.eclipse.boot.wizard.PopularityTracker.mysql=5
 org.springframework.ide.eclipse.boot.wizard.PopularityTracker.web=6
-org.springframework.ide.eclipse.boot.wizard.PreferredSelections.artifactId=UserServe
+org.springframework.ide.eclipse.boot.wizard.PreferredSelections.artifactId=RabbitMqTutorial
 org.springframework.ide.eclipse.boot.wizard.PreferredSelections.bootVersion=2.1.9.RELEASE
 org.springframework.ide.eclipse.boot.wizard.PreferredSelections.description=Course Api for data for Spring Boot
 org.springframework.ide.eclipse.boot.wizard.PreferredSelections.groupId=com.bridgelabz
