@@ -20,6 +20,8 @@ public class UserUtility {
 	/**
 	 * Purpose: This method will create an object of SimpleMailMessage and returns
 	 * 
+	 *  @param token
+	 *  
 	 * @return SimpleMailMessage
 	 */
 	public SimpleMailMessage getMessage(String token)
@@ -31,6 +33,12 @@ public class UserUtility {
 		return message;
 	}
 
+	/**
+	 *  Purpose: This method will create an object of RabbitMQBody and returns
+	 * @param token
+	 * @param email
+	 * @return RabbitMQBody object
+	 */
 	public RabbitMQBody getRabbitBody(String token,String email)
 	{
 		RabbitMQBody body = new RabbitMQBody();

@@ -27,8 +27,6 @@ import com.bridgelabz.fundoo.user.exception.custom.ValidationException;
 import org.modelmapper.ModelMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,18 +37,12 @@ import com.bridgelabz.fundoo.user.repository.UserRepository;
 import com.bridgelabz.fundoo.user.response.Response;
 import com.bridgelabz.fundoo.user.utility.TokenUtility;
 import com.bridgelabz.fundoo.user.utility.UserUtility;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class ImplUserService implements IUserService {
 
 	@Autowired
 	private UserRepository repository;
-
-	@Autowired
-	private MailSender mailSender;
 
 	@Autowired
 	private UserConfig config;
@@ -63,7 +55,7 @@ public class ImplUserService implements IUserService {
 
 	@Autowired
 	private RabbitTemplate template;
-	
+
 	@Autowired
 	private TokenUtility tokenUtility;
 
@@ -82,10 +74,10 @@ public class ImplUserService implements IUserService {
 			throw new RegistrationException(StaticReference.EMAIL_ALREADY_REGISTERED);
 		}
 		User user = mapper.map(registerDTO, User.class);
-		String token = tokenUtility.createToken(registerDTO.getEmail());
+		repository.save(user);
+		String token = tokenUtility.createToken(user.getUId());
 		RabbitMQBody body = utility.getRabbitBody(token, registerDTO.getEmail());
 		template.convertAndSend("userMessageQueue", body);
-		repository.save(user);
 		return new Response(200, StaticReference.VALIDATE_ACCOUNT, user);
 	}
 
@@ -98,16 +90,17 @@ public class ImplUserService implements IUserService {
 	 */
 	@Override
 	public Response loginUser(LoginDto loginDTO, String token) {
-		if (!repository.findAll().stream().anyMatch(i -> i.getEmail().equals(loginDTO.getEmail())
-				&& i.getEmail().equals(tokenUtility.getEmailIdFromToken(token))))
+
+		User user = repository.findById(tokenUtility.getEmailIdFromToken(token)).get();
+
+		if (!(user.getEmail().equals(loginDTO.getEmail())
+				&& config.passEndcode().matches(loginDTO.getPassword(), user.getPassword()))) {
 			throw new LoginException(StaticReference.LOGIN_FAIL);
-		User user = repository.findAll().stream().filter(i -> i.getEmail().equals(loginDTO.getEmail())).findAny().get();
-		if(!user.isIsactive())
+		}
+
+		if (!user.isIsactive())
 			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
-		
-		String tokenUserId = Jwts.builder().setSubject(String.valueOf(user.getUId()))
-				.signWith(SignatureAlgorithm.HS256, StaticReference.SECRET_KEY).compact();
-		return new Response(200, StaticReference.LOGIN_SUCCESS, tokenUserId);
+		return new Response(200, StaticReference.LOGIN_SUCCESS, true);
 
 	}
 
@@ -120,12 +113,15 @@ public class ImplUserService implements IUserService {
 	 */
 	@Override
 	public Response forgetPassword(ForgetDto forgetDto) {
-		if(!repository.findAll().stream().filter(i->i.getEmail().equals(forgetDto.getEmail())).findAny().get().isIsactive())
+		if (!repository.findAll().stream().filter(i -> i.getEmail().equals(forgetDto.getEmail())).findAny().get()
+				.isIsactive())
 			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
 		if (!repository.findAll().stream().anyMatch(i -> i.getEmail().equals(forgetDto.getEmail()))) {
 			throw new ForgetPasswordException(StaticReference.EMAIL_NOT_FOUND);
 		}
-		String token = tokenUtility.createToken(forgetDto.getEmail());
+
+		String token = tokenUtility.createToken(repository.findAll().stream()
+				.filter(i -> i.getEmail().equals(forgetDto.getEmail())).findAny().get().getUId());
 		RabbitMQBody body = utility.getRabbitBody(token, forgetDto.getEmail());
 		body.setSubject(StaticReference.FORGET_PASSWORD_RESPONSE);
 		body.setBody(StaticReference.FORGET_MAIL_TEXT + token);
@@ -142,10 +138,11 @@ public class ImplUserService implements IUserService {
 	 */
 	@Override
 	public Response setPassword(setPasswordDto setPasswordDTO, String token) {
-		if(!repository.findAll().stream().filter(i->i.getEmail().equals(setPasswordDTO.getEmail())).findAny().get().isIsactive())
+		if (!repository.findAll().stream().filter(i -> i.getEmail().equals(setPasswordDTO.getEmail())).findAny().get()
+				.isIsactive())
 			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
-		String email = tokenUtility.getEmailIdFromToken(token);
-		if (repository.findAll().stream().anyMatch(i -> i.getEmail().equals(email))) {
+		int userId = tokenUtility.getEmailIdFromToken(token);
+		if (repository.findById(userId) == null) {
 			User user = repository.findAll().stream().filter(i -> i.getEmail().equals(setPasswordDTO.getEmail()))
 					.findAny().get();
 			user.setPassword(config.passEndcode().encode(setPasswordDTO.getPassword()));
@@ -166,10 +163,10 @@ public class ImplUserService implements IUserService {
 	 */
 	@Override
 	public Response validateUser(String token) {
-		Claims claim = Jwts.parser().setSigningKey(StaticReference.SECRET_KEY).parseClaimsJws(token).getBody();
-		String email = claim.getSubject();
-		if (repository.findAll().stream().anyMatch(i -> i.getEmail().equals(email))) {
-			User user = repository.findAll().stream().filter(i -> i.getEmail().equals(email)).findAny().get();
+		int userId = tokenUtility.getEmailIdFromToken(token);
+
+		if (repository.findAll().stream().anyMatch(i -> i.getUId() == userId)) {
+			User user = repository.findById(userId).get();
 			user.setIsactive(true);
 			repository.save(user);
 			return new Response(200, StaticReference.VERIFICATION_SUCCESS, user);
@@ -188,12 +185,12 @@ public class ImplUserService implements IUserService {
 	 */
 	@Override
 	public Response addProfile(MultipartFile file, String token) {
-		String email = tokenUtility.getEmailIdFromToken(token);
-		if (!repository.findAll().stream().anyMatch(i -> i.getEmail().equals(email)))
+		int userId = tokenUtility.getEmailIdFromToken(token);
+		if (repository.findById(userId) == null)
 			throw new UserNotFoundException(StaticReference.EMAIL_NOT_FOUND);
-		if(!repository.findAll().stream().filter(i->i.getEmail().equals(email)).findAny().get().isIsactive())
-			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);		
-		int userId = repository.findAll().stream().filter(i -> i.getEmail().equals(email)).findAny().get().getUId();
+		if (!repository.findById(userId).get().isIsactive())
+			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
+
 		User user = repository.findById(userId).get();
 		byte[] bytes;
 		try {
@@ -218,13 +215,12 @@ public class ImplUserService implements IUserService {
 	 */
 	@Override
 	public Response getProfile(String token) {
-		String email = tokenUtility.getEmailIdFromToken(token);
-		if (!repository.findAll().stream().anyMatch(i -> i.getEmail().equals(email)))
+		int userId = tokenUtility.getEmailIdFromToken(token);
+		if (repository.findById(userId) == null)
 			throw new UserNotFoundException(StaticReference.EMAIL_NOT_FOUND);
-		if(!repository.findAll().stream().filter(i->i.getEmail().equals(email)).findAny().get().isIsactive())
+		if (!repository.findById(userId).get().isIsactive())
 			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
-		int userId = repository.findAll().stream().filter(i -> i.getEmail().equals(email)).findAny().get().getUId();
-		return new Response(200, StaticReference.PROFILE_PICTURE_SUCCESS,
+		return new Response(200, StaticReference.PROFILE_PICTURE_FETCH_SUCCESS,
 				repository.findById(userId).get().getProfilePicture());
 	}
 
@@ -237,12 +233,11 @@ public class ImplUserService implements IUserService {
 	 */
 	@Override
 	public Response updateProfilePic(MultipartFile file, String token) {
-		String email = tokenUtility.getEmailIdFromToken(token);
-		if (!repository.findAll().stream().anyMatch(i -> i.getEmail().equals(email)))
+		int userId = tokenUtility.getEmailIdFromToken(token);
+		if (repository.findById(userId) == null)
 			throw new UserNotFoundException(StaticReference.EMAIL_NOT_FOUND);
-		if(!repository.findAll().stream().filter(i->i.getEmail().equals(email)).findAny().get().isIsactive())
+		if (!repository.findById(userId).get().isIsactive())
 			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
-		int userId = repository.findAll().stream().filter(i -> i.getEmail().equals(email)).findAny().get().getUId();
 		User user = repository.findById(userId).get();
 		byte[] bytes;
 		try {
@@ -260,12 +255,12 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public Response deleteProfilePic(String token) {
-		String email = tokenUtility.getEmailIdFromToken(token);
-		User user = repository.findAll().stream().filter(i -> i.getEmail().equals(email)).findAny().get();
-		if (!repository.findAll().stream().anyMatch(i -> i.getEmail().equals(email)))
+		int userId = tokenUtility.getEmailIdFromToken(token);
+		if (repository.findById(userId) == null)
 			throw new UserNotFoundException(StaticReference.EMAIL_NOT_FOUND);
-		if(!repository.findAll().stream().filter(i->i.getEmail().equals(email)).findAny().get().isIsactive())
+		if (!repository.findById(userId).get().isIsactive())
 			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
+		User user = repository.findById(userId).get();
 		String fileLocation = user.getProfilePicture();
 		File file = new File(fileLocation);
 		file.delete();

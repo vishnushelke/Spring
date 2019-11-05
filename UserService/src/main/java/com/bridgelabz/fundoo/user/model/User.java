@@ -1,5 +1,5 @@
 /******************************************************************************
-*  Purpose: This class is an entity
+*  Purpose: This class is an entity of user
 *
 *  @author  Vishnu Shelke
 *  @version 1.0
@@ -9,18 +9,21 @@
 package com.bridgelabz.fundoo.user.model;
 
 import java.util.Date;
-
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.bridgelabz.fundoo.user.note.model.Note;
 
 import lombok.Data;
 
@@ -45,5 +48,7 @@ public class User {
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date updationDate;
+	@ManyToMany(mappedBy = "collabUsers")
+	private List<Note> notes;
 
 }

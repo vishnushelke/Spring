@@ -1,3 +1,11 @@
+/******************************************************************************
+*  Purpose: This is a configuration class of rabbitMQ.It creates beans which are
+*  			required while sending message using rabbitMQ
+*  @author  Vishnu Shelke
+*  @version 1.0
+*  @since   04-11-2019
+*
+******************************************************************************/
 package com.bridgelabz.fundoo.user.configuration;
 
 import org.springframework.amqp.core.Binding;
@@ -15,26 +23,55 @@ import com.bridgelabz.fundoo.user.services.MessageReceiver;
 @Configuration
 public class RabitMQConfig {
 	
+	/**
+	 * purpose: this method is used for creating a bean of Queue
+	 * 
+	 * @return Queue
+	 */
 	@Bean
-	public Queue queue()
+	public Queue getQueue()
 	{
 		return new Queue("userMessageQueue", false);
 	}
 	
+	/**
+	 * purpose: this method is used for creating a bean of TopicExchange
+	 * 
+	 * @return TopicExchange
+	 */
 	@Bean
-	public TopicExchange exchange()
+	public TopicExchange getExchange()
 	{
 		return new TopicExchange("exchange");
 	}
-	
+	/**
+	 * purpose: this method is used for creating a bean of Binding
+	 * 
+	 * @param queue Queue
+	 * @param exchange TopicExchange
+	 * 
+	 * @return Binding
+	 */
 	@Bean
-	public Binding binding(Queue queue,TopicExchange exchange)
+	public Binding getBinding(Queue queue,TopicExchange exchange)
 	{
 		return BindingBuilder.bind(queue).to(exchange).with("userMessageQueue");
 	}
 
+	/**
+	 * purpose: this method is used for creating a bean of SimpleMessageListenerContainer
+	 * 
+	 * @param connectionFactory
+	 * @param messageListenerAdapter
+	 * 
+	 * @return SimpleMessageListenerContainer
+	 */
+	/**
+	 *
+	 * @return
+	 */
 	@Bean
-	public SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,MessageListenerAdapter messageListenerAdapter)
+	public SimpleMessageListenerContainer getContainer(ConnectionFactory connectionFactory,MessageListenerAdapter messageListenerAdapter)
 	{
 		SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
 		container.setQueueNames("userMessageQueue");
@@ -42,15 +79,23 @@ public class RabitMQConfig {
 		container.setMessageListener(messageListenerAdapter);
 		return container;
 	}
-	
+	/**
+	 * purpose: this method is used for creating a bean of MessageReceiver
+	 * 
+	 * @return MessageReceiver
+	 */
 	@Bean
-	public MessageReceiver receiver()
+	public MessageReceiver getReceiver()
 	{
 		return new MessageReceiver();
 	}
-	
+	/**
+	 * purpose: this method is used for creating a bean of MessageListenerAdapter
+	 * 
+	 * @return MessageListenerAdapter
+	 */
 	@Bean
-	public MessageListenerAdapter adapter(MessageReceiver receiver)
+	public MessageListenerAdapter getAdapter(MessageReceiver receiver)
 	{
 		return new MessageListenerAdapter(receiver,"sendMessage");
 	}
