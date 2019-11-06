@@ -31,6 +31,10 @@ public class UserServeApplication {
 		return new JedisConnectionFactory();
 	}
 
+	/**
+	 * purpose: this method creates a bean of redisTemplate
+	 * @return redisTemplate
+	 */
 	@Bean
 	RedisTemplate<String, Note> redisTemplate() {
 		RedisTemplate<String, Note> redisTemplate = new RedisTemplate<>();
