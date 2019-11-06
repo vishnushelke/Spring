@@ -27,6 +27,6 @@ public class SwaggerConfig {
 	@Bean
 	public Docket api()
 	{
-		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("com.bridgelabz.fundoo.note.controller")).build();
+		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("com.bridgelabz.fundoo.user")).build();
 	}
 }

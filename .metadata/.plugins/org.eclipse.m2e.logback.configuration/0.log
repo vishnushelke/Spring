@@ -25307,3 +25307,68 @@ Caused by: java.lang.Exception: Resource '/FundooNotesBackend/pom.xml' does not 
 2019-11-06 09:31:06,206 [Worker-20: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
 2019-11-06 09:31:06,210 [Worker-20: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
 2019-11-06 09:31:06,210 [Worker-20: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService/src/test/resources
+2019-11-06 10:02:27,089 [Worker-28: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:02:27,090 [Worker-28: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-11-06 10:02:27,092 [Worker-28: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-11-06 10:02:27,106 [Worker-28: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:02:27,106 [Worker-28: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService/src/test/resources
+2019-11-06 10:03:05,496 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:03:05,497 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-11-06 10:03:05,500 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-11-06 10:03:05,503 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:03:05,503 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService/src/test/resources
+2019-11-06 10:03:34,756 [Worker-23: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:03:34,757 [Worker-23: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-11-06 10:03:34,767 [Worker-23: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-11-06 10:03:34,771 [Worker-23: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:03:34,771 [Worker-23: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService/src/test/resources
+2019-11-06 10:03:38,537 [Worker-23: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:03:38,538 [Worker-23: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-11-06 10:03:38,539 [Worker-23: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-11-06 10:03:38,544 [Worker-23: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:03:38,545 [Worker-23: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService/src/test/resources
+2019-11-06 10:06:16,213 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:06:16,214 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-11-06 10:06:16,218 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-11-06 10:06:16,221 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:06:16,221 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService/src/test/resources
+2019-11-06 10:06:32,052 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:06:32,053 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-11-06 10:06:32,054 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-11-06 10:06:32,068 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:06:32,068 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService/src/test/resources
+2019-11-06 10:16:54,105 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:16:54,106 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-11-06 10:16:54,123 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-11-06 10:16:54,145 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:16:54,146 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService/src/test/resources
+2019-11-06 10:17:31,632 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:17:31,633 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-11-06 10:17:31,635 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-11-06 10:17:31,658 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:17:31,658 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService/src/test/resources
+2019-11-06 10:17:54,735 [Worker-26: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:17:54,736 [Worker-26: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-11-06 10:17:54,743 [Worker-26: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-11-06 10:17:54,747 [Worker-26: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:17:54,747 [Worker-26: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService/src/test/resources
+2019-11-06 10:18:14,301 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:18:14,302 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-11-06 10:18:14,303 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-11-06 10:18:14,307 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:18:14,307 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService/src/test/resources
+2019-11-06 10:18:28,338 [Worker-26: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:18:28,344 [Worker-26: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-11-06 10:18:28,347 [Worker-26: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-11-06 10:18:28,366 [Worker-26: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:18:28,373 [Worker-26: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService/src/test/resources
+2019-11-06 10:18:42,008 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:18:42,012 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-11-06 10:18:42,013 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-11-06 10:18:42,019 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:18:42,019 [Worker-24: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService/src/test/resources
+2019-11-06 10:19:46,345 [Worker-33: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:19:46,349 [Worker-33: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2019-11-06 10:19:46,361 [Worker-33: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2019-11-06 10:19:46,379 [Worker-33: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2019-11-06 10:19:46,379 [Worker-33: Building workspace] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory /home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService/src/test/resources
