@@ -21,26 +21,6 @@ import com.bridgelabz.fundoo.user.note.model.Note;
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class UserServeApplication {
 
-	/**
-	 * purpose: this method creates a bean of jedisConnectionFactory. We need to have a connection 
-	 * 			factory to connect to the redis server
-	 * @return jedisConnectionFactory 
-	 */
-	@Bean
-	JedisConnectionFactory jedisConnectionFactory() {
-		return new JedisConnectionFactory();
-	}
-
-	/**
-	 * purpose: this method creates a bean of redisTemplate
-	 * @return redisTemplate
-	 */
-	@Bean
-	RedisTemplate<String, Note> redisTemplate() {
-		RedisTemplate<String, Note> redisTemplate = new RedisTemplate<>();
-		redisTemplate.setConnectionFactory(jedisConnectionFactory());
-		return redisTemplate;
-	}
 	public static void main(String[] args) {
 		SpringApplication.run(UserServeApplication.class, args);
 	}
