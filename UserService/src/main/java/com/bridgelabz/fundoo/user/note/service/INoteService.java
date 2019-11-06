@@ -25,7 +25,7 @@ public interface INoteService {
 	 * @param createNoteDto Data Transfer Object sent while creating a note
 	 * @return Response according to the result
 	 */
-	public Response createNote(CreateNoteDto createNoteDto);
+	public Response createNote(CreateNoteDto createNoteDto,String tokenUserId);
 
 	/**
 	 * purpose: This method is used for displays notes in a database of a particular

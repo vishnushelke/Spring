@@ -44,9 +44,9 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@PostMapping
-	public ResponseEntity<Response> createNote(@RequestBody CreateNoteDto createNoteDto)
+	public ResponseEntity<Response> createNote(@RequestBody CreateNoteDto createNoteDto,@RequestHeader String tokenUserId)
 	{
-		return new ResponseEntity<Response>(service.createNote(createNoteDto),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.createNote(createNoteDto,tokenUserId),HttpStatus.OK);
 	}
 	
 	/**

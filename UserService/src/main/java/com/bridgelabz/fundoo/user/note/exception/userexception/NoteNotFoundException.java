@@ -25,4 +25,9 @@ public class NoteNotFoundException extends RuntimeException {
 		super(message);
 		
 	}
+	public NoteNotFoundException()
+	{
+		
+	}
+	
 }

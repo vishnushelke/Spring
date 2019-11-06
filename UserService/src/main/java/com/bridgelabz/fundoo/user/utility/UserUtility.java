@@ -12,7 +12,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 
 import com.bridgelabz.fundoo.user.model.RabbitMQBody;
-import com.bridgelabz.fundoo.user.services.StaticReference;
+import com.bridgelabz.fundoo.user.services.MessageReference;
 
 @Component
 public class UserUtility {
@@ -28,8 +28,8 @@ public class UserUtility {
 	{
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo("shelkeva@gmail.com");
-		message.setSubject(StaticReference.REGISTRATION_RESPONSE);
-		message.setText(StaticReference.REGISTRATION_MAIL_TEXT + token);
+		message.setSubject(MessageReference.REGISTRATION_RESPONSE);
+		message.setText(MessageReference.REGISTRATION_MAIL_TEXT + token);
 		return message;
 	}
 
@@ -43,8 +43,8 @@ public class UserUtility {
 	{
 		RabbitMQBody body = new RabbitMQBody();
 		body.setEmail(email);
-		body.setBody(StaticReference.REGISTRATION_MAIL_TEXT + token);
-		body.setSubject(StaticReference.REGISTRATION_RESPONSE);
+		body.setBody(MessageReference.REGISTRATION_MAIL_TEXT + token);
+		body.setSubject(MessageReference.REGISTRATION_RESPONSE);
 		return body;
 		
 	}

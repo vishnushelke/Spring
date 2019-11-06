@@ -9,7 +9,7 @@
 
 package com.bridgelabz.fundoo.user.services;
 
-public class StaticReference {
+public class MessageReference {
 	
 	//user related messages
 	public static final String LOGIN_SUCCESS = "Logged in successfully";

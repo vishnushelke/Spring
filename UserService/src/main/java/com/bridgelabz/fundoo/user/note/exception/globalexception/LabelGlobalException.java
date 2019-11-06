@@ -28,10 +28,10 @@ public class LabelGlobalException {
 	 * 
 	 * @return Response according to the result
 	 */
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<Response> globalException(Exception ex) {
-		return new ResponseEntity<Response>(new Response(500, ex.getMessage(), null), HttpStatus.INTERNAL_SERVER_ERROR);
-	}
+//	@ExceptionHandler(Exception.class)
+//	public ResponseEntity<Response> globalException(Exception ex) {
+//		return new ResponseEntity<Response>(new Response(500, ex.getMessage(), null), HttpStatus.INTERNAL_SERVER_ERROR);
+//	}
 
 	/**
 	 * purpose this is method is used to throw an exception when we get dont get the

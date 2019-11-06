@@ -8,7 +8,7 @@
 ******************************************************************************/
 package com.bridgelabz.fundoo.user.note.utility;
 
-public class StaticReference {
+public class UserMessageReference {
 
 	//note message
 	public static final String NOTE_SAVE_SUCCESS = "Note successfully created";

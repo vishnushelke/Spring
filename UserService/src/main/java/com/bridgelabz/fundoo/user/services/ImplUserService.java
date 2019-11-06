@@ -71,14 +71,14 @@ public class ImplUserService implements IUserService {
 	public Response registerUser(RegisterDto registerDTO) {
 		registerDTO.setPassword(config.passEndcode().encode(registerDTO.getPassword()));
 		if (repository.findAll().stream().anyMatch(i -> i.getEmail().equals(registerDTO.getEmail()))) {
-			throw new RegistrationException(StaticReference.EMAIL_ALREADY_REGISTERED);
+			throw new RegistrationException(MessageReference.EMAIL_ALREADY_REGISTERED);
 		}
 		User user = mapper.map(registerDTO, User.class);
 		repository.save(user);
 		String token = tokenUtility.createToken(user.getUId());
 		RabbitMQBody body = utility.getRabbitBody(token, registerDTO.getEmail());
 		template.convertAndSend("userMessageQueue", body);
-		return new Response(200, StaticReference.VALIDATE_ACCOUNT, user);
+		return new Response(200, MessageReference.VALIDATE_ACCOUNT, user);
 	}
 
 	/**
@@ -95,12 +95,12 @@ public class ImplUserService implements IUserService {
 
 		if (!(user.getEmail().equals(loginDTO.getEmail())
 				&& config.passEndcode().matches(loginDTO.getPassword(), user.getPassword()))) {
-			throw new LoginException(StaticReference.LOGIN_FAIL);
+			throw new LoginException(MessageReference.LOGIN_FAIL);
 		}
 
 		if (!user.isIsactive())
-			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
-		return new Response(200, StaticReference.LOGIN_SUCCESS, true);
+			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
+		return new Response(200, MessageReference.LOGIN_SUCCESS, true);
 
 	}
 
@@ -115,18 +115,18 @@ public class ImplUserService implements IUserService {
 	public Response forgetPassword(ForgetDto forgetDto) {
 		if (!repository.findAll().stream().filter(i -> i.getEmail().equals(forgetDto.getEmail())).findAny().get()
 				.isIsactive())
-			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
+			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
 		if (!repository.findAll().stream().anyMatch(i -> i.getEmail().equals(forgetDto.getEmail()))) {
-			throw new ForgetPasswordException(StaticReference.EMAIL_NOT_FOUND);
+			throw new ForgetPasswordException(MessageReference.EMAIL_NOT_FOUND);
 		}
 
 		String token = tokenUtility.createToken(repository.findAll().stream()
 				.filter(i -> i.getEmail().equals(forgetDto.getEmail())).findAny().get().getUId());
 		RabbitMQBody body = utility.getRabbitBody(token, forgetDto.getEmail());
-		body.setSubject(StaticReference.FORGET_PASSWORD_RESPONSE);
-		body.setBody(StaticReference.FORGET_MAIL_TEXT + token);
+		body.setSubject(MessageReference.FORGET_PASSWORD_RESPONSE);
+		body.setBody(MessageReference.FORGET_MAIL_TEXT + token);
 		template.convertAndSend("userMessageQueue", body);
-		return new Response(200, StaticReference.FORGET_ACTION_SUCCESS, true);
+		return new Response(200, MessageReference.FORGET_ACTION_SUCCESS, true);
 	}
 
 	/**
@@ -140,16 +140,16 @@ public class ImplUserService implements IUserService {
 	public Response setPassword(setPasswordDto setPasswordDTO, String token) {
 		if (!repository.findAll().stream().filter(i -> i.getEmail().equals(setPasswordDTO.getEmail())).findAny().get()
 				.isIsactive())
-			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
+			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
 		int userId = tokenUtility.getEmailIdFromToken(token);
 		if (repository.findById(userId) == null) {
 			User user = repository.findAll().stream().filter(i -> i.getEmail().equals(setPasswordDTO.getEmail()))
 					.findAny().get();
 			user.setPassword(config.passEndcode().encode(setPasswordDTO.getPassword()));
 			repository.save(user);
-			return new Response(200, StaticReference.SET_PASSWORD_SUCCESS, user);
+			return new Response(200, MessageReference.SET_PASSWORD_SUCCESS, user);
 		} else {
-			throw new SetPasswordException(StaticReference.INVALID_LINK);
+			throw new SetPasswordException(MessageReference.INVALID_LINK);
 		}
 
 	}
@@ -169,9 +169,9 @@ public class ImplUserService implements IUserService {
 			User user = repository.findById(userId).get();
 			user.setIsactive(true);
 			repository.save(user);
-			return new Response(200, StaticReference.VERIFICATION_SUCCESS, user);
+			return new Response(200, MessageReference.VERIFICATION_SUCCESS, user);
 		} else {
-			throw new ValidationException(StaticReference.INVALID_LINK);
+			throw new ValidationException(MessageReference.INVALID_LINK);
 		}
 
 	}
@@ -187,9 +187,9 @@ public class ImplUserService implements IUserService {
 	public Response addProfile(MultipartFile file, String token) {
 		int userId = tokenUtility.getEmailIdFromToken(token);
 		if (repository.findById(userId) == null)
-			throw new UserNotFoundException(StaticReference.EMAIL_NOT_FOUND);
+			throw new UserNotFoundException(MessageReference.EMAIL_NOT_FOUND);
 		if (!repository.findById(userId).get().isIsactive())
-			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
+			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
 
 		User user = repository.findById(userId).get();
 		byte[] bytes;
@@ -203,7 +203,7 @@ public class ImplUserService implements IUserService {
 			e.printStackTrace();
 		}
 		repository.save(user);
-		return new Response(200, StaticReference.PROFILE_PICTURE_SUCCESS, user);
+		return new Response(200, MessageReference.PROFILE_PICTURE_SUCCESS, user);
 	}
 
 	/**
@@ -217,10 +217,10 @@ public class ImplUserService implements IUserService {
 	public Response getProfile(String token) {
 		int userId = tokenUtility.getEmailIdFromToken(token);
 		if (repository.findById(userId) == null)
-			throw new UserNotFoundException(StaticReference.EMAIL_NOT_FOUND);
+			throw new UserNotFoundException(MessageReference.EMAIL_NOT_FOUND);
 		if (!repository.findById(userId).get().isIsactive())
-			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
-		return new Response(200, StaticReference.PROFILE_PICTURE_FETCH_SUCCESS,
+			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
+		return new Response(200, MessageReference.PROFILE_PICTURE_FETCH_SUCCESS,
 				repository.findById(userId).get().getProfilePicture());
 	}
 
@@ -235,9 +235,9 @@ public class ImplUserService implements IUserService {
 	public Response updateProfilePic(MultipartFile file, String token) {
 		int userId = tokenUtility.getEmailIdFromToken(token);
 		if (repository.findById(userId) == null)
-			throw new UserNotFoundException(StaticReference.EMAIL_NOT_FOUND);
+			throw new UserNotFoundException(MessageReference.EMAIL_NOT_FOUND);
 		if (!repository.findById(userId).get().isIsactive())
-			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
+			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
 		User user = repository.findById(userId).get();
 		byte[] bytes;
 		try {
@@ -250,23 +250,23 @@ public class ImplUserService implements IUserService {
 			e.printStackTrace();
 		}
 		repository.save(user);
-		return new Response(200, StaticReference.PROFILE_PICTURE_UPDATION_SUCCESS, user);
+		return new Response(200, MessageReference.PROFILE_PICTURE_UPDATION_SUCCESS, user);
 	}
 
 	@Override
 	public Response deleteProfilePic(String token) {
 		int userId = tokenUtility.getEmailIdFromToken(token);
 		if (repository.findById(userId) == null)
-			throw new UserNotFoundException(StaticReference.EMAIL_NOT_FOUND);
+			throw new UserNotFoundException(MessageReference.EMAIL_NOT_FOUND);
 		if (!repository.findById(userId).get().isIsactive())
-			throw new NotActiveException(StaticReference.ACCOUNT_NOT_ACTIVATED);
+			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
 		User user = repository.findById(userId).get();
 		String fileLocation = user.getProfilePicture();
 		File file = new File(fileLocation);
 		file.delete();
 		user.setProfilePicture(null);
 		repository.save(user);
-		return new Response(200, StaticReference.PROFILE_PICTURE_DELETE_SUCCESS, true);
+		return new Response(200, MessageReference.PROFILE_PICTURE_DELETE_SUCCESS, true);
 
 	}
 }
