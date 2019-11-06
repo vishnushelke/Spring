@@ -10,7 +10,6 @@ package com.bridgelabz.fundoo.user.note.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -34,9 +33,6 @@ import com.bridgelabz.fundoo.user.note.utility.UserMessageReference;
 import com.bridgelabz.fundoo.user.repository.UserRepository;
 import com.bridgelabz.fundoo.user.note.utility.NoteTokenUtility;
 import com.bridgelabz.fundoo.user.response.Response;
-
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class ImplNoteService implements INoteService {
