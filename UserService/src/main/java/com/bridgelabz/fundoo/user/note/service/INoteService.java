@@ -160,7 +160,7 @@ public interface INoteService {
 	public Response addCollaborator(int noteId,String emailId,String tokenUserId);
 	
 	/**
-	 *  purpose: This method is used for rmoving collaboration of a note of a particular
+	 *  purpose: This method is used for removing collaboration of a note of a particular
 	 * 			user
 	 * 
 	 * @param noteId id of the note which is to be collaborated
@@ -170,4 +170,15 @@ public interface INoteService {
 	 * @return Response according to the result
 	 */
 	public Response removeCollaborator(int noteId,String emailId,String tokenUserId);
+	/**
+	 *  purpose: This method is used for setting colour of a note of a particular
+	 * 			user
+	 * 
+	 * @param noteId id of the note which is to be collaborated
+	 * @param colourHashCode of the colour
+	 * @param tokenUserId token sent to mail
+	 * 
+	 * @return Response according to the result
+	 */
+	public Response setColour(int noteId,String colourHashCode,String tokenUserId);
 }

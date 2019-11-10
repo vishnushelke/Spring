@@ -15,7 +15,7 @@ import com.bridgelabz.fundoo.user.note.dto.LabelDto;
 import com.bridgelabz.fundoo.user.note.exception.userexception.GetLabelExcepion;
 import com.bridgelabz.fundoo.user.note.model.Label;
 import com.bridgelabz.fundoo.user.note.repository.ILabelRepository;
-import com.bridgelabz.fundoo.user.note.utility.UserMessageReference;
+import com.bridgelabz.fundoo.user.note.utility.NoteMessageReference;
 import com.bridgelabz.fundoo.user.note.utility.NoteTokenUtility;
 import com.bridgelabz.fundoo.user.response.Response;
 
@@ -41,12 +41,12 @@ public class ImplLabelService implements ILabelService {
 	@Override
 	public Response createLabel(LabelDto addLabelDto) {
 		if (repository.findAll().stream().anyMatch(i -> i.getName().equals(addLabelDto.getName()))) {
-			return new Response(200, UserMessageReference.LABEL_ALREADY_AVAILABLE, false);
+			return new Response(200, NoteMessageReference.LABEL_ALREADY_AVAILABLE, false);
 		}
 		Label label = mapper.map(addLabelDto, Label.class);
 		repository.save(label);
 		String tokenLabelId = utility.createToken(label.getLabelId());
-		return new Response(200, UserMessageReference.LABEL_SAVE_SUCCESS, tokenLabelId);
+		return new Response(200, NoteMessageReference.LABEL_SAVE_SUCCESS, tokenLabelId);
 	}
 
 	/**
@@ -61,9 +61,9 @@ public class ImplLabelService implements ILabelService {
 	public Response getLabel(String tokenLabelId) {
 		int labelId = utility.getIdFromToken(tokenLabelId);
 		if (repository.findById(labelId) == null)
-			throw new GetLabelExcepion(UserMessageReference.LABEL_NOT_FOUND);
+			throw new GetLabelExcepion(NoteMessageReference.LABEL_NOT_FOUND);
 		Label label = repository.findAll().stream().findAny().filter(i -> i.getLabelId() == labelId).orElse(null);
-		return new Response(200, UserMessageReference.LABEL_READ_SUCCES, label);
+		return new Response(200, NoteMessageReference.LABEL_READ_SUCCES, label);
 	}
 
 	/**
@@ -77,11 +77,11 @@ public class ImplLabelService implements ILabelService {
 	public Response updateLabel(String tokenLabelId, LabelDto labelDto) {
 		int labelId = utility.getIdFromToken(tokenLabelId);
 		if (repository.findById(labelId) == null)
-			throw new GetLabelExcepion(UserMessageReference.LABEL_NOT_FOUND);
+			throw new GetLabelExcepion(NoteMessageReference.LABEL_NOT_FOUND);
 		Label label = repository.findAll().stream().findAny().filter(i -> i.getLabelId() == labelId).orElse(null);
 		label.setName(labelDto.getName());
 		repository.save(label);
-		return new Response(200, UserMessageReference.LABEL_UPDATE_SUCCESS, label);
+		return new Response(200, NoteMessageReference.LABEL_UPDATE_SUCCESS, label);
 	}
 
 	/**
@@ -94,9 +94,9 @@ public class ImplLabelService implements ILabelService {
 	public Response deleteLabel(String tokenLabelId) {
 		int labelId = utility.getIdFromToken(tokenLabelId);
 		if (repository.findById(labelId) == null)
-			throw new GetLabelExcepion(UserMessageReference.LABEL_NOT_FOUND);
+			throw new GetLabelExcepion(NoteMessageReference.LABEL_NOT_FOUND);
 		repository.delete(repository.findAll().stream().findAny().filter(i -> i.getLabelId() == labelId).get());
-		return new Response(200, UserMessageReference.LABEL_DELETE_SUCCESS, true);
+		return new Response(200, NoteMessageReference.LABEL_DELETE_SUCCESS, true);
 	}
 
 }

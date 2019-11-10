@@ -8,7 +8,7 @@
 ******************************************************************************/
 package com.bridgelabz.fundoo.user.note.utility;
 
-public class UserMessageReference {
+public class NoteMessageReference {
 
 	//note message
 	public static final String NOTE_SAVE_SUCCESS = "Note successfully created";
@@ -40,6 +40,8 @@ public class UserMessageReference {
 	public static final String REMINDER_UPDATE_SUCCESS = "Reminder updated successfully";
 	
 	public static final String REMINDER_REMOVE_SUCCESS = "Reminder removed successfully";
+	
+	public static final String COLOUR_SET_SUCCESS = "Note colour set successfully";
 	
 	public static final String COLLABORATION_SUCCESS = "Note collaborated successfully";
 	

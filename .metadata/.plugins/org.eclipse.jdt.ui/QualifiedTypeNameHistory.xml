@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.util.Queue"/>
-    <fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
-    <fullyQualifiedTypeName name="org.springframework.amqp.core.Queue"/>
-    <fullyQualifiedTypeName name="org.springframework.amqp.core.TopicExchange"/>
     <fullyQualifiedTypeName name="org.springframework.amqp.core.Binding.DestinationType"/>
     <fullyQualifiedTypeName name="org.springframework.amqp.core.Binding"/>
     <fullyQualifiedTypeName name="org.springframework.boot.autoconfigure.condition.ConditionMessage.Builder"/>
@@ -47,17 +43,21 @@
     <fullyQualifiedTypeName name="javax.persistence.ManyToMany"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestHeader"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.exception.userexception.NoteNotFoundException"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.model.Note"/>
     <fullyQualifiedTypeName name="java.util.Set"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.repository.UserRepository"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.response.Response"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.utility.StaticReference"/>
     <fullyQualifiedTypeName name="java.lang.Integer"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.exception.custom.UserNotFoundException"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.services.StaticReference"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.model.User"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="org.springframework.cache.annotation.EnableCaching"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PutMapping"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.model.Note"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.exception.userexception.NoteNotFoundException"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.services.MessageReference"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.exception.custom.UserNotFoundException"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.utility.UserMessageReference"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.response.Response"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.utility.NoteMessageReference"/>
 </qualifiedTypeNameHistroy>

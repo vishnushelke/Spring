@@ -50,6 +50,7 @@ public class Note {
 	private boolean pin;
 	private boolean archive;
 	private LocalDateTime reminder;
+	private String colour;
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date noteCreationDate;

@@ -230,4 +230,9 @@ public class NoteController {
 	{
 		return new ResponseEntity<Response>(service.removeCollaborator(noteId, emailId, tokenUserId),HttpStatus.OK);
 	}
+	@PutMapping("/setcolour")
+	public ResponseEntity<Response> setColour(@RequestHeader int noteId,@RequestHeader String colourHashcode,@RequestHeader String tokenUserId)
+	{
+		return new ResponseEntity<Response>(service.setColour(noteId, colourHashcode, tokenUserId),HttpStatus.OK);
+	}
 }

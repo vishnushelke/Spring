@@ -31,7 +31,7 @@ public class TokenUtility {
 	 * @param token
 	 * @return userId got after parsing
 	 */
-	public int getEmailIdFromToken(String token) {
+	public int getUserIdFromToken(String token) {
 		Claims claim = Jwts.parser().setSigningKey("userId").parseClaimsJws(token).getBody();
 		String userIdString = claim.getSubject();
 		int userId = Integer.parseInt(userIdString);
