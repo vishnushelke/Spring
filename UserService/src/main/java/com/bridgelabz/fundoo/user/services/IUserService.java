@@ -34,7 +34,7 @@ public interface IUserService {
 	 * 
 	 * @return Response to your action
 	 */
-	public Response loginUser(LoginDto registerDTO,String token);
+	public Response loginUser(LoginDto registerDTO);
 	
 	/**
 	 * purpose: This is service method for forget Password

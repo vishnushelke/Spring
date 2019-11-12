@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +37,7 @@ import com.bridgelabz.fundoo.user.services.ImplUserService;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ImplUserService.class);
@@ -52,10 +54,10 @@ public class UserController {
 	 * @return Response to your action
 	 */
 	@PutMapping("/login")
-	public ResponseEntity<Response> loginUser(@RequestBody LoginDto loginDto,@RequestHeader String token) {
+	public ResponseEntity<Response> loginUser(@RequestBody LoginDto loginDto) {
 
 		LOGGER.info("login logger");
-		return new ResponseEntity<Response>(service.loginUser(loginDto,token), HttpStatus.OK);
+		return new ResponseEntity<Response>(service.loginUser(loginDto), HttpStatus.OK);
 	}
 
 	/**
