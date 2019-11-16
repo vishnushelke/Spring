@@ -6,6 +6,24 @@ public class Gambler {
 	public static final int bet=100;
 	
 	
+	public static int isWon(int stake)
+	{
+		double check = Math.random();
+		if(check>0.5)
+		{
+			stake = stake+bet;
+		}
+		else
+			stake = stake-bet;
+		return stake;
+	}
+	
+	public static boolean isResign(int stake)
+	{
+		return (stake>150 || stake<50);
+	}
+	
+	
 	//all results of each day of month
 		public static int[] monthBets()
 		{
@@ -22,7 +40,7 @@ public class Gambler {
 				while(!isResign(stake))
 				{
 					//putting bet and updating the stakes
-					count  = isWon();
+					count  = isWon(stake);
 				}
 				//finally storing stakes of the particular day
 				dayResults[i]= count;
