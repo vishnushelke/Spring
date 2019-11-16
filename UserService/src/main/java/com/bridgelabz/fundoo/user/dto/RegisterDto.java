@@ -15,9 +15,18 @@ public class RegisterDto {
 	private String lastname;
 	private String email;
 	private String password;
+	private long phonenumber;
 
 	public String getFirstname() {
 		return firstname;
+	}
+
+	public long getPhonenumber() {
+		return phonenumber;
+	}
+
+	public void setPhonenumber(long phonenumber) {
+		this.phonenumber = phonenumber;
 	}
 
 	public void setFirstname(String firstname) {

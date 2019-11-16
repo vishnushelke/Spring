@@ -54,9 +54,9 @@ public class MessageReference {
 	public static final String SECRET_KEY = "userId";
 	
 	//url
-	public static final String REGISTRATION_MAIL_TEXT ="validate your email\n"+"http://localhost:8080/user/validate/";
+	public static final String REGISTRATION_MAIL_TEXT ="validate your email\n"+"http://localhost:3000/user/validate/";
 	
-	public static final String FORGET_MAIL_TEXT ="Click here to reset your password\n"+"http://localhost:8080/user/resetpassword/";
+	public static final String FORGET_MAIL_TEXT ="Click here to reset your password\n"+"http://localhost:3000/user/resetpassword/";
 	
 	
 }

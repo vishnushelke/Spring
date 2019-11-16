@@ -41,6 +41,7 @@ public class User {
 	private String email;
 	private boolean isactive;
 	private String password;
+	private long phonenumber;
 	private String profilePicture;
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp

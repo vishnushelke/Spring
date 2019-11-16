@@ -168,9 +168,9 @@ public class ImplUserService implements IUserService {
 	@Override
 	public Response validateUser(String token) {
 		int userId = tokenUtility.getUserIdFromToken(token);
-
-		if (repository.findAll().stream().anyMatch(i -> i.getUId() == userId)) {
-			User user = repository.findById(userId).get();
+		System.out.println(userId);
+		User user = repository.findById(userId).get();
+		if (user!=null) {
 			user.setIsactive(true);
 			repository.save(user);
 			return new Response(200, MessageReference.VERIFICATION_SUCCESS, user);
