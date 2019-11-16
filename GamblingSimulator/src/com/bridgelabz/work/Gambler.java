@@ -3,7 +3,7 @@ package com.bridgelabz.work;
 public class Gambler {
 
 	public static final int stakeInitial=100;
-	public static final int bet=100;
+	public static final int bet=1;
 	
 	
 	public static int isWon(int stake)
@@ -12,9 +12,12 @@ public class Gambler {
 		if(check>0.5)
 		{
 			stake = stake+bet;
+//			System.out.println(stake);
 		}
-		else
+		else {
 			stake = stake-bet;
+//			System.out.println(stake);
+		}
 		return stake;
 	}
 	
@@ -32,6 +35,7 @@ public class Gambler {
 			//used for calculating result of day
 			int count = 0;
 			
+			
 			//for loop is used because he will play for 30days in month
 			for (int i = 0; i < 30; i++) {
 				//each day stakes will be set as 100 or initial stakes
@@ -40,10 +44,12 @@ public class Gambler {
 				while(!isResign(stake))
 				{
 					//putting bet and updating the stakes
-					count  = isWon(stake);
+//					System.out.println(stake);
+					stake  = isWon(stake);
+//					System.out.println(stake);
 				}
 				//finally storing stakes of the particular day
-				dayResults[i]= count;
+				dayResults[i]= stake;
 				
 			}
 			//returning array of a month which contains final remaining stakes of each day
@@ -66,7 +72,9 @@ public class Gambler {
 			//so, player lost 5 rupees on that day
 			//so like this we will add all days result of a 20days and give output 
 			for (int i = 0; i < 20; i++) {
+				
 				result=result+(resultOfMonth[i]-100);//added the result of each day with previous day result
+				System.out.println(result);
 			}
 			return result;
 		}
@@ -90,5 +98,13 @@ public class Gambler {
 				return true;
 		}
 	
-	
+	public static void main(String[] args) {
+//		System.out.println(1);
+//		System.out.println(resultOfTwentyDays());
+//		System.out.println(2);
+		int []a = monthBets();
+		for (int i = 0; i < a.length; i++) {
+			System.out.println(a[i]);
+		}
+	}
 }
