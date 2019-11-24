@@ -46,6 +46,8 @@ public class NoteMessageReference {
 	public static final String COLLABORATION_SUCCESS = "Note collaborated successfully";
 	
 	public static final String COLLABORATION_REMOVE_SUCCESS = "Note collaboration removed successfully";
+	
+	public static final String USER_NOT_AUTHORISED = "You are not authorized to access this note";
 
 	// Exception Messages
 	public static final String USER_NOT_FOUND = "User not found";

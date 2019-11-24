@@ -33,6 +33,7 @@ public class Label {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer labelId;
+	private Integer userId;
 	@NotNull(message = "name of the label can not be kept null")
 	private String name;
 	@Temporal(TemporalType.TIMESTAMP)
@@ -51,6 +52,14 @@ public class Label {
 
 	public void setLabelId(Integer labelId) {
 		this.labelId = labelId;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	public String getName() {

@@ -33,7 +33,6 @@ import com.bridgelabz.fundoo.user.note.utility.NoteMessageReference;
 import com.bridgelabz.fundoo.user.repository.UserRepository;
 import com.bridgelabz.fundoo.user.note.utility.NoteTokenUtility;
 import com.bridgelabz.fundoo.user.response.Response;
-import com.bridgelabz.fundoo.user.services.MessageReference;
 
 @Service
 public class ImplNoteService implements INoteService {
@@ -62,10 +61,14 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response createNote(CreateNoteDto createNoteDto,String tokenUserId) {
-		if (!(createNoteDto.getText().isBlank() && createNoteDto.getText().isBlank())) {
-			if(userRepository.findById(utility.getIdFromToken(tokenUserId)).isEmpty())
+		int userId = utility.getIdFromToken(tokenUserId);
+		if (!(createNoteDto.getText().isEmpty() || createNoteDto.getText().isEmpty())) {
+			if(userRepository.findById(userId).isEmpty())
 				throw new UserNotFoundException(NoteMessageReference.USER_NOT_FOUND);
-			repository.save(mapper.map(createNoteDto, Note.class));
+			Note note = mapper.map(createNoteDto, Note.class);
+			note.setUserId(userId);
+			repository.save(note);
+			
 			return new Response(200, NoteMessageReference.NOTE_SAVE_SUCCESS, true);
 		}
 		throw new CreateNoteExcepion(NoteMessageReference.NOTE_CANNOT_BE_CREATED);
@@ -84,10 +87,13 @@ public class ImplNoteService implements INoteService {
 		if ((repository.findById(userId)).isEmpty()) {
 			throw new GetNoteExcepion(NoteMessageReference.USER_NOT_FOUND);
 		}
-		Stream<Note> notesStream = repository.findAll().stream().filter(i -> i.getUserId() == userId);
+		//TODO
+		Stream<Note> notesStream = repository.findAll().stream().filter(i -> i.getUserId() == userId && !i.isArchive() && !i.isTrash());
 		ArrayList<Note> notes = notesStream.collect(Collectors.toCollection(ArrayList::new));
 		return new Response(200, NoteMessageReference.NOTE_READ_SUCCES, notes);
 	}
+	
+	
 
 	/**
 	 * purpose: This method is used for deleting a particular note in a database.
@@ -100,7 +106,7 @@ public class ImplNoteService implements INoteService {
 		Note note = repository.findById(noteId).orElse(null);
 		if ((note==null)) 
 			throw new NoteNotFoundException(NoteMessageReference.NOTE_NOT_FOUND);
-		if(note.getUserId()==utility.getIdFromToken(tokenUserId))
+		if(note.getUserId()!=utility.getIdFromToken(tokenUserId))
 			throw new UserNotFoundException(NoteMessageReference.USER_NOT_FOUND);
 		if (note.isTrash()) {
 			repository.deleteById(noteId);
@@ -173,6 +179,7 @@ public class ImplNoteService implements INoteService {
 
 			note.setTrash(false);
 		} else {
+			note.setArchive(false);
 			note.setPin(false);
 			note.setTrash(true);
 		}
@@ -417,9 +424,43 @@ public class ImplNoteService implements INoteService {
 			throw new NoteNotFoundException(NoteMessageReference.NOTE_NOT_FOUND);
 		if(note.getUserId()!=utility.getIdFromToken(tokenUserId))
 			throw new UserNotFoundException(NoteMessageReference.USER_NOT_FOUND);
+		System.out.println(colourHashCode);
 		note.setColour(colourHashCode);
 		repository.save(note);
 		return new Response(200, NoteMessageReference.COLOUR_SET_SUCCESS, true);
+	}
+	/**
+	 * purpose: This method is used for displaying notes in a database of a particular user which are archived. 
+	 * @param UserId of the user whose notes to be displayed
+	 * @return Response according to the result
+	 */
+	@Override
+	public Response getArchivedNotes(String tokenUserId) {
+		// TODO Auto-generated method stub
+		int userId = utility.getIdFromToken(tokenUserId);
+		if ((repository.findById(userId)).isEmpty()) {
+			throw new GetNoteExcepion(NoteMessageReference.USER_NOT_FOUND);
+		}
+		Stream<Note> notesStream = repository.findAll().stream().filter(i -> i.getUserId() == userId && i.isArchive());
+		ArrayList<Note> notes = notesStream.collect(Collectors.toCollection(ArrayList::new));
+		return new Response(200, NoteMessageReference.NOTE_READ_SUCCES, notes);
+		
+	}
+	/**
+	 * purpose: This method is used for displaying notes in a database of a particular user which are trashed. 
+	 * @param UserId of the user whose notes to be displayed
+	 * @return Response according to the result
+	 */
+	@Override
+	public Response getTrashedNotes(String tokenUserId) {
+		// TODO Auto-generated method stub
+		int userId = utility.getIdFromToken(tokenUserId);
+		if ((repository.findById(userId)).isEmpty()) {
+			throw new GetNoteExcepion(NoteMessageReference.USER_NOT_FOUND);
+		}
+		Stream<Note> notesStream = repository.findAll().stream().filter(i -> i.getUserId() == userId && i.isTrash());
+		ArrayList<Note> notes = notesStream.collect(Collectors.toCollection(ArrayList::new));
+		return new Response(200, NoteMessageReference.NOTE_READ_SUCCES, notes);
 	}
 
 }

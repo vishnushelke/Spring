@@ -28,13 +28,31 @@ public interface INoteService {
 	public Response createNote(CreateNoteDto createNoteDto,String tokenUserId);
 
 	/**
-	 * purpose: This method is used for displays notes in a database of a particular
-	 * user.
+	 * purpose: This method is used for displaying notes in a database of a particular
+	 * user which are not trashed and not archived.
 	 * 
 	 * @param tokenUserId of the user whose notes to be displayed
 	 * @return Response according to the result
 	 */
 	public Response getNote(String tokenUserId);
+	
+	/**
+	 * purpose: This method is used for displaying notes in a database of a particular
+	 * user which are archived.
+	 * 
+	 * @param tokenUserId of the user whose notes to be displayed
+	 * @return Response according to the result
+	 */
+	public Response getArchivedNotes(String tokenUserId);
+	
+	/**
+	 * purpose: This method is used for displays notes in a database of a particular
+	 * user ehich are trashed.
+	 * 
+	 * @param tokenUserId of the user whose notes to be displayed
+	 * @return Response according to the result
+	 */
+	public Response getTrashedNotes(String tokenUserId);
 
 	/**
 	 * purpose: This method is used for deleting a particular note in a database.

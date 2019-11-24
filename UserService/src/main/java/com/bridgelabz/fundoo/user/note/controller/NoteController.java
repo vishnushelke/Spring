@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +34,7 @@ import com.bridgelabz.fundoo.user.response.Response;
 
 @RestController
 @RequestMapping("/user/notes")
+@CrossOrigin
 public class NoteController {
 
 	@Autowired
@@ -50,7 +52,27 @@ public class NoteController {
 	}
 	
 	/**
-	 * purpose: This method is used for displays notes in a database of a particular user. 
+	 * purpose: This method is used for displaying notes in a database of a particular user which are archived. 
+	 * @param UserId of the user whose notes to be displayed
+	 * @return Response according to the result
+	 */
+	@GetMapping("/archivednotes")
+	public ResponseEntity<Response> getArchivedNotes(@RequestHeader String tokenUserId)
+	{
+		return new ResponseEntity<Response>(service.getArchivedNotes(tokenUserId),HttpStatus.OK);
+	}
+	/**
+	 * purpose: This method is used for displaying notes in a database of a particular user which are trashed. 
+	 * @param UserId of the user whose notes to be displayed
+	 * @return Response according to the result
+	 */
+	@GetMapping("/trashednotes")
+	public ResponseEntity<Response> getTrashedNotes(@RequestHeader String tokenUserId)
+	{
+		return new ResponseEntity<Response>(service.getTrashedNotes(tokenUserId),HttpStatus.OK);
+	}
+	/**
+	 * purpose: This method is used for displaying notes in a database of a particular user. 
 	 * @param UserId of the user whose notes to be displayed
 	 * @return Response according to the result
 	 */
@@ -231,8 +253,10 @@ public class NoteController {
 		return new ResponseEntity<Response>(service.removeCollaborator(noteId, emailId, tokenUserId),HttpStatus.OK);
 	}
 	@PutMapping("/setcolour")
-	public ResponseEntity<Response> setColour(@RequestHeader int noteId,@RequestHeader String colourHashcode,@RequestHeader String tokenUserId)
+	public ResponseEntity<Response> setColour(@RequestHeader String colourHashcode,@RequestHeader int noteId,@RequestHeader String tokenUserId)
 	{
+		System.out.println("in colour add");
+		System.out.println(noteId+" "+colourHashcode);
 		return new ResponseEntity<Response>(service.setColour(noteId, colourHashcode, tokenUserId),HttpStatus.OK);
 	}
 }

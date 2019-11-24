@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bridgelabz.fundoo.user.dto.ForgetDto;
 import com.bridgelabz.fundoo.user.dto.LoginDto;
 import com.bridgelabz.fundoo.user.dto.RegisterDto;
-import com.bridgelabz.fundoo.user.dto.setPasswordDto;
+import com.bridgelabz.fundoo.user.dto.SetPasswordDto;
 import com.bridgelabz.fundoo.user.response.Response;
 
 public interface IUserService {
@@ -52,7 +52,7 @@ public interface IUserService {
 	 * 
 	 * @return Response to your action
 	 */
-	public Response setPassword(setPasswordDto setPasswordDto,String token);
+	public Response setPassword(SetPasswordDto setPasswordDto,String token);
 	
 	/**
 	 * purpose: This is service method for validating User

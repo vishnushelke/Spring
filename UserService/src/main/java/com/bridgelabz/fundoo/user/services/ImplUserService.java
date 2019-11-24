@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 import com.bridgelabz.fundoo.user.dto.ForgetDto;
 import com.bridgelabz.fundoo.user.dto.LoginDto;
 import com.bridgelabz.fundoo.user.dto.RegisterDto;
-import com.bridgelabz.fundoo.user.dto.setPasswordDto;
+import com.bridgelabz.fundoo.user.dto.SetPasswordDto;
 import com.bridgelabz.fundoo.user.exception.custom.ForgetPasswordException;
 import com.bridgelabz.fundoo.user.exception.custom.LoginException;
 import com.bridgelabz.fundoo.user.exception.custom.NotActiveException;
@@ -32,6 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bridgelabz.fundoo.user.model.RabbitMQBody;
 import com.bridgelabz.fundoo.user.model.User;
+import com.bridgelabz.fundoo.user.note.utility.NoteMessageReference;
 import com.bridgelabz.fundoo.user.repository.UserConfig;
 import com.bridgelabz.fundoo.user.repository.UserRepository;
 import com.bridgelabz.fundoo.user.response.Response;
@@ -90,9 +91,9 @@ public class ImplUserService implements IUserService {
 	 */
 	@Override
 	public Response loginUser(LoginDto loginDTO) {
-		
+
 		User user = repository.findByEmail(loginDTO.getEmail()).get();
-		if(user==null)
+		if (user == null)
 			throw new UserNotFoundException(MessageReference.EMAIL_NOT_FOUND);
 		if (!(user.getEmail().equals(loginDTO.getEmail())
 				&& config.passEndcode().matches(loginDTO.getPassword(), user.getPassword()))) {
@@ -138,24 +139,16 @@ public class ImplUserService implements IUserService {
 	 * @return Response to your action
 	 */
 	@Override
-	public Response setPassword(setPasswordDto setPasswordDTO, String token) {
-		if (!repository.findAll().stream().filter(i -> i.getEmail().equals(setPasswordDTO.getEmail())).findAny().get()
-				.isIsactive())
-			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
+	public Response setPassword(SetPasswordDto setPasswordDTO, String token) {
 		int userId = tokenUtility.getUserIdFromToken(token);
-		System.out.println(userId);
-		if (repository.findById(userId) != null) {
-			User user = repository.findAll().stream().filter(i -> i.getEmail().equals(setPasswordDTO.getEmail()))
-					.findAny().get();
-			user.setPassword(config.passEndcode().encode(setPasswordDTO.getPassword()));
-			repository.save(user);
-			return new Response(200, MessageReference.SET_PASSWORD_SUCCESS, user);
-		}
-		return new Response(200, MessageReference.SET_PASSWORD_SUCCESS, "user");
-//			else {
-//			throw new SetPasswordException(MessageReference.INVALID_LINK);
-//		}
-
+		User user = repository.findById(userId).orElse(null);
+		if (user == null)
+			throw new UserNotFoundException(NoteMessageReference.USER_NOT_FOUND);
+		if (!user.isIsactive())
+			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
+		user.setPassword(config.passEndcode().encode(setPasswordDTO.getPassword()));
+		repository.save(user);
+		return new Response(200, MessageReference.SET_PASSWORD_SUCCESS, user);
 	}
 
 	/**
@@ -170,7 +163,7 @@ public class ImplUserService implements IUserService {
 		int userId = tokenUtility.getUserIdFromToken(token);
 		System.out.println(userId);
 		User user = repository.findById(userId).get();
-		if (user!=null) {
+		if (user != null) {
 			user.setIsactive(true);
 			repository.save(user);
 			return new Response(200, MessageReference.VERIFICATION_SUCCESS, user);

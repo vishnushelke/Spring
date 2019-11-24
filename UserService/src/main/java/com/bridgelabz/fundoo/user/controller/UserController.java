@@ -31,7 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bridgelabz.fundoo.user.dto.ForgetDto;
 import com.bridgelabz.fundoo.user.dto.LoginDto;
 import com.bridgelabz.fundoo.user.dto.RegisterDto;
-import com.bridgelabz.fundoo.user.dto.setPasswordDto;
+import com.bridgelabz.fundoo.user.dto.SetPasswordDto;
 import com.bridgelabz.fundoo.user.response.Response;
 import com.bridgelabz.fundoo.user.services.ImplUserService;
 
@@ -99,7 +99,7 @@ public class UserController {
 	 * @return true if you are registered after putting appropriate values
 	 */
 	@PutMapping("/resetpassword")
-	public ResponseEntity<Response> setPassword(@RequestBody setPasswordDto setPasswordDto,
+	public ResponseEntity<Response> setPassword(@RequestBody SetPasswordDto setPasswordDto,
 			@RequestHeader String token) {
 		LOGGER.info("resetPassword logger");
 		return new ResponseEntity<Response>(service.setPassword(setPasswordDto, token), HttpStatus.OK);
@@ -109,7 +109,7 @@ public class UserController {
 	/**
 	 * purpose: This method will validate your account if you have gone on right link
 	 * 
-	 * @param setPasswordDto Data Transfer object while registering, token
+	 * @param SetPasswordDto Data Transfer object while registering, token
 	 * 
 	 * @return true if you are registered after putting appropriate values
 	 */

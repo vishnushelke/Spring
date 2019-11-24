@@ -20,7 +20,7 @@ public interface ILabelService {
 	 * @param addLabelDto Data Transfer Object sent while creating a label
 	 * @return Response according to the result
 	 */
-	public Response createLabel(LabelDto addLabelDto);
+	public Response createLabel(LabelDto addLabelDto,String tokenUserId);
 	
 	/**
 	 * purpose: This method is used for displays label in a database of a particular
@@ -29,7 +29,7 @@ public interface ILabelService {
 	 * @param tokenLabelId of the user whose label to be displayed
 	 * @return Response according to the result
 	 */
-	public Response getLabel(String tokenLabelId);
+	public Response getLabel(String tokenUserId);
 	
 	/**
 	 * purpose: This method is used for updating a particular label in a database.
@@ -37,7 +37,7 @@ public interface ILabelService {
 	 * @param updateNoteDto Data Transfer Object sent while updating a label,tokenLabelId of a label
 	 * @return Response according to the result
 	 */
-	public Response updateLabel(String tokenLabelId,LabelDto addLabelDto);
+	public Response updateLabel(int labelId,LabelDto addLabelDto,String tokenUserId);
 	
 	/**
 	 * purpose: This method is used for updating a particular label in a database.
@@ -45,6 +45,14 @@ public interface ILabelService {
 	 * @param updateNoteDto Data Transfer Object sent while updating a label,tokenLabelId of a label
 	 * @return Response according to the result
 	 */
-	public Response deleteLabel(String tokenLabelId);
+	public Response deleteLabel(int labelId,String tokenUserId);
+	
+	/**
+	 * purpose: this method is used for getting notes of particular user present in a label
+	 * @param labelId id of label
+	 * @param tokenUserId token of user
+	 * @return response according to result
+	 */
+	public Response getNotesOFLabel(int labelId,String tokenUserId);
 
 }
