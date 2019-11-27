@@ -9,6 +9,7 @@
 package com.bridgelabz.fundoo.user.note.service;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import com.bridgelabz.fundoo.user.note.dto.CreateNoteDto;
 import com.bridgelabz.fundoo.user.note.dto.UpdateNoteDto;
@@ -122,7 +123,7 @@ public interface INoteService {
 	 *               which note is to be added
 	 * @return Response according to the result
 	 */
-	public Response addNoteToLabel(int labelId, int noteId,String tokenUserId);
+	public Response addNoteToLabel(String name, int noteId,String tokenUserId);
 
 	/**
 	 * purpose: This method is used for removing note of a particular user from
@@ -142,7 +143,7 @@ public interface INoteService {
 	 * 
 	 * @return Response according to the result
 	 */
-	public Response addReminder(LocalDateTime reminderTime,int noteId,String tokenUserId);
+	public Response addReminder(Date reminderTime,int noteId,String tokenUserId);
 	
 	/**
 	 * purpose: This method is used for updating a reminder of note of a particular
@@ -152,7 +153,7 @@ public interface INoteService {
 	 * 
 	 * @return Response according to the result
 	 */
-	public Response updateReminder(LocalDateTime reminderTime, int noteId, String tokenUserId);
+	public Response updateReminder(Date reminderTime, int noteId, String tokenUserId);
 	
 	/**
 	 * purpose: This method is used for removing a reminder of note of a particular
@@ -199,4 +200,8 @@ public interface INoteService {
 	 * @return Response according to the result
 	 */
 	public Response setColour(int noteId,String colourHashCode,String tokenUserId);
+	
+	public Response searchNotesByTitle(String title, String tokenUserId);
+	
+	public Response getReminderNotes(String tokenUserId);
 }

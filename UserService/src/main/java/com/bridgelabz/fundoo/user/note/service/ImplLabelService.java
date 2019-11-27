@@ -52,7 +52,6 @@ public class ImplLabelService implements ILabelService {
 	 */
 	@Override
 	public Response createLabel(LabelDto addLabelDto, String tokenUserId) {
-		System.out.println("hi mi aloy");
 		if (repository.findAll().stream().anyMatch(i -> i.getName().equals(addLabelDto.getName()))) {
 			return new Response(200, NoteMessageReference.LABEL_ALREADY_AVAILABLE, false);
 		}
@@ -122,13 +121,14 @@ public class ImplLabelService implements ILabelService {
 
 	@Override
 	public Response getNotesOFLabel(int labelId, String tokenUserId) {
+		System.out.println("get notes of label");
 		Label label = repository.findById(labelId).orElse(null);
+//		System.out.println(label);
+		if (label == null)
+			throw new GetLabelExcepion(NoteMessageReference.LABEL_NOT_FOUND);
 		if (label.getUserId() != utility.getIdFromToken(tokenUserId))
 			throw new UserNotFoundException(NoteMessageReference.USER_NOT_AUTHORISED);
-		if (repository.findById(labelId) == null)
-			throw new GetLabelExcepion(NoteMessageReference.LABEL_NOT_FOUND);
 		List<Note> notes = label.getNotes();
 		return new Response(200, NoteMessageReference.NOTE_READ_SUCCES, notes);
 	}
-
 }

@@ -11,9 +11,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.bridgelabz.fundoo.user.note.model.Label;
+import java.util.Optional;
 
 
 @Repository
 public interface ILabelRepository extends JpaRepository<Label, Integer>{
 
+	Optional<Label> findByName(String name);
 }

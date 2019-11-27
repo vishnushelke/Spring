@@ -27,15 +27,19 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.bridgelabz.fundoo.user.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "note")
-@Data
+@Getter
+@Setter
 public class Note {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,7 +53,8 @@ public class Note {
 	private boolean trash;
 	private boolean pin;
 	private boolean archive;
-	private LocalDateTime reminder;
+//	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date reminder;
 	private String colour;
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
@@ -63,5 +68,12 @@ public class Note {
 	@JsonIgnoreProperties(value = "notes")
 	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private List<User> collabUsers;
+	@Override
+	public String toString() {
+		return "Note [noteId=" + noteId + ", userId=" + userId + ", title=" + title + ", text=" + text + ", trash="
+				+ trash + ", pin=" + pin + ", archive=" + archive + ", reminder=" + reminder + ", colour=" + colour
+				+ ", noteCreationDate=" + noteCreationDate + ", noteUpdationDate=" + noteUpdationDate + ", labels="
+				+ labels + ", collabUsers=" + collabUsers + "]";
+	}
 	
 }

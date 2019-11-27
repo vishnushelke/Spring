@@ -81,7 +81,7 @@ public class LabelController {
 		return new ResponseEntity<Response>(service.deleteLabel(labelId,tokenUserId), HttpStatus.OK);
 	}
 	@GetMapping("/notes")
-	public ResponseEntity<Response> getNotesOfLabel(@RequestHeader String tokenUserId,@RequestHeader int labelId){
-		return new ResponseEntity<Response>(service.getNotesOFLabel(labelId, tokenUserId),HttpStatus.OK);
+	public ResponseEntity<Response> getNotesOfLabel(@RequestHeader String tokenUserId,@RequestHeader String labelId){
+		return new ResponseEntity<Response>(service.getNotesOFLabel(Integer.parseInt(labelId), tokenUserId),HttpStatus.OK);
 	}
 }

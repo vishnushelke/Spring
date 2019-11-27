@@ -7,8 +7,8 @@
 ******************************************************************************/
 package com.bridgelabz.fundoo.user.note.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -256,7 +256,7 @@ public class ImplNoteService implements INoteService {
 	 * @return Response according to the result
 	 */
 	@Override
-	public Response addNoteToLabel(int labelId, int noteId, String tokenUserId) {
+	public Response addNoteToLabel(String name, int noteId, String tokenUserId) {
 		if (!(repository.findById(noteId).get().getUserId() == utility.getIdFromToken(tokenUserId)))
 			return new Response(200, NoteMessageReference.USER_NOT_FOUND, false);
 //		if (repository.findById(noteId) == null)
@@ -264,12 +264,12 @@ public class ImplNoteService implements INoteService {
 
 		Note note = repository.findById(noteId).orElseThrow(NoteNotFoundException::new);
 		List<Label> labels = note.getLabels();
-		for (int i = 0; i < labels.size(); i++) {
-			if (labels.get(i).getLabelId() == labelId) {
-				return new Response(200, NoteMessageReference.NOTE_ALREADY_ADDED_TO_LABEL, false);
-			}
-		}
-		Label label = labelRepository.findById(labelId).get();
+//		for (int i = 0; i < labels.size(); i++) {
+//			if (labels.get(i).getLabelId() == labelId) {
+//				return new Response(200, NoteMessageReference.NOTE_ALREADY_ADDED_TO_LABEL, false);
+//			}
+//		}
+		Label label = labelRepository.findByName(name).get();
 		labels.add(label);
 		note.setLabels(labels);
 		repository.save(note);
@@ -309,7 +309,7 @@ public class ImplNoteService implements INoteService {
 	 * @return Response according to the result
 	 */
 	@Override
-	public Response addReminder(LocalDateTime reminderTime, int noteId, String tokenUserId) {
+	public Response addReminder(Date reminderTime, int noteId, String tokenUserId) {
 		if (!(repository.findById(noteId).get().getUserId() == utility.getIdFromToken(tokenUserId)))
 			return new Response(200, NoteMessageReference.USER_NOT_FOUND, false);
 		if (repository.findById(noteId) == null)
@@ -330,7 +330,7 @@ public class ImplNoteService implements INoteService {
 	 * @return Response according to the result
 	 */
 	@Override
-	public Response updateReminder(LocalDateTime reminderTime, int noteId, String tokenUserId) {
+	public Response updateReminder(Date reminderTime, int noteId, String tokenUserId) {
 		if (!(repository.findById(noteId).get().getUserId() == utility.getIdFromToken(tokenUserId)))
 			return new Response(200, NoteMessageReference.USER_NOT_FOUND, false);
 		if (repository.findById(noteId) == null)
@@ -462,6 +462,28 @@ public class ImplNoteService implements INoteService {
 			throw new GetNoteExcepion(NoteMessageReference.USER_NOT_FOUND);
 		}
 		Stream<Note> notesStream = repository.findAll().stream().filter(i -> i.getUserId() == userId && i.isTrash());
+		ArrayList<Note> notes = notesStream.collect(Collectors.toCollection(ArrayList::new));
+		return new Response(200, NoteMessageReference.NOTE_READ_SUCCES, notes);
+	}
+
+	@Override
+	public Response searchNotesByTitle(String title, String tokenUserId) {
+		//ToDo
+		int userId = utility.getIdFromToken(tokenUserId);
+		if ((repository.findById(userId)).isEmpty()) {
+			throw new GetNoteExcepion(NoteMessageReference.USER_NOT_FOUND);
+		}
+		Stream<Note> notesStream = repository.findAll().stream().filter(i -> i.getTitle().equals(title));
+		ArrayList<Note> notes = notesStream.collect(Collectors.toCollection(ArrayList::new));
+		return new Response(200, NoteMessageReference.NOTE_READ_SUCCES, notes);
+	}
+	@Override
+	public Response getReminderNotes(String tokenUserId) {
+		int userId = utility.getIdFromToken(tokenUserId);
+		if ((repository.findById(userId)).isEmpty()) {
+			throw new GetNoteExcepion(NoteMessageReference.USER_NOT_FOUND);
+		}
+		Stream<Note> notesStream = repository.findAll().stream().filter(i -> i.getUserId()==userId && i.getReminder()!=(null));
 		ArrayList<Note> notes = notesStream.collect(Collectors.toCollection(ArrayList::new));
 		return new Response(200, NoteMessageReference.NOTE_READ_SUCCES, notes);
 	}

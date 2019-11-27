@@ -53,6 +53,6 @@ public interface ILabelService {
 	 * @param tokenUserId token of user
 	 * @return response according to result
 	 */
-	public Response getNotesOFLabel(int labelId,String tokenUserId);
+	public Response getNotesOFLabel(int lbelId,String tokenUserId);
 
 }

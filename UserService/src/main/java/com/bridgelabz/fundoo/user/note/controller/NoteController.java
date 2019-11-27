@@ -9,6 +9,7 @@
 package com.bridgelabz.fundoo.user.note.controller;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -165,9 +166,9 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@PutMapping("/addtolabel")
-	public ResponseEntity<Response> addNoteToLabel(@RequestHeader int noteId,@RequestHeader int labelId,@RequestHeader String tokenUserId)
+	public ResponseEntity<Response> addNoteToLabel(@RequestHeader int noteId,@RequestHeader String name,@RequestHeader String tokenUserId)
 	{
-		return new ResponseEntity<Response>(service.addNoteToLabel(labelId,noteId,tokenUserId),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.addNoteToLabel(name,noteId,tokenUserId),HttpStatus.OK);
 	}
 	/**
 	 * purpose: This method is used for removing note of a particular user from label
@@ -191,7 +192,7 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@PutMapping("/addreminder")
-	public ResponseEntity<Response> addReminder(@RequestHeader int noteId,@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime reminderTime,@RequestHeader String tokenUserId)
+	public ResponseEntity<Response> addReminder(@RequestHeader int noteId,@RequestHeader Date reminderTime,@RequestHeader String tokenUserId)
 	{
 		return new ResponseEntity<Response>(service.addReminder(reminderTime,noteId,tokenUserId),HttpStatus.OK);
 	}
@@ -205,7 +206,7 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@PutMapping("/updatereminder")
-	public ResponseEntity<Response> updateReminder(@RequestHeader int noteId,@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime reminderTime,@RequestHeader String tokenUserId)
+	public ResponseEntity<Response> updateReminder(@RequestHeader int noteId,@RequestHeader Date reminderTime,@RequestHeader String tokenUserId)
 	{
 		return new ResponseEntity<Response>(service.updateReminder(reminderTime,noteId,tokenUserId),HttpStatus.OK);
 	}
@@ -255,8 +256,16 @@ public class NoteController {
 	@PutMapping("/setcolour")
 	public ResponseEntity<Response> setColour(@RequestHeader String colourHashcode,@RequestHeader int noteId,@RequestHeader String tokenUserId)
 	{
-		System.out.println("in colour add");
-		System.out.println(noteId+" "+colourHashcode);
 		return new ResponseEntity<Response>(service.setColour(noteId, colourHashcode, tokenUserId),HttpStatus.OK);
+	}
+	@GetMapping("/searchnotes")
+	public ResponseEntity<Response> searchNotesByTitle(@RequestHeader String title,@RequestHeader String tokenUserId)
+	{
+		return new ResponseEntity<Response>(service.searchNotesByTitle(title,tokenUserId),HttpStatus.OK);
+	}
+	@GetMapping("/getremindernotes")
+	public ResponseEntity<Response> getReminderNotes(@RequestHeader String tokenUserId)
+	{
+		return new ResponseEntity<Response>(service.getReminderNotes(tokenUserId),HttpStatus.OK);
 	}
 }

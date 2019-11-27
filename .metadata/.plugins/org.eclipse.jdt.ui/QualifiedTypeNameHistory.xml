@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="lombok.NoArgsConstructor"/>
-    <fullyQualifiedTypeName name="lombok.AllArgsConstructor"/>
-    <fullyQualifiedTypeName name="org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer"/>
     <fullyQualifiedTypeName name="org.springframework.amqp.rabbit.connection.ConnectionFactory"/>
     <fullyQualifiedTypeName name="java.util.concurrent.CountDownLatch"/>
     <fullyQualifiedTypeName name="org.springframework.mail.javamail.JavaMailSender"/>
@@ -26,7 +23,6 @@
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.exception.userexception.SortByTitleNoteExcepion"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.exception.userexception.SortByUpdationDateNoteExcepion"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.exception.userexception.AddNoteToLabelExcepion"/>
-    <fullyQualifiedTypeName name="lombok.Getter"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.service.ImplNoteService"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.dto.CreateNoteDto"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.dto.UpdateNoteDto"/>
@@ -38,7 +34,6 @@
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.repository.UserRepository"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.utility.StaticReference"/>
-    <fullyQualifiedTypeName name="java.lang.Integer"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.services.StaticReference"/>
     <fullyQualifiedTypeName name="org.springframework.cache.annotation.EnableCaching"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PutMapping"/>
@@ -46,18 +41,23 @@
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.utility.UserMessageReference"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.services.MessageReference"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.CrossOrigin"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
     <fullyQualifiedTypeName name="ch.qos.logback.core.pattern.util.RegularEscapeUtil"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.model.User"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.model.Label"/>
     <fullyQualifiedTypeName name="java.util.stream.Stream"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.model.Note"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.response.Response"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestHeader"/>
-    <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
     <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.exception.custom.UserNotFoundException"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.utility.NoteMessageReference"/>
+    <fullyQualifiedTypeName name="com.google.common.base.Optional"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.model.Label"/>
+    <fullyQualifiedTypeName name="lombok.Getter"/>
+    <fullyQualifiedTypeName name="lombok.Setter"/>
+    <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.response.Response"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestHeader"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
+    <fullyQualifiedTypeName name="java.lang.Override"/>
 </qualifiedTypeNameHistroy>
