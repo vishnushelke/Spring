@@ -177,7 +177,8 @@ public class ImplNoteService implements INoteService {
 
 			note.setTrash(false);
 		} else {
-			note.setArchive(false);
+			note.setReminder(null);
+			note.setCollabUsers(null);
 			note.setPin(false);
 			note.setTrash(true);
 		}
@@ -256,7 +257,7 @@ public class ImplNoteService implements INoteService {
 	 * @return Response according to the result
 	 */
 	@Override
-	public Response addNoteToLabel(String name, int noteId, String tokenUserId) {
+	public Response addNoteToLabel(int labelId, int noteId, String tokenUserId) {
 		if (!(repository.findById(noteId).get().getUserId() == utility.getIdFromToken(tokenUserId)))
 			return new Response(200, NoteMessageReference.USER_NOT_FOUND, false);
 //		if (repository.findById(noteId) == null)
@@ -264,12 +265,12 @@ public class ImplNoteService implements INoteService {
 
 		Note note = repository.findById(noteId).orElseThrow(NoteNotFoundException::new);
 		List<Label> labels = note.getLabels();
-//		for (int i = 0; i < labels.size(); i++) {
-//			if (labels.get(i).getLabelId() == labelId) {
-//				return new Response(200, NoteMessageReference.NOTE_ALREADY_ADDED_TO_LABEL, false);
-//			}
-//		}
-		Label label = labelRepository.findByName(name).get();
+		for (int i = 0; i < labels.size(); i++) {
+			if (labels.get(i).getLabelId() == labelId) {
+				return new Response(200, NoteMessageReference.NOTE_ALREADY_ADDED_TO_LABEL, false);
+			}
+		}
+		Label label = labelRepository.findById(labelId).get();
 		labels.add(label);
 		note.setLabels(labels);
 		repository.save(note);

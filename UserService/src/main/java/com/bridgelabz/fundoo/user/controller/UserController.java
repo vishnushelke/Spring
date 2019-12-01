@@ -33,6 +33,7 @@ import com.bridgelabz.fundoo.user.dto.LoginDto;
 import com.bridgelabz.fundoo.user.dto.RegisterDto;
 import com.bridgelabz.fundoo.user.dto.SetPasswordDto;
 import com.bridgelabz.fundoo.user.response.Response;
+import com.bridgelabz.fundoo.user.response.ResponseLogin;
 import com.bridgelabz.fundoo.user.services.ImplUserService;
 
 @RestController
@@ -54,10 +55,10 @@ public class UserController {
 	 * @return Response to your action
 	 */
 	@PutMapping("/login")
-	public ResponseEntity<Response> loginUser(@RequestBody LoginDto loginDto) {
+	public ResponseEntity<ResponseLogin> loginUser(@RequestBody LoginDto loginDto) {
 
 		LOGGER.info("login logger");
-		return new ResponseEntity<Response>(service.loginUser(loginDto), HttpStatus.OK);
+		return new ResponseEntity<ResponseLogin>(service.loginUser(loginDto), HttpStatus.OK);
 	}
 
 	/**

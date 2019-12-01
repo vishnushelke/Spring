@@ -166,9 +166,9 @@ public class NoteController {
 	 * @return Response according to the result
 	 */
 	@PutMapping("/addtolabel")
-	public ResponseEntity<Response> addNoteToLabel(@RequestHeader int noteId,@RequestHeader String name,@RequestHeader String tokenUserId)
+	public ResponseEntity<Response> addNoteToLabel(@RequestHeader int noteId,@RequestHeader int labelId,@RequestHeader String tokenUserId)
 	{
-		return new ResponseEntity<Response>(service.addNoteToLabel(name,noteId,tokenUserId),HttpStatus.OK);
+		return new ResponseEntity<Response>(service.addNoteToLabel(labelId,noteId,tokenUserId),HttpStatus.OK);
 	}
 	/**
 	 * purpose: This method is used for removing note of a particular user from label
@@ -261,6 +261,7 @@ public class NoteController {
 	@GetMapping("/searchnotes")
 	public ResponseEntity<Response> searchNotesByTitle(@RequestHeader String title,@RequestHeader String tokenUserId)
 	{
+		System.out.println("in search note");
 		return new ResponseEntity<Response>(service.searchNotesByTitle(title,tokenUserId),HttpStatus.OK);
 	}
 	@GetMapping("/getremindernotes")

@@ -123,7 +123,7 @@ public interface INoteService {
 	 *               which note is to be added
 	 * @return Response according to the result
 	 */
-	public Response addNoteToLabel(String name, int noteId,String tokenUserId);
+	public Response addNoteToLabel(int labelId, int noteId, String tokenUserId);
 
 	/**
 	 * purpose: This method is used for removing note of a particular user from
@@ -204,4 +204,6 @@ public interface INoteService {
 	public Response searchNotesByTitle(String title, String tokenUserId);
 	
 	public Response getReminderNotes(String tokenUserId);
+
+	
 }

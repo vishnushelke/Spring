@@ -115,7 +115,7 @@ public class ImplLabelService implements ILabelService {
 
 		if (repository.findById(labelId) == null)
 			throw new GetLabelExcepion(NoteMessageReference.LABEL_NOT_FOUND);
-		repository.delete(repository.findAll().stream().findAny().filter(i -> i.getLabelId() == labelId).get());
+		repository.delete(repository.findById(labelId).get());
 		return new Response(200, NoteMessageReference.LABEL_DELETE_SUCCESS, true);
 	}
 

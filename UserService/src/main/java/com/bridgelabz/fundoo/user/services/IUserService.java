@@ -15,6 +15,7 @@ import com.bridgelabz.fundoo.user.dto.LoginDto;
 import com.bridgelabz.fundoo.user.dto.RegisterDto;
 import com.bridgelabz.fundoo.user.dto.SetPasswordDto;
 import com.bridgelabz.fundoo.user.response.Response;
+import com.bridgelabz.fundoo.user.response.ResponseLogin;
 
 public interface IUserService {
 	
@@ -34,7 +35,7 @@ public interface IUserService {
 	 * 
 	 * @return Response to your action
 	 */
-	public Response loginUser(LoginDto registerDTO);
+	public ResponseLogin loginUser(LoginDto registerDTO);
 	
 	/**
 	 * purpose: This is service method for forget Password

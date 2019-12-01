@@ -68,12 +68,12 @@ public class Note {
 	@JsonIgnoreProperties(value = "notes")
 	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	private List<User> collabUsers;
-	@Override
-	public String toString() {
-		return "Note [noteId=" + noteId + ", userId=" + userId + ", title=" + title + ", text=" + text + ", trash="
-				+ trash + ", pin=" + pin + ", archive=" + archive + ", reminder=" + reminder + ", colour=" + colour
-				+ ", noteCreationDate=" + noteCreationDate + ", noteUpdationDate=" + noteUpdationDate + ", labels="
-				+ labels + ", collabUsers=" + collabUsers + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Note [noteId=" + noteId + ", userId=" + userId + ", title=" + title + ", text=" + text + ", trash="
+//				+ trash + ", pin=" + pin + ", archive=" + archive + ", reminder=" + reminder + ", colour=" + colour
+//				+ ", noteCreationDate=" + noteCreationDate + ", noteUpdationDate=" + noteUpdationDate + ", labels="
+//				+ labels +  "]";
+//	}
 	
 }

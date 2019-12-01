@@ -1,5 +1,5 @@
 /******************************************************************************
-*  Purpose: This class implements all methods of IUserService interface
+ *  Purpose: This class implements all methods of IUserService interface
 *  @author  Vishnu Shelke
 *  @version 1.0
 *  @since   23-10-2019
@@ -36,6 +36,7 @@ import com.bridgelabz.fundoo.user.note.utility.NoteMessageReference;
 import com.bridgelabz.fundoo.user.repository.UserConfig;
 import com.bridgelabz.fundoo.user.repository.UserRepository;
 import com.bridgelabz.fundoo.user.response.Response;
+import com.bridgelabz.fundoo.user.response.ResponseLogin;
 import com.bridgelabz.fundoo.user.utility.TokenUtility;
 import com.bridgelabz.fundoo.user.utility.UserUtility;
 
@@ -90,19 +91,19 @@ public class ImplUserService implements IUserService {
 	 * @return Response to your action
 	 */
 	@Override
-	public Response loginUser(LoginDto loginDTO) {
+	public ResponseLogin loginUser(LoginDto loginDTO) {
 
 		User user = repository.findByEmail(loginDTO.getEmail()).get();
 		if (user == null)
-			throw new UserNotFoundException(MessageReference.EMAIL_NOT_FOUND);
+			return new ResponseLogin(200, MessageReference.EMAIL_NOT_FOUND, false, null);
 		if (!(user.getEmail().equals(loginDTO.getEmail())
 				&& config.passEndcode().matches(loginDTO.getPassword(), user.getPassword()))) {
-			throw new LoginException(MessageReference.LOGIN_FAIL);
+			return new ResponseLogin(200, MessageReference.LOGIN_FAIL, false, null);
 		}
 		String token = tokenUtility.createToken(user.getUId());
 		if (!user.isIsactive())
 			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
-		return new Response(200, MessageReference.LOGIN_SUCCESS, token);
+		return new ResponseLogin(200, MessageReference.LOGIN_SUCCESS, token, user);
 
 	}
 
