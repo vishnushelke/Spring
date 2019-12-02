@@ -1,5 +1,5 @@
 /******************************************************************************
-*  Purpose: This class is major class for handling all exception which can be
+ 													*  Purpose: This class is major class for handling all exception which can be
 *   throw while the application is running in the server side, as this
 *   class is global exception handler it will handle custom exception
 *   and built in exception also, this class purpose is to handle

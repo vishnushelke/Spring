@@ -128,7 +128,7 @@ public class UserController {
 	 * 
 	 * @return Response to your action
 	 */
-	@PutMapping("/addprofile")
+	@PostMapping("/addprofile")
 	public ResponseEntity<Response> addProfileOfUser(@RequestParam MultipartFile file,@RequestHeader String token) {
 		LOGGER.info("validate email logger");
 		return new ResponseEntity<Response>(service.addProfile(file,token), HttpStatus.OK);
