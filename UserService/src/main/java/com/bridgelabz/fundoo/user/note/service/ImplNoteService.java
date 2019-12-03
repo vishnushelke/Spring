@@ -409,7 +409,8 @@ public class ImplNoteService implements INoteService {
 
 		Note note = repository.findById(noteId).get();
 		List<User> userCollab = note.getCollabUsers();
-		userCollab.removeIf(i -> i.getEmail().equals(emailId));
+		userCollab.removeIf(i->i.getEmail().equals(emailId));
+		
 		note.setCollabUsers(userCollab);
 		repository.save(note);
 		return new Response(200, NoteMessageReference.COLLABORATION_REMOVE_SUCCESS, true);
