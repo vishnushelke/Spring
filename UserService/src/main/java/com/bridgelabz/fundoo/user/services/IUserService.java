@@ -8,6 +8,10 @@
 ******************************************************************************/
 package com.bridgelabz.fundoo.user.services;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bridgelabz.fundoo.user.dto.ForgetDto;

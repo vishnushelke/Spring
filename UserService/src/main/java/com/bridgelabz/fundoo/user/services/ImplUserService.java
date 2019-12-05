@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Map;
+import java.util.Optional;
 
 import com.bridgelabz.fundoo.user.dto.ForgetDto;
 import com.bridgelabz.fundoo.user.dto.LoginDto;
@@ -22,10 +25,13 @@ import com.bridgelabz.fundoo.user.exception.custom.NotActiveException;
 import com.bridgelabz.fundoo.user.exception.custom.RegistrationException;
 import com.bridgelabz.fundoo.user.exception.custom.UserNotFoundException;
 import com.bridgelabz.fundoo.user.exception.custom.ValidationException;
+
+import org.hibernate.validator.internal.util.privilegedactions.NewSchema;
 import org.modelmapper.ModelMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bridgelabz.fundoo.user.model.RabbitMQBody;
@@ -37,6 +43,8 @@ import com.bridgelabz.fundoo.user.response.Response;
 import com.bridgelabz.fundoo.user.response.ResponseLogin;
 import com.bridgelabz.fundoo.user.utility.TokenUtility;
 import com.bridgelabz.fundoo.user.utility.UserUtility;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 
 @Service
 public class ImplUserService implements IUserService {
@@ -58,6 +66,8 @@ public class ImplUserService implements IUserService {
 
 	@Autowired
 	private TokenUtility tokenUtility;
+
+	private final String path = "/home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService/uploads/";
 
 	/**
 	 * purpose: This is service method for user registration
@@ -181,6 +191,7 @@ public class ImplUserService implements IUserService {
 	 */
 	@Override
 	public Response addProfile(MultipartFile file, String token) {
+		System.out.println(file.toString());
 		int userId = tokenUtility.getUserIdFromToken(token);
 		if (repository.findById(userId) == null)
 			throw new UserNotFoundException(MessageReference.EMAIL_NOT_FOUND);
@@ -188,17 +199,32 @@ public class ImplUserService implements IUserService {
 			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
 
 		User user = repository.findById(userId).get();
-		byte[] bytes;
+		
+		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap( "cloud_name", "dx7rdnzgv",
+	   			  "api_key", "876782983213561",
+	   			  "api_secret", "EWJ4R0smSMSedWXWBi_0vJDVWE0"));
+		
+		// Normalize file name
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		fileName = userId + fileName;
 		try {
-			bytes = file.getBytes();
-			String fileLocation = userId + file.getOriginalFilename();
-			Path path = Paths.get(fileLocation);
-			Files.write(path, bytes);
-			user.setProfilePicture(fileLocation);
-		} catch (IOException e) {
-			e.printStackTrace();
+			// Copy file to the target location (Replacing existing file with the same name)
+			Path getPath = Paths.get(path);
+			Path targetLocation = getPath.resolve(fileName);
+			Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+			//upload on cloudinary
+			File toUpload = new File(targetLocation.toString());
+			@SuppressWarnings("rawtypes")
+			Map uploadResult = cloudinary.uploader().upload(toUpload, ObjectUtils.emptyMap());
+			
+			user.setProfilePicture(uploadResult.get("secure_url").toString());
+			System.out.println(user);
+			repository.save(user);
+			return new Response(200, "Profile pic uploaded", fileName);
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
-		repository.save(user);
+
 		return new Response(200, MessageReference.PROFILE_PICTURE_SUCCESS, user);
 	}
 
@@ -212,12 +238,14 @@ public class ImplUserService implements IUserService {
 	@Override
 	public Response getProfile(String token) {
 		int userId = tokenUtility.getUserIdFromToken(token);
-		if (repository.findById(userId) == null)
+		Optional<User> getUser = repository.findById(userId);
+		if (getUser.isEmpty())
 			throw new UserNotFoundException(MessageReference.EMAIL_NOT_FOUND);
-		if (!repository.findById(userId).get().isIsactive())
+		User user = getUser.get();
+		if (!user.isIsactive())
 			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
-		return new Response(200, MessageReference.PROFILE_PICTURE_FETCH_SUCCESS,
-				repository.findById(userId).get().getProfilePicture());
+		String profile = "file:///home/user/Desktop/uploads/" + user.getProfilePicture();
+		return new Response(200, MessageReference.PROFILE_PICTURE_FETCH_SUCCESS, profile);
 	}
 
 	/**
@@ -265,4 +293,5 @@ public class ImplUserService implements IUserService {
 		return new Response(200, MessageReference.PROFILE_PICTURE_DELETE_SUCCESS, true);
 
 	}
+
 }

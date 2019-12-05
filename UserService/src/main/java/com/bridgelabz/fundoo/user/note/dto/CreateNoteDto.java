@@ -9,8 +9,7 @@
 ******************************************************************************/
 package com.bridgelabz.fundoo.user.note.dto;
 
-import java.time.LocalDateTime;
-
+import java.util.Date;
 import java.util.List;
 
 import com.bridgelabz.fundoo.user.model.User;
@@ -28,8 +27,15 @@ public class CreateNoteDto {
 	private boolean trash;
 	private boolean pin;
 	private boolean archive;
-	private LocalDateTime reminder;
+	private String reminder;
 	private String colour;
 	private List<Label> labels;
 	private List<User> collabUsers;
+	@Override
+	public String toString() {
+		return "CreateNoteDto [userId=" + userId + ", title=" + title + ", text=" + text + ", trash=" + trash + ", pin="
+				+ pin + ", archive=" + archive + ", reminder=" + reminder + ", colour=" + colour + ", labels=" + labels
+				+ ", collabUsers=" + collabUsers + "]";
+	}
+	
 }

@@ -53,7 +53,7 @@ public class Note {
 	private boolean pin;
 	private boolean archive;
 //	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date reminder;
+	private String reminder;
 	private String colour;
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
