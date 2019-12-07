@@ -95,10 +95,10 @@ public class ImplLabelService implements ILabelService {
 	 */
 	@Override
 	public Response updateLabel(int labelId, LabelDto labelDto, String tokenUserId) {
-
+		System.out.println(labelDto.getName());
 		if (repository.findById(labelId) == null)
 			throw new GetLabelExcepion(NoteMessageReference.LABEL_NOT_FOUND);
-		Label label = repository.findAll().stream().findAny().filter(i -> i.getLabelId() == labelId).orElse(null);
+		Label label = repository.findById(labelId).orElse(null);
 		label.setName(labelDto.getName());
 		repository.save(label);
 		return new Response(200, NoteMessageReference.LABEL_UPDATE_SUCCESS, label);

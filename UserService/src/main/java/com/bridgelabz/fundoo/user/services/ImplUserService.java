@@ -191,7 +191,6 @@ public class ImplUserService implements IUserService {
 	 */
 	@Override
 	public Response addProfile(MultipartFile file, String token) {
-		System.out.println(file.toString());
 		int userId = tokenUtility.getUserIdFromToken(token);
 		if (repository.findById(userId) == null)
 			throw new UserNotFoundException(MessageReference.EMAIL_NOT_FOUND);
@@ -220,7 +219,7 @@ public class ImplUserService implements IUserService {
 			user.setProfilePicture(uploadResult.get("secure_url").toString());
 			System.out.println(user);
 			repository.save(user);
-			return new Response(200, "Profile pic uploaded", fileName);
+			return new Response(200, "Profile pic uploaded", uploadResult.get("secure_url").toString());
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
