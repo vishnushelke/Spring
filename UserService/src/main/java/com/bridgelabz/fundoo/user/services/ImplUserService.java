@@ -14,19 +14,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Map;
-import java.util.Optional;
 
 import com.bridgelabz.fundoo.user.dto.ForgetDto;
 import com.bridgelabz.fundoo.user.dto.LoginDto;
 import com.bridgelabz.fundoo.user.dto.RegisterDto;
 import com.bridgelabz.fundoo.user.dto.SetPasswordDto;
-import com.bridgelabz.fundoo.user.exception.custom.ForgetPasswordException;
 import com.bridgelabz.fundoo.user.exception.custom.NotActiveException;
 import com.bridgelabz.fundoo.user.exception.custom.RegistrationException;
-import com.bridgelabz.fundoo.user.exception.custom.UserNotFoundException;
-import com.bridgelabz.fundoo.user.exception.custom.ValidationException;
+import com.bridgelabz.fundoo.user.exception.custom.UserNotFound;
 
-import org.hibernate.validator.internal.util.privilegedactions.NewSchema;
 import org.modelmapper.ModelMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +32,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bridgelabz.fundoo.user.model.RabbitMQBody;
 import com.bridgelabz.fundoo.user.model.User;
-import com.bridgelabz.fundoo.user.note.utility.NoteMessageReference;
 import com.bridgelabz.fundoo.user.repository.UserConfig;
 import com.bridgelabz.fundoo.user.repository.UserRepository;
 import com.bridgelabz.fundoo.user.response.Response;
@@ -100,19 +95,14 @@ public class ImplUserService implements IUserService {
 	 */
 	@Override
 	public ResponseLogin loginUser(LoginDto loginDTO) {
-
-		User user = repository.findByEmail(loginDTO.getEmail()).get();
-		if (user == null)
-			return new ResponseLogin(200, MessageReference.EMAIL_NOT_FOUND, false, null);
-		if (!(user.getEmail().equals(loginDTO.getEmail())
-				&& config.passEndcode().matches(loginDTO.getPassword(), user.getPassword()))) {
+		User user = repository.findByEmail(loginDTO.getEmail()).orElseThrow(UserNotFound::new);
+		if (!config.passEndcode().matches(loginDTO.getPassword(), user.getPassword())) {
 			return new ResponseLogin(200, MessageReference.LOGIN_FAIL, false, null);
 		}
 		String token = tokenUtility.createToken(user.getUId());
 		if (!user.isIsactive())
 			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
 		return new ResponseLogin(200, MessageReference.LOGIN_SUCCESS, token, user);
-
 	}
 
 	/**
@@ -124,15 +114,10 @@ public class ImplUserService implements IUserService {
 	 */
 	@Override
 	public Response forgetPassword(ForgetDto forgetDto) {
-		if (!repository.findAll().stream().filter(i -> i.getEmail().equals(forgetDto.getEmail())).findAny().get()
-				.isIsactive())
+		User user = repository.findByEmail(forgetDto.getEmail()).orElseThrow(UserNotFound::new);
+		if (!user.isIsactive())
 			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
-		if (!repository.findAll().stream().anyMatch(i -> i.getEmail().equals(forgetDto.getEmail()))) {
-			throw new ForgetPasswordException(MessageReference.EMAIL_NOT_FOUND);
-		}
-
-		String token = tokenUtility.createToken(repository.findAll().stream()
-				.filter(i -> i.getEmail().equals(forgetDto.getEmail())).findAny().get().getUId());
+		String token = tokenUtility.createToken(user.getUId());
 		RabbitMQBody body = utility.getRabbitBody(token, forgetDto.getEmail());
 		body.setSubject(MessageReference.FORGET_PASSWORD_RESPONSE);
 		body.setBody(MessageReference.FORGET_MAIL_TEXT + token);
@@ -150,9 +135,7 @@ public class ImplUserService implements IUserService {
 	@Override
 	public Response setPassword(SetPasswordDto setPasswordDTO, String token) {
 		int userId = tokenUtility.getUserIdFromToken(token);
-		User user = repository.findById(userId).orElse(null);
-		if (user == null)
-			throw new UserNotFoundException(NoteMessageReference.USER_NOT_FOUND);
+		User user = repository.findById(userId).orElseThrow(UserNotFound::new);
 		if (!user.isIsactive())
 			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
 		user.setPassword(config.passEndcode().encode(setPasswordDTO.getPassword()));
@@ -170,16 +153,10 @@ public class ImplUserService implements IUserService {
 	@Override
 	public Response validateUser(String token) {
 		int userId = tokenUtility.getUserIdFromToken(token);
-		System.out.println(userId);
-		User user = repository.findById(userId).get();
-		if (user != null) {
-			user.setIsactive(true);
-			repository.save(user);
-			return new Response(200, MessageReference.VERIFICATION_SUCCESS, user);
-		} else {
-			throw new ValidationException(MessageReference.INVALID_LINK);
-		}
-
+		User user = repository.findById(userId).orElseThrow(UserNotFound::new);
+		user.setIsactive(true);
+		repository.save(user);
+		return new Response(200, MessageReference.VERIFICATION_SUCCESS, user);
 	}
 
 	/**
@@ -192,17 +169,11 @@ public class ImplUserService implements IUserService {
 	@Override
 	public Response addProfile(MultipartFile file, String token) {
 		int userId = tokenUtility.getUserIdFromToken(token);
-		if (repository.findById(userId) == null)
-			throw new UserNotFoundException(MessageReference.EMAIL_NOT_FOUND);
-		if (!repository.findById(userId).get().isIsactive())
+		User user = repository.findById(userId).orElseThrow(UserNotFound::new);
+		if (!user.isIsactive())
 			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
-
-		User user = repository.findById(userId).get();
-		
-		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap( "cloud_name", "dx7rdnzgv",
-	   			  "api_key", "876782983213561",
-	   			  "api_secret", "EWJ4R0smSMSedWXWBi_0vJDVWE0"));
-		
+		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap("cloud_name", "dx7rdnzgv", "api_key",
+				"876782983213561", "api_secret", "EWJ4R0smSMSedWXWBi_0vJDVWE0"));
 		// Normalize file name
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		fileName = userId + fileName;
@@ -211,19 +182,16 @@ public class ImplUserService implements IUserService {
 			Path getPath = Paths.get(path);
 			Path targetLocation = getPath.resolve(fileName);
 			Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-			//upload on cloudinary
+			// upload on cloudinary
 			File toUpload = new File(targetLocation.toString());
 			@SuppressWarnings("rawtypes")
 			Map uploadResult = cloudinary.uploader().upload(toUpload, ObjectUtils.emptyMap());
-			
 			user.setProfilePicture(uploadResult.get("secure_url").toString());
-			System.out.println(user);
 			repository.save(user);
 			return new Response(200, "Profile pic uploaded", uploadResult.get("secure_url").toString());
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-
 		return new Response(200, MessageReference.PROFILE_PICTURE_SUCCESS, user);
 	}
 
@@ -237,14 +205,10 @@ public class ImplUserService implements IUserService {
 	@Override
 	public Response getProfile(String token) {
 		int userId = tokenUtility.getUserIdFromToken(token);
-		Optional<User> getUser = repository.findById(userId);
-		if (getUser.isEmpty())
-			throw new UserNotFoundException(MessageReference.EMAIL_NOT_FOUND);
-		User user = getUser.get();
+		User user = repository.findById(userId).orElseThrow(UserNotFound::new);
 		if (!user.isIsactive())
 			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
-		String profile = "file:///home/user/Desktop/uploads/" + user.getProfilePicture();
-		return new Response(200, MessageReference.PROFILE_PICTURE_FETCH_SUCCESS, profile);
+		return new Response(200, MessageReference.PROFILE_PICTURE_FETCH_SUCCESS, user.getProfilePicture());
 	}
 
 	/**
@@ -257,11 +221,9 @@ public class ImplUserService implements IUserService {
 	@Override
 	public Response updateProfilePic(MultipartFile file, String token) {
 		int userId = tokenUtility.getUserIdFromToken(token);
-		if (repository.findById(userId) == null)
-			throw new UserNotFoundException(MessageReference.EMAIL_NOT_FOUND);
+		User user = repository.findById(userId).orElseThrow(UserNotFound::new);
 		if (!repository.findById(userId).get().isIsactive())
 			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
-		User user = repository.findById(userId).get();
 		byte[] bytes;
 		try {
 			bytes = file.getBytes();
@@ -269,21 +231,19 @@ public class ImplUserService implements IUserService {
 			Path path = Paths.get(fileLocation);
 			Files.write(path, bytes);
 			user.setProfilePicture(fileLocation);
+			repository.save(user);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		repository.save(user);
 		return new Response(200, MessageReference.PROFILE_PICTURE_UPDATION_SUCCESS, user);
 	}
 
 	@Override
 	public Response deleteProfilePic(String token) {
 		int userId = tokenUtility.getUserIdFromToken(token);
-		if (repository.findById(userId) == null)
-			throw new UserNotFoundException(MessageReference.EMAIL_NOT_FOUND);
+		User user = repository.findById(userId).orElseThrow(UserNotFound::new);
 		if (!repository.findById(userId).get().isIsactive())
 			throw new NotActiveException(MessageReference.ACCOUNT_NOT_ACTIVATED);
-		User user = repository.findById(userId).get();
 		String fileLocation = user.getProfilePicture();
 		File file = new File(fileLocation);
 		file.delete();

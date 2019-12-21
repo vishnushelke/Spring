@@ -10,16 +10,16 @@ package com.bridgelabz.fundoo.user.note.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bridgelabz.fundoo.user.exception.custom.UserNotFound;
 import com.bridgelabz.fundoo.user.exception.custom.UserNotFoundException;
 import com.bridgelabz.fundoo.user.model.User;
 import com.bridgelabz.fundoo.user.note.dto.LabelDto;
-import com.bridgelabz.fundoo.user.note.exception.userexception.GetLabelExcepion;
+import com.bridgelabz.fundoo.user.note.exception.userexception.LabelNotFound;
 import com.bridgelabz.fundoo.user.note.model.Label;
 import com.bridgelabz.fundoo.user.note.model.Note;
 import com.bridgelabz.fundoo.user.note.repository.ILabelRepository;
@@ -52,15 +52,13 @@ public class ImplLabelService implements ILabelService {
 	 */
 	@Override
 	public Response createLabel(LabelDto addLabelDto, String tokenUserId) {
-		if (repository.findAll().stream().anyMatch(i -> i.getName().equals(addLabelDto.getName()))) {
+		if (repository.findAll().stream().anyMatch(i -> i.getName().equals(addLabelDto.getName()))) 
 			return new Response(200, NoteMessageReference.LABEL_ALREADY_AVAILABLE, false);
-		}
 		if (!addLabelDto.getName().isBlank()) {
 			Label label = mapper.map(addLabelDto, Label.class);
 			label.setUserId(utility.getIdFromToken(tokenUserId));
 			repository.save(label);
-			String tokenLabelId = utility.createToken(label.getLabelId());
-			return new Response(200, NoteMessageReference.LABEL_SAVE_SUCCESS, tokenLabelId);
+			return new Response(200, NoteMessageReference.LABEL_SAVE_SUCCESS, true);
 		}
 		return new Response(200, "label name can not be empty", false);
 	}
@@ -75,15 +73,11 @@ public class ImplLabelService implements ILabelService {
 
 	@Override
 	public Response getLabel(String tokenUserId) {
-		User user = userRepository.findById(utility.getIdFromToken(tokenUserId)).get();
-		if (user == null) {
-			throw new UserNotFoundException(NoteMessageReference.USER_NOT_FOUND);
-		}
+		User user = userRepository.findById(utility.getIdFromToken(tokenUserId)).orElseThrow(UserNotFound::new);
 		if (repository.findById(user.getUId()) == null)
-			throw new GetLabelExcepion(NoteMessageReference.LABEL_NOT_FOUND);
-		Stream<Label> labels = repository.findAll().stream().filter(i -> i.getUserId() == user.getUId());
-		ArrayList<Label> labelList = labels.collect(Collectors.toCollection(ArrayList::new));
-		return new Response(200, NoteMessageReference.LABEL_READ_SUCCES, labelList);
+			throw new LabelNotFound();
+		ArrayList<Label> labels = repository.findAll().stream().filter(i -> i.getUserId() == user.getUId()).collect(Collectors.toCollection(ArrayList::new));
+		return new Response(200, NoteMessageReference.LABEL_READ_SUCCES, labels);
 	}
 
 	/**
@@ -95,10 +89,7 @@ public class ImplLabelService implements ILabelService {
 	 */
 	@Override
 	public Response updateLabel(int labelId, LabelDto labelDto, String tokenUserId) {
-		System.out.println(labelDto.getName());
-		if (repository.findById(labelId) == null)
-			throw new GetLabelExcepion(NoteMessageReference.LABEL_NOT_FOUND);
-		Label label = repository.findById(labelId).orElse(null);
+		Label label = repository.findById(labelId).orElseThrow(LabelNotFound::new);
 		label.setName(labelDto.getName());
 		repository.save(label);
 		return new Response(200, NoteMessageReference.LABEL_UPDATE_SUCCESS, label);
@@ -112,20 +103,14 @@ public class ImplLabelService implements ILabelService {
 	 */
 	@Override
 	public Response deleteLabel(int labelId, String tokenUserId) {
-
-		if (repository.findById(labelId) == null)
-			throw new GetLabelExcepion(NoteMessageReference.LABEL_NOT_FOUND);
-		repository.delete(repository.findById(labelId).get());
+		Label label = repository.findById(labelId).orElseThrow(LabelNotFound::new);
+		repository.delete(label);
 		return new Response(200, NoteMessageReference.LABEL_DELETE_SUCCESS, true);
 	}
 
 	@Override
 	public Response getNotesOFLabel(int labelId, String tokenUserId) {
-		System.out.println("get notes of label");
-		Label label = repository.findById(labelId).orElse(null);
-//		System.out.println(label);
-		if (label == null)
-			throw new GetLabelExcepion(NoteMessageReference.LABEL_NOT_FOUND);
+		Label label = repository.findById(labelId).orElseThrow(LabelNotFound::new);
 		if (label.getUserId() != utility.getIdFromToken(tokenUserId))
 			throw new UserNotFoundException(NoteMessageReference.USER_NOT_AUTHORISED);
 		List<Note> notes = label.getNotes();

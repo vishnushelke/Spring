@@ -20,13 +20,9 @@ public class NoteNotFoundException extends RuntimeException {
 	 * purpose: this method will create an exception
 	 * @param message
 	 */
-	public NoteNotFoundException(String message)
-	{
-		super(message);
-		
-	}
 	public NoteNotFoundException()
 	{
+		super();
 		
 	}
 	

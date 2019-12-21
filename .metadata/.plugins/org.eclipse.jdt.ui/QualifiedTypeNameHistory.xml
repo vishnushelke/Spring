@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.model.RabbitMQBody"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.service.ImplLabelService"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.dto.LabelDto"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.repository.INoteRepository"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.utility.TokenUtility"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.repository.ILabelRepository"/>
@@ -32,9 +28,7 @@
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.services.StaticReference"/>
     <fullyQualifiedTypeName name="org.springframework.cache.annotation.EnableCaching"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PutMapping"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.exception.userexception.NoteNotFoundException"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.utility.UserMessageReference"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.services.MessageReference"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.CrossOrigin"/>
     <fullyQualifiedTypeName name="ch.qos.logback.core.pattern.util.RegularEscapeUtil"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.model.User"/>
@@ -42,8 +36,6 @@
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.model.Note"/>
     <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.exception.custom.UserNotFoundException"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.utility.NoteMessageReference"/>
     <fullyQualifiedTypeName name="com.google.common.base.Optional"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.model.Label"/>
     <fullyQualifiedTypeName name="lombok.Getter"/>
@@ -60,4 +52,12 @@
     <fullyQualifiedTypeName name="com.cloudinary.Cloudinary"/>
     <fullyQualifiedTypeName name="com.cloudinary.utils.ObjectUtils"/>
     <fullyQualifiedTypeName name="java.util.Map"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.exception.custom.UserNotFoundException"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.services.MessageReference"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.exception.custom.UserNotFound"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.exception.userexception.LabelNotFound"/>
+    <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.exception.userexception.NoteNotFoundException"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.note.utility.NoteMessageReference"/>
 </qualifiedTypeNameHistroy>

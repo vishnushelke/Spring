@@ -21,8 +21,10 @@ import com.bridgelabz.fundoo.user.exception.custom.ForgetPasswordException;
 import com.bridgelabz.fundoo.user.exception.custom.LoginException;
 import com.bridgelabz.fundoo.user.exception.custom.NotActiveException;
 import com.bridgelabz.fundoo.user.exception.custom.RegistrationException;
+import com.bridgelabz.fundoo.user.exception.custom.UserNotFound;
 import com.bridgelabz.fundoo.user.exception.custom.UserNotFoundException;
 import com.bridgelabz.fundoo.user.exception.custom.ValidationException;
+import com.bridgelabz.fundoo.user.note.utility.NoteMessageReference;
 import com.bridgelabz.fundoo.user.response.Response;
 
 @RestControllerAdvice
@@ -33,10 +35,10 @@ public class GlobalException {
 	 * @param ex exception
 	 * @return response entity of global exception
 	 */
-//	@ExceptionHandler(Exception.class)
-//	public ResponseEntity<Response> globalExceptionHandler(Exception ex) {
-//		return new ResponseEntity<>(new Response(500, ex.getMessage(), null),HttpStatus.INTERNAL_SERVER_ERROR);
-//	}
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<Response> globalExceptionHandler(Exception ex) {
+		return new ResponseEntity<>(new Response(500, ex.getMessage(), null),HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 	
 	/**
 	 * purpose: This will be used when you want to throw a login exception
@@ -94,5 +96,9 @@ public class GlobalException {
 	@ExceptionHandler(NotActiveException.class)
 	public ResponseEntity<Response> accountNotActiveExceptionHandler(Exception ex) {
 		return new ResponseEntity<>(new Response(400, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
+	}
+	@ExceptionHandler(UserNotFound.class)
+	public ResponseEntity<Response> userNotFoundHandler(Exception ex) {
+		return new ResponseEntity<>(new Response(400, NoteMessageReference.USER_NOT_FOUND, null),HttpStatus.BAD_REQUEST);
 	}
 }

@@ -14,7 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.bridgelabz.fundoo.user.note.exception.userexception.GetLabelExcepion;
+import com.bridgelabz.fundoo.user.note.exception.userexception.LabelNotFound;
+import com.bridgelabz.fundoo.user.note.utility.NoteMessageReference;
 import com.bridgelabz.fundoo.user.response.Response;
 
 @RestControllerAdvice
@@ -41,8 +42,8 @@ public class LabelGlobalException {
 	 * 
 	 * @return Response according to the result
 	 */
-	@ExceptionHandler(GetLabelExcepion.class)
+	@ExceptionHandler(LabelNotFound.class)
 	public ResponseEntity<Response> getException(Exception ex) {
-		return new ResponseEntity<Response>(new Response(500, ex.getMessage(), null), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<Response>(new Response(500, NoteMessageReference.LABEL_NOT_FOUND, null), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

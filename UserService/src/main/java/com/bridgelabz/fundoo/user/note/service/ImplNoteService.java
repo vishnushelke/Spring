@@ -63,7 +63,6 @@ public class ImplNoteService implements INoteService {
 	@Override
 	public Response createNote(CreateNoteDto createNoteDto, String tokenUserId) {
 		int userId = utility.getIdFromToken(tokenUserId);
-		System.out.println(createNoteDto.getTitle());
 		if ((createNoteDto.getTitle().isEmpty() && createNoteDto.getText().isEmpty()))
 			throw new CreateNoteExcepion(NoteMessageReference.NOTE_CANNOT_BE_CREATED);
 		if (userRepository.findById(userId).isEmpty())
@@ -71,10 +70,8 @@ public class ImplNoteService implements INoteService {
 		String strDate="";
 		if(!createNoteDto.getReminder().isBlank()) {
 			String[] date=createNoteDto.getReminder().toString().split(" ");
-			strDate = date[0]+" "+date[1]+" "+date[2]+" "+date[3].subSequence(0, 5);
-			
-		}
-		
+			strDate = date[0]+" "+date[1]+" "+date[2]+" "+date[3].subSequence(0, 5);			
+		}		
 		Note note = mapper.map(createNoteDto, Note.class);
 		note.setUserId(userId);
 		note.setReminder(strDate);
@@ -95,10 +92,8 @@ public class ImplNoteService implements INoteService {
 		if ((repository.findById(userId)).isEmpty()) {
 			throw new GetNoteExcepion(NoteMessageReference.USER_NOT_FOUND);
 		}
-		// TODO
-		Stream<Note> notesStream = repository.findAll().stream()
-				.filter(i -> i.getUserId() == userId && !i.isArchive() && !i.isTrash());
-		ArrayList<Note> notes = notesStream.collect(Collectors.toCollection(ArrayList::new));
+		ArrayList<Note> notes = repository.findAll().stream()
+				.filter(i -> i.getUserId() == userId && !i.isArchive() && !i.isTrash()).collect(Collectors.toCollection(ArrayList::new));	
 		return new Response(200, NoteMessageReference.NOTE_READ_SUCCES, notes);
 	}
 
@@ -110,9 +105,7 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response deleteNote(String tokenUserId, int noteId) {
-		Note note = repository.findById(noteId).orElse(null);
-		if ((note == null))
-			throw new NoteNotFoundException(NoteMessageReference.NOTE_NOT_FOUND);
+		Note note = repository.findById(noteId).orElseThrow(NoteNotFoundException::new);
 		if (note.getUserId() != utility.getIdFromToken(tokenUserId))
 			throw new UserNotFoundException(NoteMessageReference.USER_NOT_FOUND);
 		if (note.isTrash()) {
@@ -130,12 +123,9 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response updateNote(UpdateNoteDto updateNoteDto, String tokenUserId, int noteId) {
-
+//TODO Check user
 		int userId = utility.getIdFromToken(tokenUserId);
-		if (!(repository.findAll().stream().anyMatch(i -> (i.getNoteId() == noteId) && i.getUserId() == userId))) {
-			throw new NoteNotFoundException(NoteMessageReference.NOTE_NOT_FOUND);
-		}
-		Note note = repository.findById(noteId).orElse(null);
+		Note note = repository.findById(noteId).orElseThrow(NoteNotFoundException::new);
 		note.setText(updateNoteDto.getText());
 		note.setTitle(updateNoteDto.getTitle());
 		note.setColour(updateNoteDto.getColour());
@@ -155,10 +145,7 @@ public class ImplNoteService implements INoteService {
 	public Response archiveUnarchiveNote(int noteId, String tokenUserId) {
 		if (!(repository.findById(noteId).get().getUserId() == utility.getIdFromToken(tokenUserId)))
 			return new Response(200, NoteMessageReference.USER_NOT_FOUND, false);
-		if (repository.findById(noteId) == null)
-			throw new NoteNotFoundException(NoteMessageReference.NOTE_NOT_FOUND);
-
-		Note note = repository.findById(noteId).orElse(null);
+		Note note = repository.findById(noteId).orElseThrow(NoteNotFoundException::new);
 		if (note.isArchive()) {
 			note.setArchive(false);
 		} else {
@@ -180,10 +167,7 @@ public class ImplNoteService implements INoteService {
 	public Response trashUntrashNote(int noteId, String tokenUserId) {
 		if (!(repository.findById(noteId).get().getUserId() == utility.getIdFromToken(tokenUserId)))
 			return new Response(200, NoteMessageReference.USER_NOT_FOUND, false);
-		if (repository.findById(noteId) == null)
-			throw new NoteNotFoundException(NoteMessageReference.NOTE_NOT_FOUND);
-
-		Note note = repository.findById(noteId).orElse(null);
+		Note note = repository.findById(noteId).orElseThrow(NoteNotFoundException::new);
 		if (note.isTrash()) {
 
 			note.setTrash(false);
@@ -209,10 +193,7 @@ public class ImplNoteService implements INoteService {
 	public Response pinUnpinNote(int noteId, String tokenUserId) {
 		if (!(repository.findById(noteId).get().getUserId() == utility.getIdFromToken(tokenUserId)))
 			return new Response(200, NoteMessageReference.USER_NOT_FOUND, false);
-		if (repository.findById(noteId) == null)
-			throw new NoteNotFoundException(NoteMessageReference.NOTE_NOT_FOUND);
-
-		Note note = repository.findById(noteId).orElse(null);
+		Note note = repository.findById(noteId).orElseThrow(NoteNotFoundException::new);
 		if (note.isPin()) {
 			note.setPin(false);
 		} else {
@@ -234,11 +215,10 @@ public class ImplNoteService implements INoteService {
 	public Response sortNoteByTitle(String tokenUserId) {
 		int userId = utility.getIdFromToken(tokenUserId);
 		if (!(repository.findAll().stream().anyMatch(i -> i.getUserId() == userId))) {
-			throw new NoteNotFoundException(NoteMessageReference.NOTE_NOT_FOUND);
+			throw new NoteNotFoundException();
 		}
 		Stream<Note> notes = repository.findAll().stream().filter(i -> i.getUserId() == userId)
 				.sorted((Note n1, Note n2) -> n1.getTitle().compareTo(n2.getTitle())).parallel();
-
 		return new Response(200, NoteMessageReference.NOTE_SORTED_TITLE_SUCCESS, notes);
 	}
 
@@ -253,7 +233,7 @@ public class ImplNoteService implements INoteService {
 	public Response sortNoteByUpdationDate(String tokenUserId) {
 		int userId = utility.getIdFromToken(tokenUserId);
 		if (!(repository.findAll().stream().anyMatch(i -> i.getUserId() == userId))) {
-			throw new NoteNotFoundException(NoteMessageReference.NOTE_NOT_FOUND);
+			throw new NoteNotFoundException();
 		}
 		Stream<Note> notes = repository.findAll().stream().filter(i -> i.getUserId() == userId)
 				.sorted((Note n1, Note n2) -> n1.getNoteUpdationDate().compareTo(n2.getNoteUpdationDate())).parallel();
@@ -270,11 +250,9 @@ public class ImplNoteService implements INoteService {
 	 */
 	@Override
 	public Response addNoteToLabel(int labelId, int noteId, String tokenUserId) {
+		//TODO
 		if (!(repository.findById(noteId).get().getUserId() == utility.getIdFromToken(tokenUserId)))
 			return new Response(200, NoteMessageReference.USER_NOT_FOUND, false);
-//		if (repository.findById(noteId) == null)
-//			throw new NoteNotFoundException(UserMessageReference.NOTE_NOT_FOUND);
-
 		Note note = repository.findById(noteId).orElseThrow(NoteNotFoundException::new);
 		List<Label> labels = note.getLabels();
 		for (int i = 0; i < labels.size(); i++) {
@@ -299,13 +277,10 @@ public class ImplNoteService implements INoteService {
 	 */
 
 	public Response removeNoteFromLabel(int labelId, int noteId, String tokenUserId) {
-		System.out.println(repository.findById(noteId).toString());
-		if (repository.findById(noteId).isEmpty())
-			throw new NoteNotFoundException(NoteMessageReference.NOTE_NOT_FOUND);
 		if (!(repository.findById(noteId).get().getUserId() == utility.getIdFromToken(tokenUserId)))
 			return new Response(200, NoteMessageReference.USER_NOT_FOUND, false);
 
-		Note note = repository.findById(noteId).get();
+		Note note = repository.findById(noteId).orElseThrow(NoteNotFoundException::new);
 		List<Label> labels = note.getLabels();
 		labels.removeIf(i -> i.getLabelId() == labelId);
 		note.setLabels(labels);
@@ -325,11 +300,9 @@ public class ImplNoteService implements INoteService {
 	public Response addReminder(Date reminderTime, int noteId, String tokenUserId) {
 		if (!(repository.findById(noteId).get().getUserId() == utility.getIdFromToken(tokenUserId)))
 			return new Response(200, NoteMessageReference.USER_NOT_FOUND, false);
-		if (repository.findById(noteId) == null)
-			throw new NoteNotFoundException(NoteMessageReference.NOTE_NOT_FOUND);
+		Note note = repository.findById(noteId).orElseThrow(NoteNotFoundException::new);
 		String[] date=reminderTime.toString().split(" ");
 		String strDate = date[2]+" "+date[1]+" "+date[5]+" "+date[3].subSequence(0, 5);
-		Note note = repository.findById(noteId).get();
 		note.setReminder(strDate);
 		repository.save(note);
 		return new Response(200, NoteMessageReference.REMINDER_SET_SUCCESS, false);
@@ -347,11 +320,9 @@ public class ImplNoteService implements INoteService {
 	public Response updateReminder(Date reminderTime, int noteId, String tokenUserId) {
 		if (!(repository.findById(noteId).get().getUserId() == utility.getIdFromToken(tokenUserId)))
 			return new Response(200, NoteMessageReference.USER_NOT_FOUND, false);
-		if (repository.findById(noteId) == null)
-			throw new NoteNotFoundException(NoteMessageReference.NOTE_NOT_FOUND);
+		Note note = repository.findById(noteId).orElseThrow(NoteNotFoundException::new);
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		String strDate = formatter.format(reminderTime);
-		Note note = repository.findById(noteId).get();
 		note.setReminder(strDate);
 		repository.save(note);
 		return new Response(200, NoteMessageReference.LABEL_UPDATE_SUCCESS, false);
@@ -369,10 +340,7 @@ public class ImplNoteService implements INoteService {
 	public Response removeReminder(int noteId, String tokenUserId) {
 		if (!(repository.findById(noteId).get().getUserId() == utility.getIdFromToken(tokenUserId)))
 			return new Response(200, NoteMessageReference.USER_NOT_FOUND, false);
-		if (repository.findById(noteId) == null)
-			throw new NoteNotFoundException(NoteMessageReference.NOTE_NOT_FOUND);
-
-		Note note = repository.findById(noteId).get();
+		Note note = repository.findById(noteId).orElseThrow(NoteNotFoundException::new);
 		note.setReminder(null);
 		repository.save(note);
 		return new Response(200, NoteMessageReference.REMINDER_REMOVE_SUCCESS, false);
@@ -391,10 +359,7 @@ public class ImplNoteService implements INoteService {
 	public Response addCollaborator(int noteId, String emailId, String tokenUserId) {
 		if (!(repository.findById(noteId).get().getUserId() == utility.getIdFromToken(tokenUserId)))
 			return new Response(200, NoteMessageReference.USER_NOT_FOUND, false);
-		if (repository.findById(noteId) == null)
-			throw new NoteNotFoundException(NoteMessageReference.NOTE_NOT_FOUND);
-		// TODO
-		Note note = repository.findById(noteId).get();
+		Note note = repository.findById(noteId).orElseThrow(NoteNotFoundException::new);
 		List<User> userCollab = note.getCollabUsers();
 		User user = userRepository.findAll().stream().filter(i -> i.getEmail().equals(emailId)).findAny().get();
 		userCollab.add(user);
@@ -418,10 +383,7 @@ public class ImplNoteService implements INoteService {
 	public Response removeCollaborator(int noteId, String emailId, String tokenUserId) {
 		if (!(repository.findById(noteId).get().getUserId() == utility.getIdFromToken(tokenUserId)))
 			return new Response(200, NoteMessageReference.USER_NOT_FOUND, false);
-		if (repository.findById(noteId) == null)
-			throw new NoteNotFoundException(NoteMessageReference.NOTE_NOT_FOUND);
-
-		Note note = repository.findById(noteId).get();
+		Note note = repository.findById(noteId).orElseThrow(NoteNotFoundException::new);
 		List<User> userCollab = note.getCollabUsers();
 		userCollab.removeIf(i -> i.getEmail().equals(emailId));
 
@@ -432,12 +394,9 @@ public class ImplNoteService implements INoteService {
 
 	@Override
 	public Response setColour(int noteId, String colourHashCode, String tokenUserId) {
-		Note note = repository.findById(noteId).orElse(null);
-		if (note.equals(null))
-			throw new NoteNotFoundException(NoteMessageReference.NOTE_NOT_FOUND);
+		Note note = repository.findById(noteId).orElseThrow(NoteNotFoundException::new);
 		if (note.getUserId() != utility.getIdFromToken(tokenUserId))
 			throw new UserNotFoundException(NoteMessageReference.USER_NOT_FOUND);
-		System.out.println(colourHashCode);
 		note.setColour(colourHashCode);
 		repository.save(note);
 		return new Response(200, NoteMessageReference.COLOUR_SET_SUCCESS, true);
@@ -484,7 +443,7 @@ public class ImplNoteService implements INoteService {
 
 	@Override
 	public Response searchNotesByTitle(String title, String tokenUserId) {
-		// ToDo
+		// TODO
 		int userId = utility.getIdFromToken(tokenUserId);
 		if ((repository.findById(userId)).isEmpty()) {
 			throw new GetNoteExcepion(NoteMessageReference.USER_NOT_FOUND);
@@ -496,6 +455,7 @@ public class ImplNoteService implements INoteService {
 
 	@Override
 	public Response getReminderNotes(String tokenUserId) {
+		//TODO
 		int userId = utility.getIdFromToken(tokenUserId);
 		if ((repository.findById(userId)).isEmpty()) {
 			throw new GetNoteExcepion(NoteMessageReference.USER_NOT_FOUND);

@@ -24,6 +24,7 @@ import com.bridgelabz.fundoo.user.note.exception.userexception.SortByTitleNoteEx
 import com.bridgelabz.fundoo.user.note.exception.userexception.SortByUpdationDateNoteExcepion;
 import com.bridgelabz.fundoo.user.note.exception.userexception.TrashNoteExcepion;
 import com.bridgelabz.fundoo.user.note.exception.userexception.UpdateNoteExcepion;
+import com.bridgelabz.fundoo.user.note.utility.NoteMessageReference;
 import com.bridgelabz.fundoo.user.response.Response;
 
 
@@ -38,11 +39,11 @@ public class NoteGlobalException{
 	 * 
 	 * @return Response according to the result
 	 */
-//	@ExceptionHandler(Exception.class)
-//	public ResponseEntity<Response> globalException(Exception ex)
-//	{
-//		return new ResponseEntity<Response>(new Response(500, ex.getMessage(), null),HttpStatus.INTERNAL_SERVER_ERROR);
-//	}
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<Response> globalException(Exception ex)
+	{
+		return new ResponseEntity<Response>(new Response(500, ex.getMessage(), null),HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 	
 	/**
 	 * purpose this is method is used to throw an exception when we get an exception while 
@@ -172,6 +173,6 @@ public class NoteGlobalException{
 	@ExceptionHandler(NoteNotFoundException.class)
 	public ResponseEntity<Response> noteNotFoundException(Exception ex)
 	{
-		return new ResponseEntity<Response>(new Response(400, ex.getMessage(), null),HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Response>(new Response(400, NoteMessageReference.NOTE_NOT_FOUND, null),HttpStatus.BAD_REQUEST);
 	}
 }
