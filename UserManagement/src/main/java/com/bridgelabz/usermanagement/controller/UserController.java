@@ -16,13 +16,8 @@ public class UserController {
 	@Autowired
 	private ImplUserService service;
 
-	@GetMapping
-	public boolean hello() {
-		return true;
-	}
 	@PostMapping
 	public Response registerUser(@RequestBody CreateUserDto createUserDto) {
-		System.out.println(createUserDto);
 		return service.registerAdmin(createUserDto);
 	}
 }
