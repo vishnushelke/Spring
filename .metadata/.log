@@ -11743,3 +11743,15 @@ java.lang.RuntimeException
 	at java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:506)
 	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1705)
 	at java.base/java.lang.Thread.run(Thread.java:834)
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2019-12-30 19:27:10.020
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.iDSAMGHP
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2019-12-30 19:27:10.020
+!MESSAGE unsubscribing from classpath changes: sts4.classpath.iDSAMGHP
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2019-12-30 19:27:10.020
+!MESSAGE subsribers = {}
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2019-12-30 19:27:10.021
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.iDSAMGHP => OK

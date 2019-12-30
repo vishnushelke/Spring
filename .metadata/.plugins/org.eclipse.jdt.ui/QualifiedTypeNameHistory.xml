@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.lang.Override"/>
-    <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
-    <fullyQualifiedTypeName name="com.cloudinary.Cloudinary"/>
-    <fullyQualifiedTypeName name="com.cloudinary.utils.ObjectUtils"/>
-    <fullyQualifiedTypeName name="java.util.Map"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.exception.custom.UserNotFoundException"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.services.MessageReference"/>
     <fullyQualifiedTypeName name="com.bridgelabz.fundoo.user.exception.custom.UserNotFound"/>
@@ -27,7 +22,6 @@
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
     <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
     <fullyQualifiedTypeName name="javax.validation.constraints.NotBlank"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.usermanagement.dto.LoginDto"/>
     <fullyQualifiedTypeName name="com.bridgelabz.usermanagement.dto.UpdateUserDto"/>
     <fullyQualifiedTypeName name="org.springframework.web.multipart.MultipartFile"/>
     <fullyQualifiedTypeName name="lombok.Data"/>
@@ -40,7 +34,6 @@
     <fullyQualifiedTypeName name="java.lang.Exception"/>
     <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
     <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.usermanagement.exception.custom.UserNotFoundException"/>
     <fullyQualifiedTypeName name="org.hibernate.validator.constraints.br.CPF"/>
     <fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
     <fullyQualifiedTypeName name="org.springframework.context.annotation.Bean"/>
@@ -55,9 +48,16 @@
     <fullyQualifiedTypeName name="com.bridgelabz.usermanagement.exception.custom.UserAlreadyAvailableException"/>
     <fullyQualifiedTypeName name="org.modelmapper.ModelMapper"/>
     <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
-    <fullyQualifiedTypeName name="com.bridgelabz.usermanagement.response.Response"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="com.bridgelabz.usermanagement.utility.TokenUtility"/>
     <fullyQualifiedTypeName name="com.bridgelabz.usermanagement.model.User"/>
     <fullyQualifiedTypeName name="com.bridgelabz.usermanagement.exception.custom.NotAuthorizedException"/>
+    <fullyQualifiedTypeName name="javax.persistence.Column"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.usermanagement.response.Response"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.usermanagement.dto.LoginDto"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.usermanagement.exception.custom.UserNotFoundException"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.usermanagement.exception.global.GlobalException"/>
+    <fullyQualifiedTypeName name="com.bridgelabz.usermanagement.exception.custom.UserNotVerifiedException"/>
 </qualifiedTypeNameHistroy>

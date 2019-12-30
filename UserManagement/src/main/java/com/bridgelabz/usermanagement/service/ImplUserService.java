@@ -15,6 +15,7 @@ import com.bridgelabz.usermanagement.dto.UpdateWebpagePermission;
 import com.bridgelabz.usermanagement.exception.custom.NotAuthorizedException;
 import com.bridgelabz.usermanagement.exception.custom.UserAlreadyAvailableException;
 import com.bridgelabz.usermanagement.exception.custom.UserNotFoundException;
+import com.bridgelabz.usermanagement.exception.custom.UserNotVerifiedException;
 import com.bridgelabz.usermanagement.model.User;
 import com.bridgelabz.usermanagement.repository.UserRepository;
 import com.bridgelabz.usermanagement.response.Response;
@@ -58,10 +59,12 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public Response login(LoginDto loginDto) {
-		User user = repository.findAll().stream().filter(i -> i.getEmailId().equals(loginDto.getEmailId())).findAny()
+		User user = repository.findAll().stream().filter(i -> i.getUserName().equals(loginDto.getUserName())).findAny()
 				.orElseThrow(UserNotFoundException::new);
-		if (config.getPasswordEncoder().matches(loginDto.getPassword(), user.getPassword()))
-			return new Response(200, "Login SuccessFully", true);
+		if(!user.isStatus())
+			throw new UserNotVerifiedException();
+		if (!config.getPasswordEncoder().matches(loginDto.getPassword(), user.getPassword()))
+			return new Response(400, "Wrong Password", false);
 		return new Response(200, "Login Success", tokenUtility.createToken(user.getUId()));
 	}
 

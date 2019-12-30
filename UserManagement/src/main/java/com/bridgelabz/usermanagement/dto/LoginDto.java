@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class LoginDto {
 	@NotBlank(message = "email Id cannot be null")
-	private String emailId;
+	private String userName;
 	@NotBlank(message = "password field cannot be null")
 	private String password;
 }
