@@ -31,6 +31,5 @@ public class MessageReceiver {
 		message.setText(body.getBody());
 		message.setSubject(body.getSubject());
 		mailSender.send(message);
-
 	}
 }
