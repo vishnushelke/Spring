@@ -6,9 +6,9 @@ import com.bridgelabz.usermanagement.configuration.RabbitMQBody;
 @Component
 public class Utility {
 	
-	public RabbitMQBody getRabbitMqBody(String token,String email) {
+	public RabbitMQBody getRabbitMqBody(String token,String email,String text) {
 		RabbitMQBody body = new RabbitMQBody();
-		body.setBody("click to verify\nhttp://localhost:8080/verify/"+token);
+		body.setBody(text+token);
 		body.setEmail(email);
 		return body;
 	}

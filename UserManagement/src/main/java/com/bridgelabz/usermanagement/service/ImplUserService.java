@@ -52,7 +52,7 @@ public class ImplUserService implements IUserService {
 		User user = mapper.map(createUserDto, User.class);
 		user.setPassword(config.getPasswordEncoder().encode(createUserDto.getPassword()));
 		repository.save(user);
-		RabbitMQBody body = utility.getRabbitMqBody(tokenUtility.createToken(user.getUId()), user.getEmailId());
+		RabbitMQBody body = utility.getRabbitMqBody(tokenUtility.createToken(user.getUId()), user.getEmailId(),"click to verify\nhttp://localhost:8080/verify/");
 		template.convertAndSend("userMessageQueue", body);
 		return new Response(200, "admin Registered successfully", user);
 	}
@@ -93,8 +93,12 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public Response forgotPassword(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = repository.findByEmailId(email).orElseThrow(UserNotFoundException::new);
+		if(!user.isStatus())
+			throw new UserNotVerifiedException();
+		RabbitMQBody body = utility.getRabbitMqBody(tokenUtility.createToken(user.getUId()), user.getEmailId(),"click to verify\nhttp://localhost:8080/reset/");		
+		template.convertAndSend("userMessageQueue", body);
+		return new Response(200, "Link Sent to registered email", user);
 	}
 
 	@Override
