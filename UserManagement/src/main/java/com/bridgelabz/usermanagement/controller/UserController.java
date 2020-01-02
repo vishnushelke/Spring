@@ -1,6 +1,7 @@
 package com.bridgelabz.usermanagement.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,5 +36,17 @@ public class UserController {
 	@PutMapping("/update")
 	public Response updateUser(@RequestParam int userId,@RequestBody UpdateUserDto updateUserDto, @RequestHeader String token) {
 		return service.updateUser(userId,updateUserDto,token);
+	}
+	@PutMapping("/verify")
+	public Response verifyUser(@RequestHeader String token) {
+		return service.validateUser(token);
+	}
+	@DeleteMapping
+	public Response deleteUser(@RequestParam int userId,@RequestHeader String token) {
+		return service.deleteUser(userId, token);
+	}
+	@PostMapping("/createuser")
+	public Response createUser(@RequestBody CreateUserDto createUserDto, @RequestHeader String token) {
+		return service.createUser(createUserDto, token);
 	}
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.bridgelabz.usermanagement.exception.custom.NotAuthorizedException;
 import com.bridgelabz.usermanagement.exception.custom.UserAlreadyAvailableException;
+import com.bridgelabz.usermanagement.exception.custom.UserNameAlreadyAvailableException;
 import com.bridgelabz.usermanagement.exception.custom.UserNotFoundException;
 import com.bridgelabz.usermanagement.exception.custom.UserNotVerifiedException;
 import com.bridgelabz.usermanagement.response.Response;
@@ -33,5 +34,9 @@ public class GlobalException {
 	@ExceptionHandler(UserNotVerifiedException.class)
 	public ResponseEntity<Response> userNotVerifiedException(UserNotVerifiedException ex){
 		return new ResponseEntity<>(new Response(400, "Verify account to login", null),HttpStatus.BAD_REQUEST);
+	}
+	@ExceptionHandler(UserNameAlreadyAvailableException.class)
+	public ResponseEntity<Response> userNameAlreadyAvailableException(UserNameAlreadyAvailableException ex){
+		return new ResponseEntity<>(new Response(400, "UserName Already registered", null),HttpStatus.BAD_REQUEST);
 	}
 }

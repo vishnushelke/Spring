@@ -14,6 +14,7 @@ import com.bridgelabz.usermanagement.dto.UpdateUserDto;
 import com.bridgelabz.usermanagement.dto.UpdateWebpagePermission;
 import com.bridgelabz.usermanagement.exception.custom.NotAuthorizedException;
 import com.bridgelabz.usermanagement.exception.custom.UserAlreadyAvailableException;
+import com.bridgelabz.usermanagement.exception.custom.UserNameAlreadyAvailableException;
 import com.bridgelabz.usermanagement.exception.custom.UserNotFoundException;
 import com.bridgelabz.usermanagement.exception.custom.UserNotVerifiedException;
 import com.bridgelabz.usermanagement.model.User;
@@ -51,6 +52,7 @@ public class ImplUserService implements IUserService {
 			throw new UserAlreadyAvailableException();
 		User user = mapper.map(createUserDto, User.class);
 		user.setPassword(config.getPasswordEncoder().encode(createUserDto.getPassword()));
+		user.setStatus(true);
 		repository.save(user);
 		RabbitMQBody body = utility.getRabbitMqBody(tokenUtility.createToken(user.getUId()), user.getEmailId(),"click to verify\nhttp://localhost:8080/verify/");
 		template.convertAndSend("userMessageQueue", body);
@@ -61,8 +63,8 @@ public class ImplUserService implements IUserService {
 	public Response login(LoginDto loginDto) {
 		User user = repository.findAll().stream().filter(i -> i.getUserName().equals(loginDto.getUserName())).findAny()
 				.orElseThrow(UserNotFoundException::new);
-//		if(!user.isStatus())
-//			throw new UserNotVerifiedException();
+		if(!user.isStatus())
+			throw new UserNotVerifiedException();
 		if (!config.getPasswordEncoder().matches(loginDto.getPassword(), user.getPassword()))
 			return new Response(400, "Wrong Password", false);
 		return new Response(200, "Login Success", tokenUtility.createToken(user.getUId()));
@@ -71,10 +73,14 @@ public class ImplUserService implements IUserService {
 	@Override
 	public Response createUser(CreateUserDto createUserDto,String token) {
 		int userId = tokenUtility.getIdFromToken(token);
-		if(repository.findById(userId).get().getUserRole().equalsIgnoreCase("admin"))
-			throw new NotAuthorizedException();
+		User admin = repository.findById(userId).orElseThrow(NotAuthorizedException::new);
+		System.out.println(admin.toString());
+		if(!admin.getUserRole().equalsIgnoreCase("admin"))
+			throw new NotAuthorizedException();	
 		if (repository.findAll().stream().anyMatch(i -> i.getEmailId().equals(createUserDto.getEmailId())))
 			throw new UserAlreadyAvailableException();
+		if(repository.findAll().stream().anyMatch(i->i.getUserName().equalsIgnoreCase(createUserDto.getUserName())))
+			throw new UserNameAlreadyAvailableException();
 		User user = mapper.map(createUserDto, User.class);
 		user.setPassword(config.getPasswordEncoder().encode(createUserDto.getPassword()));
 		repository.save(user);
@@ -124,8 +130,12 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public Response deleteUser(int userId,String token) {
-		// TODO Auto-generated method stub
-		return null;
+		User admin = repository.findById(tokenUtility.getIdFromToken(token)).orElseThrow(NotAuthorizedException::new);
+		User user = repository.findById(userId).orElseThrow(UserNotFoundException::new);
+		if(!admin.getUserRole().equalsIgnoreCase("admin"))
+			throw new NotAuthorizedException();
+		repository.delete(user);
+		return new Response(200, "User deleted SuccessFully", user);
 	}
 
 	@Override

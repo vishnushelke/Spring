@@ -44,4 +44,14 @@ public class User {
 	@Temporal(TemporalType.TIMESTAMP)
 	@UpdateTimestamp
 	private Date updationalDate;
+	@Override
+	public String toString() {
+		return "User [uId=" + uId + ", firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName
+				+ ", emailId=" + emailId + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", country="
+				+ country + ", phoneNumber=" + phoneNumber + ", extraPhone=" + extraPhone + ", address=" + address
+				+ ", userName=" + userName + ", password=" + password + ", userRole=" + userRole + ", status=" + status
+				+ ", profilePic=" + profilePic + ", creationalDate=" + creationalDate + ", updationalDate="
+				+ updationalDate + "]";
+	}
+	
 }
