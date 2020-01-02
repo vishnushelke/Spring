@@ -2,12 +2,15 @@ package com.bridgelabz.usermanagement.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.usermanagement.dto.CreateUserDto;
 import com.bridgelabz.usermanagement.dto.LoginDto;
+import com.bridgelabz.usermanagement.dto.UpdateUserDto;
 import com.bridgelabz.usermanagement.response.Response;
 import com.bridgelabz.usermanagement.service.ImplUserService;
 
@@ -28,5 +31,9 @@ public class UserController {
 	@PostMapping("/forget")
 	public Response forgetPassword(@RequestParam String email) {
 		return service.forgotPassword(email);
+	}
+	@PutMapping("/update")
+	public Response updateUser(@RequestBody UpdateUserDto updateUserDto, @RequestHeader String token) {
+		return service.updateUser(updateUserDto,token);
 	}
 }

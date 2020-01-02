@@ -14,4 +14,7 @@ public class UpdateUserDto {
 	private String address;
 	private String password;
 	private String profilePic;
+	private String emailId;
+	private String userName;
+	private String userRole;
 }

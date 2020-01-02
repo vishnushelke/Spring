@@ -61,8 +61,8 @@ public class ImplUserService implements IUserService {
 	public Response login(LoginDto loginDto) {
 		User user = repository.findAll().stream().filter(i -> i.getUserName().equals(loginDto.getUserName())).findAny()
 				.orElseThrow(UserNotFoundException::new);
-		if(!user.isStatus())
-			throw new UserNotVerifiedException();
+//		if(!user.isStatus())
+//			throw new UserNotVerifiedException();
 		if (!config.getPasswordEncoder().matches(loginDto.getPassword(), user.getPassword()))
 			return new Response(400, "Wrong Password", false);
 		return new Response(200, "Login Success", tokenUtility.createToken(user.getUId()));
@@ -83,7 +83,6 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public Response validateUser(String token) {
-		// TODO Auto-generated method stub
 		int userId = tokenUtility.getIdFromToken(token);
 		User user = repository.findById(userId).orElseThrow(UserNotFoundException::new);
 		user.setStatus(true);
@@ -102,13 +101,28 @@ public class ImplUserService implements IUserService {
 	}
 
 	@Override
-	public Response updateUser(int userId, UpdateUserDto updateUserDto) {
-		// TODO Auto-generated method stub
-		return null;
+	public Response updateUser(UpdateUserDto updateUserDto,String token) {
+		int userId = tokenUtility.getIdFromToken(token);
+		User user = repository.findById(userId).orElseThrow(UserNotFoundException::new);
+		user.setFirstName(updateUserDto.getFirstName());
+		user.setCountry(updateUserDto.getCountry());
+		user.setMiddleName(updateUserDto.getMiddleName());
+		user.setLastName(updateUserDto.getLastName());
+		user.setGender(updateUserDto.getGender());
+		user.setCountry(updateUserDto.getCountry());
+		user.setAddress(updateUserDto.getAddress());
+		user.setPassword(config.getPasswordEncoder().encode(updateUserDto.getPassword()));
+		if(user.getUserRole().equalsIgnoreCase("admin")) {
+			user.setEmailId(updateUserDto.getEmailId());
+			user.setUserName(updateUserDto.getUserName());
+			user.setUserRole(updateUserDto.getUserRole());
+		}
+		repository.save(user);
+		return new Response(200, "User Updated SuccessFully", user);
 	}
 
 	@Override
-	public Response deleteUser(int userId) {
+	public Response deleteUser(int userId,String token) {
 		// TODO Auto-generated method stub
 		return null;
 	}

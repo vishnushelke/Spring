@@ -20,9 +20,9 @@ public interface IUserService {
 	
 	public Response forgotPassword(String email);
 	
-	public Response updateUser(int userId,UpdateUserDto updateUserDto);
+	public Response updateUser(UpdateUserDto updateUserDto,String token);
 	
-	public Response deleteUser(int userId);
+	public Response deleteUser(int userId,String token);
 	
 	public Response updateProfilePic(String token,MultipartFile file);
 	
