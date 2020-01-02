@@ -20,7 +20,7 @@ public interface IUserService {
 	
 	public Response forgotPassword(String email);
 	
-	public Response updateUser(UpdateUserDto updateUserDto,String token);
+	public Response updateUser(int userId,UpdateUserDto updateUserDto,String token);
 	
 	public Response deleteUser(int userId,String token);
 	

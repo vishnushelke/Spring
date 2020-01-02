@@ -33,7 +33,7 @@ public class UserController {
 		return service.forgotPassword(email);
 	}
 	@PutMapping("/update")
-	public Response updateUser(@RequestBody UpdateUserDto updateUserDto, @RequestHeader String token) {
-		return service.updateUser(updateUserDto,token);
+	public Response updateUser(@RequestParam int userId,@RequestBody UpdateUserDto updateUserDto, @RequestHeader String token) {
+		return service.updateUser(userId,updateUserDto,token);
 	}
 }
