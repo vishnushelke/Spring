@@ -102,8 +102,9 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public Response updateUser(int userId,UpdateUserDto updateUserDto,String token) {
-		
 		User user = repository.findById(userId).orElseThrow(UserNotFoundException::new);
+		if(!(userId==tokenUtility.getIdFromToken(token) || user.getUserRole().equalsIgnoreCase("admin")))
+			throw new NotAuthorizedException();		
 		user.setFirstName(updateUserDto.getFirstName());
 		user.setCountry(updateUserDto.getCountry());
 		user.setMiddleName(updateUserDto.getMiddleName());
