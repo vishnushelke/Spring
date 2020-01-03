@@ -42,5 +42,5 @@ public interface IUserService {
 	
 	public Response getInactiveUsers(String token);
 	
-	public Response changeWebPagePermission(String token,int userId,UpdateWebpagePermission permission);
+	public Response changeWebPagePermission(String token,UpdateWebpagePermission permission);
 }

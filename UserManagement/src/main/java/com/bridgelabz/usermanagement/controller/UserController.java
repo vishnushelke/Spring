@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bridgelabz.usermanagement.dto.CreateUserDto;
 import com.bridgelabz.usermanagement.dto.LoginDto;
 import com.bridgelabz.usermanagement.dto.UpdateUserDto;
+import com.bridgelabz.usermanagement.dto.UpdateWebpagePermission;
 import com.bridgelabz.usermanagement.response.Response;
 import com.bridgelabz.usermanagement.service.ImplUserService;
 
@@ -74,5 +75,9 @@ public class UserController {
 	@GetMapping("/allusers")
 	public Response getAllUsers(@RequestHeader String token) {
 		return service.getAllUsers(token);
+	}
+	@PostMapping("/changepermission")
+	public Response changeWebpagePermission(@RequestHeader String token,@RequestBody UpdateWebpagePermission updateWebpagePermission) {
+		return service.changeWebPagePermission(token, updateWebpagePermission);
 	}
 }

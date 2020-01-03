@@ -32,8 +32,10 @@ import com.bridgelabz.usermanagement.exception.custom.UserNotFoundException;
 import com.bridgelabz.usermanagement.exception.custom.UserNotVerifiedException;
 import com.bridgelabz.usermanagement.model.LoginHistory;
 import com.bridgelabz.usermanagement.model.User;
+import com.bridgelabz.usermanagement.model.Webpage;
 import com.bridgelabz.usermanagement.repository.LoginHistoryRepo;
 import com.bridgelabz.usermanagement.repository.UserRepository;
+import com.bridgelabz.usermanagement.repository.WebpageRepository;
 import com.bridgelabz.usermanagement.response.Response;
 import com.bridgelabz.usermanagement.utility.TokenUtility;
 import com.bridgelabz.usermanagement.utility.Utility;
@@ -65,6 +67,9 @@ public class ImplUserService implements IUserService {
 
 	@Autowired
 	private LoginHistoryRepo loginRepo;
+	
+	@Autowired
+	private WebpageRepository webpageRepo;
 
 	@Override
 	public Response registerAdmin(CreateUserDto createUserDto) {
@@ -260,9 +265,13 @@ public class ImplUserService implements IUserService {
 	}
 
 	@Override
-	public Response changeWebPagePermission(String token, int userId, UpdateWebpagePermission permission) {
-		// TODO Auto-generated method stub
-		return null;
+	public Response changeWebPagePermission(String token,UpdateWebpagePermission permission) {
+		User user = repository.findById(tokenUtility.getIdFromToken(token)).orElseThrow(InvalidSessionException::new);
+		if(!user.getUserRole().equalsIgnoreCase("admin"))
+			throw new NotAuthorizedException();
+		Webpage webpage = mapper.map(permission, Webpage.class);
+		webpageRepo.save(webpage);
+		return new Response(200, "webpage permission changed", webpage);
 	}
 
 	public User update(UpdateUserDto updateUserDto, User user) {

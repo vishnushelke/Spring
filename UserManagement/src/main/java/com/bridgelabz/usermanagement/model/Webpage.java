@@ -12,7 +12,6 @@ import lombok.Data;
 public class Webpage {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int webpageId;
 	private int userId;
 	private boolean addPermission;
