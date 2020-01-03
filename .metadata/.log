@@ -13129,3 +13129,15 @@ Caused by: java.lang.NullPointerException
 	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
 	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:58)
 	... 58 more
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-01-03 15:42:50.277
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.bikLHuEc
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-01-03 15:42:50.279
+!MESSAGE unsubscribing from classpath changes: sts4.classpath.bikLHuEc
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-01-03 15:42:50.279
+!MESSAGE subsribers = {}
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2020-01-03 15:42:50.280
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.bikLHuEc => OK
