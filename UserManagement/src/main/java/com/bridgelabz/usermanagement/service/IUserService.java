@@ -24,9 +24,9 @@ public interface IUserService {
 	
 	public Response deleteUser(int userId,String token);
 	
-	public Response updateProfilePic(String token,MultipartFile file);
+	public Response updateProfilePic(int userId,String token,MultipartFile file);
 	
-	public Response clearProfilePic(String token,MultipartFile file);
+	public Response clearProfilePic(int userId,String token,MultipartFile file);
 	
 	public Response getLoginHistory(String token);
 	
