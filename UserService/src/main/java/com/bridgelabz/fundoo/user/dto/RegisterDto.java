@@ -9,8 +9,15 @@
 ******************************************************************************/
 package com.bridgelabz.fundoo.user.dto;
 
-public class RegisterDto {
+import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
+public class RegisterDto implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	@NotEmpty(message = "first name can not be empty")
+//	@Pattern(regexp = "^[A-Z a-z]+$",message = "kahipan")
 	private String firstname;
 	private String lastname;
 	private String email;

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.bridgelabz.usermanagement.exception.custom.InvalidSessionException;
 import com.bridgelabz.usermanagement.exception.custom.NotAuthorizedException;
 import com.bridgelabz.usermanagement.exception.custom.UserAlreadyAvailableException;
 import com.bridgelabz.usermanagement.exception.custom.UserNameAlreadyAvailableException;
@@ -38,5 +39,9 @@ public class GlobalException {
 	@ExceptionHandler(UserNameAlreadyAvailableException.class)
 	public ResponseEntity<Response> userNameAlreadyAvailableException(UserNameAlreadyAvailableException ex){
 		return new ResponseEntity<>(new Response(400, "UserName Already registered", null),HttpStatus.BAD_REQUEST);
+	}
+	@ExceptionHandler(InvalidSessionException.class)
+	public ResponseEntity<Response> invalidSessionException(InvalidSessionException ex){
+		return new ResponseEntity<>(new Response(400, "Invalid Session", null),HttpStatus.BAD_REQUEST);
 	}
 }

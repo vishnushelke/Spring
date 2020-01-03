@@ -15,6 +15,7 @@ package com.bridgelabz.fundoo.user.exception.global;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.bridgelabz.fundoo.user.exception.custom.ForgetPasswordException;
@@ -37,7 +38,7 @@ public class GlobalException {
 	 */
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<Response> globalExceptionHandler(Exception ex) {
-		return new ResponseEntity<>(new Response(500, ex.getMessage(), null),HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(new Response(500,"internal server error", null),HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	/**
@@ -100,5 +101,9 @@ public class GlobalException {
 	@ExceptionHandler(UserNotFound.class)
 	public ResponseEntity<Response> userNotFoundHandler(Exception ex) {
 		return new ResponseEntity<>(new Response(400, NoteMessageReference.USER_NOT_FOUND, null),HttpStatus.BAD_REQUEST);
+	}
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<Response> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException ex) {
+		return new ResponseEntity<>(new Response(400, "Firstname can not be empty", null),HttpStatus.BAD_REQUEST);
 	}
 }

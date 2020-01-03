@@ -11,6 +11,8 @@ package com.bridgelabz.fundoo.user.controller;
 
 import java.io.IOException;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +73,7 @@ public class UserController {
 	 */
 
 	@PostMapping("/register")
-	public ResponseEntity<Response> registerUser(@RequestBody RegisterDto registerDto) {
+	public ResponseEntity<Response> registerUser(@Valid @RequestBody RegisterDto registerDto) {
 
 		LOGGER.info("registration logger");
 		return new ResponseEntity<Response>(service.registerUser(registerDto), HttpStatus.OK);

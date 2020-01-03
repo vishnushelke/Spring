@@ -7,7 +7,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -22,6 +24,7 @@ import com.bridgelabz.usermanagement.dto.CreateUserDto;
 import com.bridgelabz.usermanagement.dto.LoginDto;
 import com.bridgelabz.usermanagement.dto.UpdateUserDto;
 import com.bridgelabz.usermanagement.dto.UpdateWebpagePermission;
+import com.bridgelabz.usermanagement.exception.custom.InvalidSessionException;
 import com.bridgelabz.usermanagement.exception.custom.NotAuthorizedException;
 import com.bridgelabz.usermanagement.exception.custom.UserAlreadyAvailableException;
 import com.bridgelabz.usermanagement.exception.custom.UserNameAlreadyAvailableException;
@@ -39,7 +42,7 @@ import com.cloudinary.utils.ObjectUtils;
 
 @Service
 public class ImplUserService implements IUserService {
-	
+
 	private final String path = "/home/user/Desktop/vishnu/spring-tool-suite-4-4.4.0.RELEASE-e4.13.0-linux.gtk.x86_64/spring programs/Spring/UserService/uploads/";
 
 	@Autowired
@@ -50,16 +53,16 @@ public class ImplUserService implements IUserService {
 
 	@Autowired
 	private ModelMapper mapper;
-	
+
 	@Autowired
 	private TokenUtility tokenUtility;
-	
+
 	@Autowired
 	private Utility utility;
-	
+
 	@Autowired
 	private RabbitTemplate template;
-	
+
 	@Autowired
 	private LoginHistoryRepo loginRepo;
 
@@ -73,7 +76,8 @@ public class ImplUserService implements IUserService {
 		user.setPassword(config.getPasswordEncoder().encode(createUserDto.getPassword()));
 		user.setStatus(true);
 		repository.save(user);
-		RabbitMQBody body = utility.getRabbitMqBody(tokenUtility.createToken(user.getUId()), user.getEmailId(),"click to verify\nhttp://localhost:8080/verify/");
+		RabbitMQBody body = utility.getRabbitMqBody(tokenUtility.createToken(user.getUId()), user.getEmailId(),
+				"click to verify\nhttp://localhost:8080/verify/");
 		template.convertAndSend("userMessageQueue", body);
 		return new Response(200, "admin Registered successfully", user);
 	}
@@ -82,11 +86,11 @@ public class ImplUserService implements IUserService {
 	public Response login(LoginDto loginDto) {
 		User user = repository.findAll().stream().filter(i -> i.getUserName().equals(loginDto.getUserName())).findAny()
 				.orElseThrow(UserNotFoundException::new);
-		if(!user.isStatus())
+		if (!user.isStatus())
 			throw new UserNotVerifiedException();
 		if (!config.getPasswordEncoder().matches(loginDto.getPassword(), user.getPassword()))
 			return new Response(400, "Wrong Password", false);
-		//saving login history
+		// saving login history
 		LoginHistory history = new LoginHistory();
 		history.setUserId(user.getUId());
 		LocalDateTime time = LocalDateTime.now();
@@ -96,21 +100,22 @@ public class ImplUserService implements IUserService {
 	}
 
 	@Override
-	public Response createUser(CreateUserDto createUserDto,String token) {
+	public Response createUser(CreateUserDto createUserDto, String token) {
 		int userId = tokenUtility.getIdFromToken(token);
 		User admin = repository.findById(userId).orElseThrow(NotAuthorizedException::new);
-		if(!admin.getUserRole().equalsIgnoreCase("admin"))
-			throw new NotAuthorizedException();	
+		if (!admin.getUserRole().equalsIgnoreCase("admin"))
+			throw new NotAuthorizedException();
 		if (repository.findAll().stream().anyMatch(i -> i.getEmailId().equals(createUserDto.getEmailId())))
 			throw new UserAlreadyAvailableException();
-		if(repository.findAll().stream().anyMatch(i->i.getUserName().equalsIgnoreCase(createUserDto.getUserName())))
+		if (repository.findAll().stream().anyMatch(i -> i.getUserName().equalsIgnoreCase(createUserDto.getUserName())))
 			throw new UserNameAlreadyAvailableException();
 		User user = mapper.map(createUserDto, User.class);
 		user.setPassword(config.getPasswordEncoder().encode(createUserDto.getPassword()));
 		repository.save(user);
-		RabbitMQBody body = utility.getRabbitMqBody(tokenUtility.createToken(user.getUId()), user.getEmailId(),"click to verify\nhttp://localhost:8080/verify/");
+		RabbitMQBody body = utility.getRabbitMqBody(tokenUtility.createToken(user.getUId()), user.getEmailId(),
+				"click to verify\nhttp://localhost:8080/verify/");
 		template.convertAndSend("userMessageQueue", body);
-		return new Response(200, "User created successfully", user);		
+		return new Response(200, "User created successfully", user);
 	}
 
 	@Override
@@ -125,36 +130,38 @@ public class ImplUserService implements IUserService {
 	@Override
 	public Response forgotPassword(String email) {
 		User user = repository.findByEmailId(email).orElseThrow(UserNotFoundException::new);
-		if(!user.isStatus())
+		if (!user.isStatus())
 			throw new UserNotVerifiedException();
-		RabbitMQBody body = utility.getRabbitMqBody(tokenUtility.createToken(user.getUId()), user.getEmailId(),"click to verify\nhttp://localhost:8080/reset/");		
+		RabbitMQBody body = utility.getRabbitMqBody(tokenUtility.createToken(user.getUId()), user.getEmailId(),
+				"click to verify\nhttp://localhost:8080/reset/");
 		template.convertAndSend("userMessageQueue", body);
 		return new Response(200, "Link Sent to registered email", user);
 	}
 
 	@Override
-	public Response updateUser(int userId,UpdateUserDto updateUserDto,String token) {
+	public Response updateUser(int userId, UpdateUserDto updateUserDto, String token) {
 		User user = repository.findById(userId).orElseThrow(UserNotFoundException::new);
-		if(!(userId==tokenUtility.getIdFromToken(token) || user.getUserRole().equalsIgnoreCase("admin")))
-			throw new NotAuthorizedException();		
+		if (!(userId == tokenUtility.getIdFromToken(token) || user.getUserRole().equalsIgnoreCase("admin")))
+			throw new NotAuthorizedException();
 		user = update(updateUserDto, user);
 		repository.save(user);
 		return new Response(200, "User Updated SuccessFully", user);
 	}
 
 	@Override
-	public Response deleteUser(int userId,String token) {
+	public Response deleteUser(int userId, String token) {
 		User admin = repository.findById(tokenUtility.getIdFromToken(token)).orElseThrow(NotAuthorizedException::new);
 		User user = repository.findById(userId).orElseThrow(UserNotFoundException::new);
-		if(!admin.getUserRole().equalsIgnoreCase("admin"))
+		if (!admin.getUserRole().equalsIgnoreCase("admin"))
 			throw new NotAuthorizedException();
 		repository.delete(user);
 		return new Response(200, "User deleted SuccessFully", user);
 	}
 
 	@Override
-	public Response updateProfilePic(int userId,String token, MultipartFile file) {
-		if(repository.findById(tokenUtility.getIdFromToken(token)).get().getUserRole().equalsIgnoreCase("admin") || userId == tokenUtility.getIdFromToken(token)) {
+	public Response updateProfilePic(int userId, String token, MultipartFile file) {
+		if (repository.findById(tokenUtility.getIdFromToken(token)).get().getUserRole().equalsIgnoreCase("admin")
+				|| userId == tokenUtility.getIdFromToken(token)) {
 			User user = repository.findById(userId).orElseThrow(UserNotFoundException::new);
 			if (!user.isStatus())
 				throw new UserNotVerifiedException();
@@ -173,35 +180,41 @@ public class ImplUserService implements IUserService {
 				@SuppressWarnings("rawtypes")
 				Map uploadResult = cloudinary.uploader().upload(toUpload, ObjectUtils.emptyMap());
 				user.setProfilePic(uploadResult.get("secure_url").toString());
+				System.out.println(user);
 				repository.save(user);
 				return new Response(200, "Profile pic uploaded", uploadResult.get("secure_url").toString());
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
 		}
-		
-		return new Response(200,"Profile pic upload fail" , null);
+
+		return new Response(200, "Profile pic upload fail", null);
 	}
 
 	@Override
-	public Response clearProfilePic(int userId,String token, MultipartFile file) {
+	public Response clearProfilePic(int userId, String token, MultipartFile file) {
 		User user = repository.findById(userId).orElseThrow(UserNotFoundException::new);
-		if(repository.findById(tokenUtility.getIdFromToken(token)).get().getUserRole().equalsIgnoreCase("admin") || userId == tokenUtility.getIdFromToken(token)) {
+		if (repository.findById(tokenUtility.getIdFromToken(token)).get().getUserRole().equalsIgnoreCase("admin")
+				|| userId == tokenUtility.getIdFromToken(token)) {
 			user.setProfilePic(null);
-			return new Response(200,"Profile pic clear success" , null);
+			return new Response(200, "Profile pic clear success", null);
 		}
-		return new Response(400,"Profile pic clear fail" , user);
+		return new Response(400, "Profile pic clear fail", user);
 	}
 
 	@Override
-	public Response getLoginHistory(int userId,String token) {
-
-		return null;
+	public Response getLoginHistory(int userId, String token) {
+		if (!(userId == tokenUtility.getIdFromToken(token) || repository.findById(tokenUtility.getIdFromToken(token))
+				.get().getUserRole().equalsIgnoreCase("admin")))
+			throw new NotAuthorizedException();
+		ArrayList<LoginHistory> loginHistories = loginRepo.findAll().stream().filter(i -> i.getUserId() == userId)
+				.collect(Collectors.toCollection(ArrayList::new));
+		return new Response(400, "Login History fetch successfully", loginHistories);
 	}
 
 	@Override
 	public Response getAlltimeData(String token) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -219,20 +232,31 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public Response getAllUsers(String token) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = repository.findById(tokenUtility.getIdFromToken(token)).orElseThrow(InvalidSessionException::new);
+		if(!user.getUserRole().equalsIgnoreCase("admin"))
+			throw new NotAuthorizedException();
+		ArrayList<User> users = repository.findAll().stream().collect(Collectors.toCollection(ArrayList::new));
+		return new Response(200, "users fetched successfully", users);
 	}
 
 	@Override
 	public Response getActiveUsers(String token) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = repository.findById(tokenUtility.getIdFromToken(token)).orElseThrow(UserNotFoundException::new);
+		if (!user.getUserRole().equalsIgnoreCase("admin"))
+			throw new NotAuthorizedException();
+		ArrayList<User> activeUsers = repository.findAll().stream().filter(i -> i.isStatus())
+				.collect(Collectors.toCollection(ArrayList::new));
+		return new Response(200, "active Users fetch success", activeUsers);
 	}
 
 	@Override
 	public Response getInactiveUsers(String token) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = repository.findById(tokenUtility.getIdFromToken(token)).orElseThrow(UserNotFoundException::new);
+		if (!user.getUserRole().equalsIgnoreCase("admin"))
+			throw new NotAuthorizedException();
+		ArrayList<User> inactiveUsers = repository.findAll().stream().filter(i -> !i.isStatus())
+				.collect(Collectors.toCollection(ArrayList::new));
+		return new Response(200, "inactive Users fetch success", inactiveUsers);
 	}
 
 	@Override
@@ -240,9 +264,9 @@ public class ImplUserService implements IUserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public User update(UpdateUserDto updateUserDto,User user) {
-		
+
+	public User update(UpdateUserDto updateUserDto, User user) {
+
 		user.setFirstName(updateUserDto.getFirstName());
 		user.setCountry(updateUserDto.getCountry());
 		user.setMiddleName(updateUserDto.getMiddleName());
@@ -251,7 +275,7 @@ public class ImplUserService implements IUserService {
 		user.setCountry(updateUserDto.getCountry());
 		user.setAddress(updateUserDto.getAddress());
 		user.setPassword(config.getPasswordEncoder().encode(updateUserDto.getPassword()));
-		if(user.getUserRole().equalsIgnoreCase("admin")) {
+		if (user.getUserRole().equalsIgnoreCase("admin")) {
 			user.setEmailId(updateUserDto.getEmailId());
 			user.setUserName(updateUserDto.getUserName());
 			user.setUserRole(updateUserDto.getUserRole());
