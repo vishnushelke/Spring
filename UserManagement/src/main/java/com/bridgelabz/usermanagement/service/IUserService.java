@@ -28,7 +28,7 @@ public interface IUserService {
 	
 	public Response clearProfilePic(int userId,String token,MultipartFile file);
 	
-	public Response getLoginHistory(String token);
+	public Response getLoginHistory(int userId,String token);
 	
 	public Response getAlltimeData(String token);
 	

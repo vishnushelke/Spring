@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import org.modelmapper.ModelMapper;
@@ -26,7 +27,9 @@ import com.bridgelabz.usermanagement.exception.custom.UserAlreadyAvailableExcept
 import com.bridgelabz.usermanagement.exception.custom.UserNameAlreadyAvailableException;
 import com.bridgelabz.usermanagement.exception.custom.UserNotFoundException;
 import com.bridgelabz.usermanagement.exception.custom.UserNotVerifiedException;
+import com.bridgelabz.usermanagement.model.LoginHistory;
 import com.bridgelabz.usermanagement.model.User;
+import com.bridgelabz.usermanagement.repository.LoginHistoryRepo;
 import com.bridgelabz.usermanagement.repository.UserRepository;
 import com.bridgelabz.usermanagement.response.Response;
 import com.bridgelabz.usermanagement.utility.TokenUtility;
@@ -56,6 +59,9 @@ public class ImplUserService implements IUserService {
 	
 	@Autowired
 	private RabbitTemplate template;
+	
+	@Autowired
+	private LoginHistoryRepo loginRepo;
 
 	@Override
 	public Response registerAdmin(CreateUserDto createUserDto) {
@@ -80,6 +86,12 @@ public class ImplUserService implements IUserService {
 			throw new UserNotVerifiedException();
 		if (!config.getPasswordEncoder().matches(loginDto.getPassword(), user.getPassword()))
 			return new Response(400, "Wrong Password", false);
+		//saving login history
+		LoginHistory history = new LoginHistory();
+		history.setUserId(user.getUId());
+		LocalDateTime time = LocalDateTime.now();
+		history.setLoginTime(time.toString());
+		loginRepo.save(history);
 		return new Response(200, "Login Success", tokenUtility.createToken(user.getUId()));
 	}
 
@@ -142,33 +154,33 @@ public class ImplUserService implements IUserService {
 
 	@Override
 	public Response updateProfilePic(int userId,String token, MultipartFile file) {
-		
-		int userIdUser = tokenUtility.getIdFromToken(token);
-		
-		User user = repository.findById(userId).orElseThrow(UserNotFoundException::new);
-		if (!user.isStatus())
-			throw new UserNotVerifiedException();
-		Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap("cloud_name", "dx7rdnzgv", "api_key",
-				"876782983213561", "api_secret", "EWJ4R0smSMSedWXWBi_0vJDVWE0"));
-		// Normalize file name
-		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		fileName = userId + fileName;
-		try {
-			// Copy file to the target location (Replacing existing file with the same name)
-			Path getPath = Paths.get(path);
-			Path targetLocation = getPath.resolve(fileName);
-			Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-			// upload on cloudinary
-			File toUpload = new File(targetLocation.toString());
-			@SuppressWarnings("rawtypes")
-			Map uploadResult = cloudinary.uploader().upload(toUpload, ObjectUtils.emptyMap());
-			user.setProfilePic(uploadResult.get("secure_url").toString());
-			repository.save(user);
-			return new Response(200, "Profile pic uploaded", uploadResult.get("secure_url").toString());
-		} catch (IOException ex) {
-			ex.printStackTrace();
+		if(repository.findById(tokenUtility.getIdFromToken(token)).get().getUserRole().equalsIgnoreCase("admin") || userId == tokenUtility.getIdFromToken(token)) {
+			User user = repository.findById(userId).orElseThrow(UserNotFoundException::new);
+			if (!user.isStatus())
+				throw new UserNotVerifiedException();
+			Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap("cloud_name", "dx7rdnzgv", "api_key",
+					"876782983213561", "api_secret", "EWJ4R0smSMSedWXWBi_0vJDVWE0"));
+			// Normalize file name
+			String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+			fileName = userId + fileName;
+			try {
+				// Copy file to the target location (Replacing existing file with the same name)
+				Path getPath = Paths.get(path);
+				Path targetLocation = getPath.resolve(fileName);
+				Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+				// upload on cloudinary
+				File toUpload = new File(targetLocation.toString());
+				@SuppressWarnings("rawtypes")
+				Map uploadResult = cloudinary.uploader().upload(toUpload, ObjectUtils.emptyMap());
+				user.setProfilePic(uploadResult.get("secure_url").toString());
+				repository.save(user);
+				return new Response(200, "Profile pic uploaded", uploadResult.get("secure_url").toString());
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
 		}
-		return new Response(200,"Profile pic upload fail" , user);
+		
+		return new Response(200,"Profile pic upload fail" , null);
 	}
 
 	@Override
@@ -182,8 +194,8 @@ public class ImplUserService implements IUserService {
 	}
 
 	@Override
-	public Response getLoginHistory(String token) {
-		// TODO Auto-generated method stub
+	public Response getLoginHistory(int userId,String token) {
+
 		return null;
 	}
 
